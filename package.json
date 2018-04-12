@@ -1,0 +1,31 @@
+{
+  "name": "gitstarter",
+  "version": "1.0.0",
+  "description": "CS 252 Lab 6 Information",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "^4.1.2",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "mocha": "^5.0.5"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RohanGupta24/GitStarter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RohanGupta24/GitStarter/issues"
+  },
+  "homepage": "https://github.com/RohanGupta24/GitStarter#readme"
+}
