@@ -1,0 +1,58 @@
+div.jumbotron.hero-nature{
+    background: rgb(0,0,0);
+	background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(82,105,236,1) 50%, rgba(0,0,0,1) 100%);
+    text-align:center;
+    background-size:cover;
+    background-position:center;
+    padding-top:50px;
+    padding-bottom:100px;
+}
+
+ table#table1 {
+    width:70%; 
+    margin-left:15%; 
+    margin-right:15%;
+    height: 50px;
+    vertical-align: middle;
+  }
+
+#centered{
+	/*height: 200px;*/
+    padding-left: 500px;
+    padding-right: 500px;
+/*    text-align: center
+*/}
+
+
+
+
+
+
+.typewriter h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 50% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: transparent; }
+}
+#upperText {
+	font-weight: bold;
+	/*background: #1e5799;*/
+	color:white;
+	font-family:"Lucida Console", Monaco, monospace
+}
