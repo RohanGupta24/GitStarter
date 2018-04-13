@@ -6,9 +6,12 @@ new Vue({
     data: {
         searchWords: "",
         tableHeader: "Top Trending Projects",
+        isBalanceModal: false,
+        isSellModal: false,
+        isBuyModal: false,
         ProjectsLists: [
           {
-            Icon: "ICON",
+            Icon: "https://www.iconfinder.com/icons/99689/apple_os_icon#size=256",
             ProjectName: "tabler",
             ProjectURL: "wow",
             OwnerURL: "wowOwn",
@@ -17,7 +20,7 @@ new Vue({
             Prices: 400
           },
           {
-             Icon: "ICON",
+             Icon: "https://www.iconfinder.com/icons/99689/apple_os_icon#size=256",
             ProjectName: "winfile",
             ProjectURL: "wow",
             OwnerURL: "wowOwn",
@@ -26,7 +29,7 @@ new Vue({
             Prices: 400
           },
           {
-           	Icon: "ICON",
+           	Icon: "https://www.iconfinder.com/icons/99689/apple_os_icon#size=256",
             ProjectName: "Interview-Notebook",
             ProjectURL: "wow",
             OwnerURL: "wowOwn",
@@ -35,7 +38,7 @@ new Vue({
             Prices: 400
           },
           {
-            Icon: "ICON",
+            Icon: "https://www.iconfinder.com/icons/99689/apple_os_icon#size=256",
             ProjectName: "whatsapp-web-reveng",
             ProjectURL: "wow",
             OwnerURL: "wowOwn",
@@ -44,7 +47,7 @@ new Vue({
             Prices: 400
           },
           {
-            Icon: "ICON",
+            Icon: "https://www.iconfinder.com/icons/99689/apple_os_icon#size=256",
             ProjectName: "structured-text-tools",
             ProjectURL: "wow",
             OwnerURL: "wowOwn",
@@ -85,6 +88,7 @@ new Vue({
                 for(var i = 0; i < data.items.length; i++) {
                   var obj = new Object();
                   obj.Icon = data.items[i].owner.avatar_url;
+                  console.log(obj.Icon);
                   obj.ProjectName = data.items[i].name;
                   obj.ProjectURL = data.items[i].html_url;
                   obj.OwnerURL = data.items[i].owner.html_url;
@@ -103,10 +107,34 @@ new Vue({
         console.log(results)
         this.ProjectsLists = results;
         console.log(this.ProjectsLists)
+      },
+      showBalanceModal: function() {
+        this.isBalanceModal = true;
+      },
+
+      showSellModal: function() {
+        this.isSellModal = true;
+      },
+
+      showBuyModal: function() {
+        this.isBuyModal = true;
+      },
+
+      closeBalanceModal: function() {
+        this.isBalanceModal = false;
+      },
+
+      closeSellModal: function() {
+        this.isSellModal = false;
+      },
+
+      closeBuyModal: function() {
+        this.isBuyModal = false;
       }
     }
 
 });
+
 }
 
 /*function search() {

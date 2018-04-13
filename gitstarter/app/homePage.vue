@@ -3,8 +3,10 @@
   <div class="jumbotron hero-nature">
   	<div class="typewriter">
     	<h1 id=upperText>GitStarter</h1>
-    	<p id=upperText>Built for Developers.</p>
-    	<p id=upperText>A marketplace for open source projects.</p>
+      <div id="descriptionTitle">
+        <p id=upperText>Built for Developers.</p>
+    	  <p id=upperText>A marketplace for open source projects.</p>
+      </div>
   	</div>
 
   <!--   <h1 id=upperText>GitStarter</h1> -->
@@ -95,6 +97,10 @@ div.jumbotron.hero-nature{
   animation:
     typing 3.5s steps(40, end),
     blink-caret .75s step-end infinite;
+}
+
+.descriptionTitle {
+  padding: 20px 15px;
 }
 
 /* The typing effect */
