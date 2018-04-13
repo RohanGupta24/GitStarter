@@ -7,6 +7,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 	<script src="../scripts/homePage.js"></script>
  	<link rel="stylesheet" type="text/css" href="../styles/homePage.css"></link>
+ 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" type="text/css" charset="utf-8">
  	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -20,16 +21,22 @@
 
 <div class="jumbotron hero-nature">
 	<div class="typewriter">
-  	<h1 id=upperText>GitStarter</h1>
-  	<p id=upperText>Built for Developers.</p>
-  	<p id=upperText>A marketplace for open source projects.</p>
+	<div id="projectTitle">
+  		<h1 id=upperText>GitStarter</h1>
+  	</div>
+  	<div id="descriptionTitle">
+  		<p id=upperText>Built for Developers.</p>
+  		<p id=upperText>A marketplace for open source projects.</p>
+  	</div>
 	</div>
 
 <!--   <h1 id=upperText>GitStarter</h1> -->
 
 <!--   <hr class="my-4">
  -->  
-  <a class="btn btn-primary btn-lg" href="#" role="button">GITHUB BUTTON HERE</a>
+ <div id="LoginButton">
+  <a class="btn btn-primary btn-lg" href="http://github.com" role="button"><i class="icon ion-social-github"></i>  Login/Register</a>
+</div>
 </div>
 
 
@@ -40,24 +47,26 @@
 
 		<div class="form-group row" id=centered>
   		<div class="col-10">
-    	<input class="form-control" type="search" placeholder="Search for projects" v-model="search">
+    	<input id="searchBar" class="form-control" type="search" placeholder="Search for projects" v-model="searchWords" v-on:keyup.enter="search">
  		</div>
 		</div>
 
 
 
-
+		
 		<table class="table table-hover" id="table1">
-	 
+	 	<h1 id="tableTitle" v-model="tableHeader"><b>{{ tableHeader }}</b></h1>
 	    <tbody>
 	        <template v-for="project in ProjectsLists">
 
 	            <tr> 
 	            
-	            <td style="font-size:30px">{{ project.Icon }}  <a href="{{project.Author}}">{{project.Author}}</a> / <a href="{{project.ProjectName}}">{{project.ProjectName}}</a>
+	           <td style="font-size:30px"><img v-bind:src="project.Icon" height="42" width="42"> <a v-bind:href="project.OwnerURL" target="_blank">{{project.Author}}</a> / <a v-bind:href="project.ProjectURL" target="_blank">{{project.ProjectName}}</a>
 
 	            <br>
 	            {{project.ProjectDescription }}
+	            <br>
+	            <b>Price: {{project.Prices}}</b>
 
 
 

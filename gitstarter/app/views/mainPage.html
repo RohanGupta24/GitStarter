@@ -1,0 +1,138 @@
+<html>
+
+<head>
+
+	<title>GitStarter</title>
+	
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	<script src="../scripts/mainPage.js"></script>
+ 	<link rel="stylesheet" type="text/css" href="../styles/mainPage.css"></link>
+ 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" type="text/css" charset="utf-8">
+ 	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+
+</head>
+
+<div id="jumbo" class="jumbotron hero-nature">
+	<div class="typewriter">
+	<div id="projectTitle">
+  		<h1 id=upperText>GitStarter</h1>
+  	</div>
+	</div>
+
+<!--   <h1 id=upperText>GitStarter</h1> -->
+
+<!--   <hr class="my-4">
+ -->  
+</div>
+
+
+
+<body onload="onLoad()">
+	<!-- Change this -->
+	<div id="OrderPickContainer">
+	<h1 id="welcomeTag">Welcome, User</h1>
+	<h2 id="introduceBalanceTag">Here is your balance:</h2>
+	<h1 id="balanceTag"><b>200</b></h1>
+	<div style="text-align:center;">
+		<button id="balanceDetails" type="button" class="btn btn-default btn-lg" v-on:click="showBalanceModal">View Details</button>
+	</div>
+	<br></br>
+
+	<div class="container" id="modalBalance" v-show="isBalanceModal">
+  	<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Balance Details</h5>
+        <button type="button" class="close" v-on:click="closeBalanceModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <strong>INFO</strong>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="confirmAddYes" class="btn-lg btn-primary" v-on:click="closeBalanceModal">OK</button>
+      </div>
+    </div>
+  	</div>
+  	</div>
+
+
+		<div class="form-group row" id=centered>
+  		<div class="col-10">
+    	<input id="searchBar" class="form-control" type="search" placeholder="Search for projects" v-model="searchWords" v-on:keyup.enter="search">
+ 		</div>
+		</div>
+
+
+		
+		<table class="table table-hover" id="table1">
+	 	<h1 id="tableTitle" v-model="tableHeader"><b>{{ tableHeader }}</b></h1>
+	    <tbody>
+	        <template v-for="project in ProjectsLists">
+
+	            <tr> 
+	            
+	            <td style="font-size:30px"><img v-bind:src="project.Icon" height="42" width="42"> <a v-bind:href="project.OwnerURL" target="_blank">{{project.Author}}</a> / <a v-bind:href="project.ProjectURL" target="_blank">{{project.ProjectName}}</a>
+	            <button type="button" class="btn btn-default" id="sellButton" v-on:click="showSellModal"><b>Sell</b></button>
+	            <button type="button" class="btn btn-default" id="buyButton" v-on:click="showBuyModal"><b>Buy</b></button>
+
+	            <br>
+	            {{project.ProjectDescription }}
+	           	<br>
+	            <b>Price: {{project.Prices}}</b>
+
+				<div class="container" id="modalSell" v-show="isSellModal">
+  				<div class="modal-dialog">
+    			<div class="modal-content">
+      			<div class="modal-header">
+        		<h5 class="modal-title">Confirm Sell</h5>
+        		<button type="button" class="close" v-on:click="closeSellModal">&times;</button>
+      			</div>
+      			<div class="modal-body">
+        		<strong>Are you sure you want to sell this?</strong>
+      			</div>
+      			<div class="modal-footer">
+        		<button type="button" id="confirmAddYes" class="btn-lg btn-primary" v-on:click="closeSellModal">OK</button>
+     		 	</div>
+    			</div>
+  				</div>
+  				</div>
+
+  				<div class="container" id="modalBuy" v-show="isBuyModal">
+  				<div class="modal-dialog">
+    			<div class="modal-content">
+      			<div class="modal-header">
+        		<h5 class="modal-title">Confirm Buy</h5>
+        		<button type="button" class="close" v-on:click="closeBuyModal">&times;</button>
+      			</div>
+      			<div class="modal-body">
+        		<strong>Are you sure you want to buy this?</strong>
+      			</div>
+      			<div class="modal-footer">
+        		<button type="button" id="confirmAddYes" class="btn-lg btn-primary" v-on:click="closeBuyModal">OK</button>
+     		 	</div>
+    			</div>
+  				</div>
+  				</div>
+
+	            </td>
+	                <!-- <td>{{batch.Icon}}</td>
+	                <td>{{batch.ProjectName}}</td>
+	                <td>{{batch.Prices}}</td>
+
+	                 -->
+	            </tr>
+	        </template>
+	    </tbody>
+	</table>
+</div>
+
+
+</body>
+</html>
