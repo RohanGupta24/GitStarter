@@ -37,9 +37,9 @@
 <body onload="onLoad()">
 	<!-- Change this -->
 	<div id="OrderPickContainer">
-	<h1 id="welcomeTag">Welcome, User</h1>
+	<h1 id="welcomeTag">Welcome {{user}}</h1>
 	<h2 id="introduceBalanceTag">Here is your balance:</h2>
-	<h1 id="balanceTag"><b>200</b></h1>
+	<h1 id="balanceTag"><b>{{balanceAmount}}</b></h1>
 	<div style="text-align:center;">
 		<button id="balanceDetails" type="button" class="btn btn-default btn-lg" v-on:click="showBalanceModal">View Details</button>
 	</div>
@@ -49,8 +49,8 @@
   	<div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Balance Details</h5>
         <button type="button" class="close" v-on:click="closeBalanceModal">&times;</button>
+        <h5 class="modal-title">Balance Details</h5>
       </div>
       <div class="modal-body">
         <strong>INFO</strong>
@@ -67,6 +67,7 @@
   		<div class="col-10">
     	<input id="searchBar" class="form-control" type="search" placeholder="Search for projects" v-model="searchWords" v-on:keyup.enter="search">
  		</div>
+    <h2 id="tableError" v-model="tableErrorMessage">{{ tableErrorMessage }}</h2>
 		</div>
 
 
@@ -91,14 +92,14 @@
   				<div class="modal-dialog">
     			<div class="modal-content">
       			<div class="modal-header">
-        		<h5 class="modal-title">Confirm Sell</h5>
-        		<button type="button" class="close" v-on:click="closeSellModal">&times;</button>
+              <button type="button" class="close" v-on:click="closeSellModal">&times;</button>
+        		  <h5 class="modal-title">Confirm Sell</h5>
       			</div>
       			<div class="modal-body">
         		<strong>Are you sure you want to sell this?</strong>
       			</div>
       			<div class="modal-footer">
-        		<button type="button" id="confirmAddYes" class="btn-lg btn-primary" v-on:click="closeSellModal">OK</button>
+        		<button type="button" class="btn-lg btn-primary" v-on:click="closeSellModal">OK</button>
      		 	</div>
     			</div>
   				</div>
@@ -108,14 +109,14 @@
   				<div class="modal-dialog">
     			<div class="modal-content">
       			<div class="modal-header">
-        		<h5 class="modal-title">Confirm Buy</h5>
-        		<button type="button" class="close" v-on:click="closeBuyModal">&times;</button>
+              <button type="button" class="close" v-on:click="closeBuyModal">&times;</button>
+        		  <h5 class="modal-title">Confirm Buy</h5>
       			</div>
       			<div class="modal-body">
         		<strong>Are you sure you want to buy this?</strong>
       			</div>
       			<div class="modal-footer">
-        		<button type="button" id="confirmAddYes" class="btn-lg btn-primary" v-on:click="closeBuyModal">OK</button>
+        		<button type="button" class="btn-lg btn-primary" v-on:click="closeBuyModal">OK</button>
      		 	</div>
     			</div>
   				</div>
