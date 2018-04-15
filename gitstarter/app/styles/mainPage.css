@@ -1,14 +1,107 @@
-div.jumbotron.hero-nature{
+#jumbo{
     background: rgb(0,0,0);
 	  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(82,105,236,1) 50%, rgba(0,0,0,1) 100%);
-    text-align:center;
+    text-align: center;
     background-size:cover;
     background-position:center;
     padding-top:50px;
     padding-bottom:100px;
     height: 50px;
+    
 }
 
+#myProjects {
+  
+}
+#jumbo button {
+
+    float:right;
+    display:block;
+    background:none;
+    color: #f2f2f2;
+    border:none; 
+    padding:0;
+    font-weight: bold;
+    font-size: 30px;
+     /*border is optional*/
+     padding-right: 30px;
+     cursor: pointer;
+
+}
+
+#jumbo span {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  font-weight:bold;
+  text-decoration: none;
+  font-size: 30px;
+  padding-left: 30px;
+}
+
+
+.sidenav h1 {
+
+ padding: 8px 20px 8px 60px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 20px 8px 20px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+#hamburger {
+  font-size:30px;
+  cursor:pointer
+}
+
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
  table#table1 {
     width:70%; 
     margin-left:15%; 
@@ -16,6 +109,7 @@ div.jumbotron.hero-nature{
     height: 50px;
     vertical-align: middle;
   }
+
 
 #centered{
 	/*height: 200px;*/
@@ -93,6 +187,7 @@ body,html {
 
 #projectTitle {
   margin-bottom: 50px;
+  padding-left: 150px;
 }
 
 #LoginButton {
@@ -121,6 +216,7 @@ body,html {
 }
 #upperText {
 	font-weight: bold;
+  padding-left: 25px;
 	/*background: #1e5799;*/
 	color:white;
 	font-family:"Lucida Console", Monaco, monospace
