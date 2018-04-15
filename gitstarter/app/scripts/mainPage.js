@@ -8,8 +8,8 @@ function closeNav() {
 
 
 
-
 function onLoad() {
+
 
 
 var vm = new Vue({
@@ -126,7 +126,7 @@ var vm = new Vue({
       this.balanceAmount = 500
       let self = this
       var results = new Array();
-      var url = "https://api.github.com/search/repositories?sort=stars&order=desc";
+      var url = "https://api.github.com/search/repositories?q=hello&sort=stars&order=desc";
       fetch(url, {
         method: 'GET',
       })

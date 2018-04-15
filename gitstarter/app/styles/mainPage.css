@@ -1,6 +1,6 @@
 #jumbo{
-    background: rgb(0,0,0);
-	  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(82,105,236,1) 50%, rgba(0,0,0,1) 100%);
+    background: linear-gradient(to top left, #1abc9c, #3498db);
+
     text-align: center;
     background-size:cover;
     background-position:center;
@@ -45,12 +45,26 @@
 
  padding: 8px 20px 8px 60px;
     text-decoration: none;
-    font-size: 25px;
-    color: #818181;
+    font-size: 30px;
+    color: #FFFAFA;
     display: block;
     transition: 0.3s;
 
 }
+
+
+.fixedDiv {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+header {
+    height: 300px;
+    border: 1px solid black;
+}
+
 
 .sidenav {
     height: 100%;
@@ -69,7 +83,7 @@
     padding: 8px 20px 8px 20px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: #E6E6FA;
     display: block;
     transition: 0.3s;
 }
