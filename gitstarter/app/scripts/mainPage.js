@@ -1,3 +1,14 @@
+function openNav() {
+    document.getElementById("mySidenav").style.width = "290px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+
+
+
+
 function onLoad() {
 
 
@@ -12,6 +23,54 @@ var vm = new Vue({
         isBalanceModal: false,
         isSellModal: false,
         isBuyModal: false,
+        ownedProjects: [
+          {
+            Icon: "https://www.iconfinder.com/icons/99689/apple_os_icon#size=256",
+            ProjectName: "tabler",
+            ProjectURL: "wow",
+            OwnerURL: "wowOwn",
+            ProjectDescription: "Tabler is free and open-source HTML Dashboard UI Kit built on Bootstrap 4",
+            Author: "tabler",
+            Prices: 400
+          },
+          {
+             Icon: "https://www.iconfinder.com/icons/99689/apple_os_icon#size=256",
+            ProjectName: "winfile",
+            ProjectURL: "wow",
+            OwnerURL: "wowOwn",
+            ProjectDescription: "Original File Manager (winfile) with enhancements",
+            Author: "Microsoft",
+            Prices: 400
+          },
+          {
+           	Icon: "https://www.iconfinder.com/icons/99689/apple_os_icon#size=256",
+            ProjectName: "Interview-Notebook",
+            ProjectURL: "wow",
+            OwnerURL: "wowOwn",
+            ProjectDescription: "books: 技术面试需要掌握的基础知识整理，欢迎编辑~",
+            Author: "CyC2018",
+            Prices: 400
+          },
+          {
+            Icon: "https://www.iconfinder.com/icons/99689/apple_os_icon#size=256",
+            ProjectName: "whatsapp-web-reveng",
+            ProjectURL: "wow",
+            OwnerURL: "wowOwn",
+            ProjectDescription: "Reverse engineering WhatsAppWeb.",
+            Author: "sigalor",
+            Prices: 400
+          },
+          {
+            Icon: "https://www.iconfinder.com/icons/99689/apple_os_icon#size=256",
+            ProjectName: "structured-text-tools",
+            ProjectURL: "wow",
+            OwnerURL: "wowOwn",
+            ProjectDescription: "structured-text-tools",
+            Author: "dbhodan",
+            Prices: 400
+          },
+        ],
+
         ProjectsLists: [
           {
             Icon: "https://www.iconfinder.com/icons/99689/apple_os_icon#size=256",
@@ -221,12 +280,17 @@ var vm = new Vue({
 
       closeBuyModal: function() {
         this.isBuyModal = false;
-      }
+      },
+      BacktoHomePage: function() {
+	window.location.href="homePage.html"
+	},
     }
 
 });
 
 }
+
+
 
 /*function search() {
   console.log("search")
