@@ -3,7 +3,7 @@
 <head>
 
 	<title>GitStarter</title>
-	
+	<script src="https://code.jquery.com/jquery-latest.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 	<script src="../scripts/mainPage.js"></script>
  	<link rel="stylesheet" type="text/css" href="../styles/mainPage.css"></link>
@@ -19,25 +19,42 @@
 
 </head>
 
-<div id="jumbo" class="jumbotron hero-nature">
-	<div class="typewriter">
-	<div id="projectTitle">
-  		<h1 id=upperText>GitStarter</h1>
-  	</div>
-	</div>
 
-<!--   <h1 id=upperText>GitStarter</h1> -->
-
-<!--   <hr class="my-4">
- -->  
-</div>
 
 
 
 <body onload="onLoad()">
+
+
 	<!-- Change this -->
 	<div id="OrderPickContainer">
-	<h1 id="welcomeTag">Welcome, User</h1>
+
+
+		<div id="jumbo" class="jumbotron hero-nature">
+
+		<span id="hamburger" onclick="openNav()">&#9776;</span>
+			<button v-on:click="BacktoHomePage">Logout</button>
+			<div class="typewriter">
+			<div id="projectTitle">
+		  		<h1 id=upperText>GitStarter</h1>
+		  	</div>
+			</div>
+		</div>
+
+  
+
+		<div id="mySidenav" class="sidenav">
+		<h1>My Projects</h1>
+	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  		<ul style="list-style-type:none">
+  			<li v-for="data in ownedProjects">
+  				<a href="#">{{ data.ProjectName }}</a>
+  			</li>
+  		</ul>
+	</div>
+
+
+	<h1 id="welcomeTag"><br>Welcome, User</h1>
 	<h2 id="introduceBalanceTag">Here is your balance:</h2>
 	<h1 id="balanceTag"><b>200</b></h1>
 	<div style="text-align:center;">
