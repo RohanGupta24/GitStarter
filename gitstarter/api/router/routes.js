@@ -1,14 +1,12 @@
 var express = require('express');
-var expressVue = require('express-vue');
-var path = require('path');
 
 module.exports = function(app) {
-  const vueOptions = {
-    rootPath: path.join(__dirname, "../../app")
-  }
-  const expressVueMiddleware = expressVue.init(vueOptions);
-  app.use(expressVueMiddleware);
-
   var homeController = require('../controllers/homeController');
+  var loginController = require('../controllers/loginController');
+  
   app.get('/', homeController.getHome);
+  app.get('/trending', homeController.getTrending);
+  app.get('/value', homeController.getValue);
+  app.get('/login', loginController.login);
+  app.get('/main', loginController.callback);
 }

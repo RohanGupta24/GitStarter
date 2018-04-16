@@ -1,12 +1,13 @@
+
 <html>
 
 <head>
 
 	<title>GitStarter</title>
-	
+
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-	<script src="../scripts/homePage.js"></script>
- 	<link rel="stylesheet" type="text/css" href="../styles/homePage.css"></link>
+	<script src="scripts/homePage.js"></script>
+ 	<link rel="stylesheet" type="text/css" href="styles/homePage.css"></link>
  	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -28,14 +29,14 @@
 <!--   <h1 id=upperText>GitStarter</h1> -->
 
 <!--   <hr class="my-4">
- -->  
-  <a class="btn btn-primary btn-lg" href="#" role="button">GITHUB BUTTON HERE</a>
+ -->
+  <a class="btn btn-primary btn-lg" href="/login" role="button">GITHUB BUTTON HERE</a>
 </div>
 
 
 
-<body onload="onLoad()">
-	
+<body id="bodyStyle" onload="onLoad()">
+
 	<div id="OrderPickContainer">
 
 		<div class="form-group row" id=centered>
@@ -48,16 +49,16 @@
 
 
 		<table class="table table-hover" id="table1">
-	 
-	    <tbody>
-	        <template v-for="project in ProjectsLists">
 
-	            <tr> 
-	            
-	            <td style="font-size:30px">{{ project.Icon }}  <a href="{{project.Author}}">{{project.Author}}</a> / <a href="{{project.ProjectName}}">{{project.ProjectName}}</a>
+	    <tbody>
+	        <template v-for="project in projectsList">
+
+	            <tr>
+
+	            <td style="font-size:30px">{{ project.icon }}  <a href="{{project.Author}}">{{project.author}}</a> / <a href="{{project.ProjectName}}">{{project.projectName}}</a>
 
 	            <br>
-	            {{project.ProjectDescription }}
+	            {{ project.projectDescription }}
 
 
 
@@ -66,7 +67,7 @@
 	                <td>{{batch.ProjectName}}</td>
 	                <td>{{batch.Prices}}</td>
 	                 -->
-	 	
+
 	            </tr>
 	        </template>
 	    </tbody>
