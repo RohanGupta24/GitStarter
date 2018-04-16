@@ -14,10 +14,10 @@ exports.callback = function(req, res) {
   return githubOAuth.callback(req, res);
 };
 
-githubOAuth.on('error', function(err) {
-  console.log(err);
+githubOAuth.on('error', function(err, res) {
+  res.redirect('/');
 });
 
-githubOAuth.on('token', function(token, serverResponse) {
-  serverResponse.end(JSON.stringify(token));
+githubOAuth.on('token', function(token, res) {
+  res.send(JSON.stringify(token));
 });
