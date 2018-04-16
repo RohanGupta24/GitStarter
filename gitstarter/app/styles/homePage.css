@@ -1,20 +1,25 @@
-div.jumbotron.hero-nature{
-    background: rgb(0,0,0);
-	background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(82,105,236,1) 50%, rgba(0,0,0,1) 100%);
-    text-align:center;
-    background-size:cover;
-    background-position:center;
-    padding-top:50px;
-    padding-bottom:100px;
+#bodyStyle {
+  background: #fdfdfd;
 }
 
- table#table1 {
-    width:70%; 
-    margin-left:15%; 
-    margin-right:15%;
-    height: 50px;
-    vertical-align: middle;
-  }
+div.jumbotron.hero-nature{
+  background: linear-gradient(to top left, #1abc9c, #3498db);
+  /* background: rgb(0,0,0);
+  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(82,105,236,1) 50%, rgba(0,0,0,1) 100%); */
+  text-align:center;
+  background-size:cover;
+  background-position:center;
+  padding-top:50px;
+  padding-bottom:100px;
+}
+
+table#table1 {
+  width:70%;
+  margin-left:15%;
+  margin-right:15%;
+  height: 50px;
+  vertical-align: middle;
+}
 
 #centered{
 	/*height: 200px;*/
@@ -34,7 +39,7 @@ div.jumbotron.hero-nature{
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
   letter-spacing: .15em; /* Adjust as needed */
-  animation: 
+  animation:
     typing 3.5s steps(40, end),
     blink-caret .75s step-end infinite;
 }
@@ -50,6 +55,7 @@ div.jumbotron.hero-nature{
   from, to { border-color: transparent }
   50% { border-color: transparent; }
 }
+
 #upperText {
 	font-weight: bold;
 	/*background: #1e5799;*/
