@@ -12,5 +12,6 @@ module.exports = function(app) {
   app.get('/main', loginController.callback);
   app.get('/data/week', projectController.getWeekData);
   app.get('/data/month', projectController.getMonthData);
+  app.get('/data/year', projectController.getYearData);
   
 }
