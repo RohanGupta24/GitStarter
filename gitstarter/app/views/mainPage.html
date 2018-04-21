@@ -24,6 +24,7 @@
 	            <b>Price: {{price}}</b>
 	            <button type="button" class="btn btn-default" id="sellButton" v-on:click="showSellModal"><b>Sell</b></button>
 				<button type="button" class="btn btn-default" id="buyButton" v-on:click="showBuyModal"><b>Buy</b></button>
+				<button type="button" class="btn btn-default" id="graphButton" v-on:click="showGraphModal"><b>Show Details</b></button>
 	            </td>
 				<td v-if="showSell" style="font-size:30px">
 					<a>Are you sure you want to sell this?</a>
@@ -35,6 +36,22 @@
 					<button type="button" class="btn btn-default" v-on:click="confirmBuy">Yes</button>
 					<button type="button" class="btn btn-default" v-on:click="denyBuy">No</button>
 				</td>
+				<div class="container" id="modalGraph" v-if="showGraph">
+  				<div class="modal-dialog">
+    			<div class="modal-content">
+      			<div class="modal-header">
+              <button type="button" class="close" v-on:click="closeGraphModal">&times;</button>
+        		  <h5 class="modal-title">Details</h5>
+      			</div>
+      			<div class="modal-body">
+        		<strong>INFO</strong>
+      			</div>
+      			<div class="modal-footer">
+        		<button type="button" class="btn-lg btn-primary" v-on:click="closeGraphModal">OK</button>
+     		 	</div>
+    			</div>
+  				</div>
+  				</div>
 		</tr>
 		
 	 </script>
@@ -181,6 +198,7 @@
     			</div>
   				</div>
   				</div>
+
 	                <!-- <td>{{batch.Icon}}</td>
 	                <td>{{batch.ProjectName}}</td>
 	                <td>{{batch.Prices}}</td>

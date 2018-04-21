@@ -32,7 +32,7 @@ Vue.component("search-box", {
     template: "#search-template",
     props: ["icon", "ownerurl", "author", "projecturl", "projectname", "projectdescription", "price", "index"],
     data: function() {
-      return {showElement: true, showSell: false, showBuy: false};
+      return {showElement: true, showSell: false, showBuy: false, showGraph: false};
     },
     methods: {
       showSellModal: function() {
@@ -44,6 +44,16 @@ Vue.component("search-box", {
         this.showBuy = true;
         this.showSell = false;
         this.showElement = true;
+      },
+
+      showGraphModal: function() {
+        console.log("hello");
+        this.showGraph = true;
+
+      },
+
+      closeGraphModal: function() {
+        this.showGraph = false;
       },
       confirmBuy: function() {
         //IMPORTANT
