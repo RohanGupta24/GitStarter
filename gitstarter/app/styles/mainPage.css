@@ -13,6 +13,11 @@
 #myProjects {
   
 }
+
+#OrderPickContainer {
+  
+}
+
 #jumbo button {
 
     float:right;
@@ -40,10 +45,19 @@
   padding-left: 30px;
 }
 
+.navbar {
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(82,105,236,1) 50%, rgba(0,0,0,1) 100%);
+    text-align: center;
+    background-size:cover;
+    background-position:center;
+    padding-top:50px;
+    padding-bottom:100px;
+    height: 50px;
+}
 
 .sidenav h1 {
 
- padding: 8px 20px 8px 60px;
     text-decoration: none;
     font-size: 25px;
     color: #818181;
@@ -102,10 +116,10 @@ html, body {
     max-width: 100%;
     overflow-x: hidden;
 }
- table#table1 {
+ #table1 {
     width:70%; 
     margin-left:15%; 
-    margin-right:15%;
+    margin-right:35%;
     height: 50px;
     vertical-align: middle;
   }
@@ -160,12 +174,29 @@ body,html {
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     /* Full height */
-    top: 100px;
-    left: 300px;
+    top: 400px;
+    left: 200px;
+    height: 500px;
+    width: 1000px;
     /*background-color: rgb(0,0,0);*/ /* Fallback color */
      /* Black w/ opacity */
 }
 
+.modal-header {
+  text-align: center;
+}
+
+.modal-title {
+  text-align: center;
+}
+
+#buttonOK {
+  background-color: blue;
+}
+
+.modal-dialog {
+  
+}
 
 
 
