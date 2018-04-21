@@ -37,7 +37,7 @@ Vue.component("search-box", {
     methods: {
       showSellModal: function() {
         this.showSell = true;
-        this.showBuy = false;
+	this.showBuy = false;
         this.showElement = true;
       },
       showBuyModal: function() {
@@ -75,6 +75,7 @@ Vue.component("search-box", {
       }
     }
   });
+
 
 var vm = new Vue({
     el: "#OrderPickContainer",
@@ -194,6 +195,59 @@ var vm = new Vue({
     created: function() {
       this.user = "Wassup"
       this.balanceAmount = 500
+      let self = this
+      var results = new Array();
+      var url = "https://api.github.com/search/repositories?q=hello&sort=stars&order=desc";
+      fetch(url, {
+        method: 'GET',
+      })
+      .then(function(res) {
+        if(res.ok) {
+            res.json().then(function(data) {
+              //console.log(data.items)
+             // console.log(data)
+              //console.log(data.items.length)
+              //console.log(data.items.length == 0)
+              if(data.items.length == 0 || data.items[0] == undefined) {
+                //this.ProjectsLists = "No search results found"
+                //console.log("reached here");
+                self.tableErrorMessage = "No search results found"
+                self.tableHeader = "Top Trending Projects"
+                //console.log(this.tableErrorMessage)
+                
+              }
+              else {
+                //console.log(data.name)
+                //console.log(data.items.length)
+                self.tableErrorMessage = "";
+                //console.log(data.items[0])
+                //var results = new Array();
+                for(var i = 0; i < data.items.length; i++) {
+                  var obj = new Object();
+                  obj.Icon = data.items[i].owner.avatar_url;
+                 //console.log(obj.Icon);
+                  obj.ProjectName = data.items[i].name;
+                  obj.ProjectURL = data.items[i].html_url;
+                  obj.OwnerURL = data.items[i].owner.html_url;
+                  //console.log(obj.ProjectURL)
+                  //console.log(data.items[i].description.length);
+                  if(data.items[i].description != null && data.items[i].description.length > 300) {
+                    obj.ProjectDescription = data.items[i].description.substring(0, 300) + "...";
+                  }
+                  else {
+                    obj.ProjectDescription = data.items[i].description;
+                  }
+                  obj.Author = data.items[i].owner.login;
+                  obj.Prices = 200;
+                  //console.log(obj);
+                  results.push(obj);
+                }
+                //this.ProjectLists.push(data.name)
+              }
+            }.bind(this));
+          }
+      });
+      this.ProjectsLists = results;
     },
     methods: {
       search: function() {
