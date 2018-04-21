@@ -29,7 +29,6 @@
   		<p id=upperText>A marketplace for open source projects.</p>
   	</div>
 	</div>
-
 <!--   <h1 id=upperText>GitStarter</h1> -->
 
 <!--   <hr class="my-4">
@@ -49,6 +48,7 @@
   		<div class="col-10">
     	<input id="searchBar" class="form-control" type="search" placeholder="Search for projects" v-model="searchWords" v-on:keyup.enter="search">
  		</div>
+ 		 <h2 id="tableError" v-model="tableErrorMessage">{{ tableErrorMessage }}</h2>
 		</div>
 
 
