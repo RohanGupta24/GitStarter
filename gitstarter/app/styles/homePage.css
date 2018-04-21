@@ -55,6 +55,12 @@ div.jumbotron.hero-nature{
   text-align: center
 }
 
+#tableError {
+  text-align: center;
+  color: red;
+}
+
+
 /* The typing effect */
 @keyframes typing {
   from { width: 0 }

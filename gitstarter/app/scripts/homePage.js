@@ -6,6 +6,7 @@ new Vue({
     data: {
         searchWords: "",
         tableHeader: "Top Trending Projects",
+        tableErrorMessage: "",
         ProjectsLists: [
           {
             Icon: "ICON",
@@ -57,8 +58,7 @@ new Vue({
     },
     methods: {
       search: function() {
-        //this.ProjectsLists = new Array();
-        //console.log(this.ProjectsLists)
+        let self = this
         var results = new Array();
         if(this.searchWords.length != 0) {
           this.tableHeader = "Search Results"
@@ -73,38 +73,51 @@ new Vue({
         .then(function(res) {
           if(res.ok) {
             res.json().then(function(data) {
-              //console.log(data.items)
-              if(data.length === 0) {
-                //this.ProjectsLists = "No search results found"
+              if(data.items.length == 0 || data.items[0] == undefined) {
+                //SHOW TOP TRENDING PROJECTS HERE
+                self.tableErrorMessage = "No search results found"
+                self.tableHeader = "Top Trending Projects"
+                
               }
               else {
-                //console.log(data.name)
-                //console.log(data.items.length)
-                console.log(data.items[0])
-                //var results = new Array();
+                self.tableErrorMessage = "";
                 for(var i = 0; i < data.items.length; i++) {
                   var obj = new Object();
                   obj.Icon = data.items[i].owner.avatar_url;
+                  console.log(obj.Icon);
                   obj.ProjectName = data.items[i].name;
                   obj.ProjectURL = data.items[i].html_url;
                   obj.OwnerURL = data.items[i].owner.html_url;
-                  //console.log(obj.ProjectURL)
-                  obj.ProjectDescription = data.items[i].description;
+                  if(data.items[i].description != null && data.items[i].description.length > 300) {
+                    obj.ProjectDescription = data.items[i].description.substring(0, 300) + "...";
+                  }
+                  else {
+                    obj.ProjectDescription = data.items[i].description;
+                  }
                   obj.Author = data.items[i].owner.login;
                   obj.Prices = 200;
-                  //console.log(obj);
                   results.push(obj);
                 }
-                //this.ProjectLists.push(data.name)
               }
             }.bind(this));
           }
+          else {
+            if(res.status == 422) {
+              //SHOW TOP TRENDING PROJECTS HERE
+              self.tableErrorMessage = ""
+            }
+            else if(res.status == 403) {
+              //SHOW TOP TRENDING PROJECTS
+              self.tableErrorMessage = "Please try again"
+            }
+          }
         });
-        console.log(results)
+        if(this.searchWords.length == 0) {
+          this.tableHeader = "Top Trending Projects"
+        }
         this.ProjectsLists = results;
-        console.log(this.ProjectsLists)
-      }
     }
+  }
 
 });
 }
