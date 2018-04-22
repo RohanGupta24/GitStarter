@@ -3,11 +3,17 @@
 <head>
 
 	<title>GitStarter</title>
+	<script src="https://www.gstatic.com/charts/loader.js"></script>
+
 	<script src="https://code.jquery.com/jquery-latest.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 	<script src="../scripts/mainPage.js"></script>
-	<script src="../../../node_modules/vue-infinite-scroll/vue-infinite-scroll.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+  <script src="../scripts/vue-charts.js"></script>
+	<!-- <script src="../../../node_modules/vue-infinite-scroll/vue-infinite-scroll.js"></script> -->
  	<link rel="stylesheet" type="text/css" href="../styles/mainPage.css"></link>
+
  	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" type="text/css" charset="utf-8">
  	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -44,7 +50,13 @@
         		  <h5 class="modal-title">Details</h5>
       			</div>
       			<div class="modal-body">
-        		<strong>INFO</strong>
+        		<strong>PENIS</strong>
+
+        		<vue-chart
+            :columns="columns"
+            :rows="rows"
+            :options="options"
+        		></vue-chart>
       			</div>
       			<div class="modal-footer">
         		<button type="button" class="btn-lg btn-primary" v-on:click="closeGraphModal">OK</button>
@@ -53,7 +65,7 @@
   				</div>
   				</div>
 		</tr>
-		
+
 	 </script>
 
 	 <script type="text/x-template" id="navbar-template">
@@ -115,7 +127,7 @@
 	</div>
 		</div>
 
-  
+
 
 	<h1 id="welcomeTag">Welcome {{user}}</h1>
 	<h2 id="introduceBalanceTag">Here is your balance:</h2>

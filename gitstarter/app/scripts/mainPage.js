@@ -6,9 +6,9 @@ function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
 }
 
-
-
 function onLoad() {
+Vue.use(VueCharts);
+
 
 Vue.component("navbar-box", {
   template: "#navbar-template",
@@ -32,7 +32,41 @@ Vue.component("search-box", {
     template: "#search-template",
     props: ["icon", "ownerurl", "author", "projecturl", "projectname", "projectdescription", "price", "index"],
     data: function() {
-      return {showElement: true, showSell: false, showBuy: false, showGraph: false};
+      return {showElement: true, showSell: false, showBuy: false, showGraph: false,
+        columns: [{
+            'type': 'string',
+            'label': 'Year'
+        }, {
+            'type': 'number',
+            'label': 'Sales'
+        }, {
+            'type': 'number',
+            'label': 'Expenses'
+        }],
+        rows: [
+            ['2004', 1000, 400],
+            ['2005', 1170, 460],
+            ['2006', 660, 1120],
+            ['2007', 1030, 540]
+        ],
+        options: {
+            title: 'Company Performance',
+            hAxis: {
+                title: 'Year',
+                minValue: '2004',
+                maxValue: '2007'
+            },
+            vAxis: {
+                title: '',
+                minValue: 300,
+                maxValue: 1200
+            },
+            width: 900,
+            height: 500,
+            curveType: 'function'
+        }
+
+      };
     },
     methods: {
       showSellModal: function() {
@@ -214,7 +248,7 @@ var vm = new Vue({
                 self.tableErrorMessage = "No search results found"
                 self.tableHeader = "Top Trending Projects"
                 //console.log(this.tableErrorMessage)
-                
+
               }
               else {
                 //console.log(data.name)
@@ -271,7 +305,7 @@ var vm = new Vue({
                 //SHOW TOP TRENDING PROJECTS HERE
                 self.tableErrorMessage = "No search results found"
                 self.tableHeader = "Top Trending Projects"
-                
+
               }
               else {
                 self.tableErrorMessage = "";
@@ -372,4 +406,3 @@ var vm = new Vue({
 /*function search() {
   console.log("search")
 }*/
-
