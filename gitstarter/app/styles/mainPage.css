@@ -1,0 +1,268 @@
+#jumbo{
+    background: linear-gradient(to top left, #1abc9c, #3498db);
+
+    text-align: center;
+    background-size:cover;
+    background-position:center;
+    padding-top:50px;
+    padding-bottom:100px;
+    height: 50px;
+    
+}
+
+#myProjects {
+  
+}
+
+#OrderPickContainer {
+  
+}
+
+#jumbo button {
+
+    float:right;
+    display:block;
+    background:none;
+    color: #f2f2f2;
+    border:none; 
+    padding:0;
+    font-weight: bold;
+    font-size: 30px;
+     /*border is optional*/
+     padding-right: 30px;
+     cursor: pointer;
+
+}
+
+#jumbo span {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  font-weight:bold;
+  text-decoration: none;
+  font-size: 30px;
+  padding-left: 30px;
+}
+
+.navbar {
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(82,105,236,1) 50%, rgba(0,0,0,1) 100%);
+    text-align: center;
+    background-size:cover;
+    background-position:center;
+    padding-top:50px;
+    padding-bottom:100px;
+    height: 50px;
+}
+
+.sidenav h1 {
+
+    text-decoration: none;
+    font-size: 30px;
+    color: #FFFAFA;
+    display: block;
+    transition: 0.3s;
+
+}
+
+
+.fixedDiv {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+header {
+    height: 300px;
+    border: 1px solid black;
+}
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 20px 8px 20px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #E6E6FA;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+#hamburger {
+  font-size:30px;
+  cursor:pointer
+}
+
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+ #table1 {
+    width:70%; 
+    margin-left:15%; 
+    margin-right:35%;
+    height: 50px;
+    vertical-align: middle;
+  }
+
+
+#centered{
+	/*height: 200px;*/
+    padding-left: 500px;
+    padding-right: 500px;
+/*    text-align: center
+*/}
+
+#buyButton {
+  background-color: red;
+  float: right;
+}
+
+#sellButton {
+  background-color: green;
+  float: right;
+}
+
+#welcomeTag {
+  text-align: center;
+
+}
+
+#introduceBalanceTag {
+  text-align: center;
+}
+
+#balanceTag {
+  text-align: center;
+}
+
+#balanceDetails {
+  justify-content: center;
+}
+
+
+.modal-content {
+    margin: auto;
+    padding: 20px;
+    width: 100%;
+}
+
+body,html {
+  height: 100%;
+}
+
+.container {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    /* Full height */
+    top: 400px;
+    left: 200px;
+    height: 500px;
+    width: 1000px;
+    /*background-color: rgb(0,0,0);*/ /* Fallback color */
+     /* Black w/ opacity */
+}
+
+.modal-header {
+  text-align: center;
+}
+
+.modal-title {
+  text-align: center;
+}
+
+#buttonOK {
+  background-color: blue;
+}
+
+.modal-dialog {
+  
+}
+
+
+
+
+.typewriter h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+#searchBar {
+  min-width: 100px;
+}
+
+#projectTitle {
+  margin-bottom: 50px;
+  padding-left: 150px;
+}
+
+#LoginButton {
+  margin-top: 50px;
+}
+
+#tableTitle {
+  text-align: center
+}
+
+#tableError {
+  text-align: center;
+  color: red;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 50% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: transparent; }
+}
+#upperText {
+	font-weight: bold;
+  padding-left: 25px;
+	/*background: #1e5799;*/
+	color:white;
+	font-family:"Lucida Console", Monaco, monospace
+}

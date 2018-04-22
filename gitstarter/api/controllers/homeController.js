@@ -65,7 +65,7 @@ exports.getValue = function (req, res, next) {
     }
     prevCommitData += weekData.days[dayOfWeek];
     var percentChange = Math.round(((commitData - prevCommitData) / prevCommitData) * 1000) / 10;
-    var data = {currentValue: commitData, previousValue: prevCommitData, percentChange: percentChange};
+    var data = {owner: owner, repo: repo, currentValue: commitData, previousValue: prevCommitData, percentChange: percentChange};
     res.send(data);
   }).catch(function(err) {
     res.status(400).send({message : "Commit activity not found."})

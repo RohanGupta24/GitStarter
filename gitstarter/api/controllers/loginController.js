@@ -19,5 +19,4 @@ githubOAuth.on('error', function(err, res) {
 });
 
 githubOAuth.on('token', function(token, res) {
-  res.send(JSON.stringify(token));
 });
