@@ -44,6 +44,28 @@ table#table1 {
     blink-caret .75s step-end infinite;
 }
 
+#searchBar {
+  min-width: 100px;
+}
+
+#projectTitle {
+  margin-bottom: 50px;
+}
+
+#LoginButton {
+  margin-top: 50px;
+}
+
+#tableTitle {
+  text-align: center
+}
+
+#tableError {
+  text-align: center;
+  color: red;
+}
+
+
 /* The typing effect */
 @keyframes typing {
   from { width: 0 }
