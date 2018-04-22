@@ -40,14 +40,21 @@ exports.investProject = function(req, res) {
               res.status(400).send(errMessage);
               return;
             }
-            client.query("COMMIT", function(err) {
+            const query = "UPDATE Investor SET balance = (SELECT balance FROM Investor WHERE username = $1 AND balance - $1 > 0) - $1 WHERE username = $2";
+            client.query(query, [value_bought, username], function(err result) {
               if (shouldAbort(err)) {
                 res.status(400).send(errMessage);
                 return;
               }
-              done();
-              res.send({message : "Success."});
-            });
+              client.query("COMMIT", function(err) {
+                if (shouldAbort(err)) {
+                  res.status(400).send(errMessage);
+                  return;
+                }
+                done();
+                res.send({message : "Success."});
+              });
+            })
           });
         });
       });
