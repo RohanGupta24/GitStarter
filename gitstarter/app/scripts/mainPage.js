@@ -50,20 +50,24 @@ Vue.component("search-box", {
             ['2007', 1030, 540]
         ],
         options: {
+            legend: {
+              display: true
+            },
             title: 'Company Performance',
             hAxis: {
                 title: 'Year',
                 minValue: '2004',
-                maxValue: '2007'
+                maxValue: '2005'
             },
             vAxis: {
-                title: '',
+                title: '$',
                 minValue: 300,
                 maxValue: 1200
             },
-            width: 900,
-            height: 500,
-            curveType: 'function'
+            width: 500,
+            height: 200,
+            linearType: 'function',
+            backgroundColor: '#f87979'
         }
 
       };
