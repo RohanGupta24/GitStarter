@@ -33,42 +33,182 @@ Vue.component("search-box", {
     props: ["icon", "ownerurl", "author", "projecturl", "projectname", "projectdescription", "price", "index"],
     data: function() {
       return {showElement: true, showSell: false, showBuy: false, showGraph: false,
-        columns: [{
+        columnsWeek: [{
             'type': 'string',
-            'label': 'Year'
+            'label': 'Days'
         }, {
             'type': 'number',
-            'label': 'Sales'
-        }, {
-            'type': 'number',
-            'label': 'Expenses'
+            'label': 'Worth'
         }],
-        rows: [
-            ['2004', 1000, 400],
-            ['2005', 1170, 460],
-            ['2006', 660, 1120],
-            ['2007', 1030, 540]
+        rowsWeek: [
+            ['Monday', 1000],
+            ['Tuesday', 1170],
+            ['Wednesday', 660],
+            ['Thursday', 1030],
+            ['Friday', 209]
         ],
-        options: {
+        optionsWeek: {
             legend: {
               display: true
             },
-            title: 'Company Performance',
+
             hAxis: {
-                title: 'Year',
-                minValue: '2004',
-                maxValue: '2005'
+                title: 'Days',
+                minValue: 'Monday',
+                maxValue: 'Friday',
+                  textStyle: {color: 'white'}
             },
             vAxis: {
-                title: '$',
+                title: 'GitCoins',
                 minValue: 300,
                 maxValue: 1200
             },
-            width: 500,
-            height: 200,
+            width: 900,
+            height: 400,
             linearType: 'function',
-            backgroundColor: '#f87979'
-        }
+        },
+
+        columnsMonth: [{
+            'type': 'string',
+            'label': 'Days'
+        }, {
+            'type': 'number',
+            'label': 'Worth'
+        }],
+        rowsMonth: [
+            ['4/01', 1000],
+            ['4/02', 1170],
+            ['4/03', 660],
+            ['4/04', 1030],
+            ['4/05', 209],
+            ['4/06', 1000],
+            ['4/07', 1170],
+            ['4/08', 660],
+            ['4/09', 1030],
+            ['4/10', 1000],
+            ['4/11', 1170],
+            ['4/12', 660],
+            ['4/13', 1030],
+            ['4/14', 1000],
+            ['4/15', 1170],
+            ['4/16', 660],
+            ['4/17', 1030],
+            ['4/18', 1000],
+            ['4/19', 1170],
+            ['4/20', 660],
+            ['4/21', 1030],
+            ['4/22', 1000],
+            ['4/23', 1170],
+            ['4/24', 660],
+            ['4/25', 1030],
+            ['4/26', 1000],
+            ['4/27', 1170],
+            ['4/28', 660],
+            ['4/29', 1030],
+        ],
+        optionsMonth: {
+            legend: {
+              display: true
+            },
+
+            hAxis: {
+                title: 'Days',
+                titlePosition: 'none',
+                minValue: '4/01',
+                maxValue: '4/29',
+                textStyle: {color: 'white'}
+            },
+            vAxis: {
+                title: 'GitCoins',
+                minValue: 300,
+                maxValue: 1200
+            },
+            width: 900,
+            height: 400,
+            linearType: 'function',
+        },
+
+        columnsYear: [{
+            'type': 'string',
+            'label': 'Week'
+        }, {
+            'type': 'number',
+            'label': 'Worth'
+        }],
+        rowsYear: [
+            ['1/01', 1000],
+            ['1/07', 1170],
+            ['1/14', 660],
+            ['1/21', 1030],
+            ['1/30', 209],
+            ['2/06', 1000],
+            ['2/13', 1170],
+            ['2/20', 660],
+            ['2/27', 1030],
+            ['3/05', 1000],
+            ['3/12', 1170],
+            ['3/19', 660],
+            ['3/27', 1030],
+            ['4/03', 1000],
+            ['4/10', 1170],
+            ['4/17', 660],
+            ['4/24', 1030],
+            ['5/03', 1000],
+            ['5/10', 1170],
+            ['5/23', 660],
+            ['5/30', 1030],
+            ['6/06', 1000],
+            ['6/15', 1170],
+            ['6/20', 660],
+            ['6/27', 1030],
+            ['7/01', 1000],
+            ['7/07', 1170],
+            ['7/14', 660],
+            ['7/21', 1030],
+            ['8/01', 1000],
+            ['8/07', 1170],
+            ['8/14', 660],
+            ['8/21', 1030],
+            ['8/30', 209],
+            ['9/06', 1000],
+            ['9/13', 1170],
+            ['9/20', 660],
+            ['9/27', 1030],
+            ['10/05', 1000],
+            ['10/12', 1170],
+            ['10/19', 660],
+            ['10/27', 1030],
+            ['11/03', 1000],
+            ['11/10', 1170],
+            ['11/17', 660],
+            ['11/24', 1030],
+            ['12/03', 1000],
+            ['12/10', 1170],
+            ['12/23', 660],
+            ['12/30', 1030],
+        ],
+        optionsYear: {
+            legend: {
+              display: true
+            },
+
+            hAxis: {
+                title: 'Days',
+                titlePosition: 'none',
+                minValue: '4/01',
+                maxValue: '4/29',
+                textStyle: {color: 'white'}
+            },
+            vAxis: {
+                title: 'GitCoins',
+                minValue: 300,
+                maxValue: 1200
+            },
+            width: 900,
+            height: 400,
+            linearType: 'function',
+        },
+
 
       };
     },

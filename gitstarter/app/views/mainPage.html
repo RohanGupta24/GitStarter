@@ -3,7 +3,7 @@
 <head>
 
 	<title>GitStarter</title>
-	<script src="https://www.gstatic.com/charts/loader.js"></script>
+
 
 	<script src="https://code.jquery.com/jquery-latest.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
@@ -47,19 +47,19 @@
     			<div class="modal-content">
       			<div class="modal-header">
               <button type="button" class="close" v-on:click="closeGraphModal">&times;</button>
-        		  <h5 class="modal-title">Details</h5>
+        		  <h5 class="modal-title">Details Over Time</h5>
       			</div>
       			<div class="modal-body">
-        		<strong>PENIS</strong>
 
+							<div class="lineGraphHeader">Weekly Performance</div>
         		<vue-chart
-            :columns="columns"
-            :rows="rows"
-            :options="options"
+            :columns="columnsYear"
+            :rows="rowsYear"
+            :options="optionsYear"
         		></vue-chart>
       			</div>
       			<div class="modal-footer">
-        		<button type="button" class="btn-lg btn-primary" v-on:click="closeGraphModal">OK</button>
+        		<button type="button" id="OK" class="btn-lg btn-primary" v-on:click="closeGraphModal">OK</button>
      		 	</div>
     			</div>
   				</div>
