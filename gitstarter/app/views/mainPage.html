@@ -22,7 +22,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script type="text/x-template" id="search-template">
 		<tr :id="index">
-	            <td v-if="showElement" style="font-size:30px"><img :src="icon" height="42" width="42"> <a :href="ownerurl" target="_blank">{{author}}</a>/
+	            <td class="tableEl" v-if="showElement" style="font-size:30px;"><img :src="icon" height="42" width="42"> <a :href="ownerurl" target="_blank">{{author}}</a>/
 	            <a :href="projecturl" target="_blank">{{projectname}}</a>
 	            <br>
 	            {{projectdescription}}
@@ -32,13 +32,13 @@
 				      <button type="button" class="btn btn-default" id="buyButton" v-on:click="showBuyModal"><b>Buy</b></button>
               <button type="button" class="btn btn-default" v-on:click="showGraphModal"><b>Show Details</b></button>
 	       </td>
-				<td v-if="showSell" style="font-size:30px">
-					<a>Are you sure you want to sell {{projectname}}?</a>
+				<td class="tableEl" v-if="showSell" style="font-size:30px">
+					<a><b>Are you sure you want to sell {{projectname}} by {{author}}?</b></a>
 					<button type="button" class="btn btn-default" v-on:click="confirmSell">Yes</button>
 					<button type="button" class="btn btn-default" v-on:click="denySell">No</button>
 				</td>
-				<td v-if="showBuy" style="font-size:30px">
-					<a>Are you sure you want to buy {{projectname}}?</a>
+				<td class="tableEl" v-if="showBuy" style="font-size:30px">
+					<a><b>Are you sure you want to buy {{projectname}} by {{author}}?</b></a>
 					<button type="button" class="btn btn-default" v-on:click="confirmBuy">Yes</button>
 					<button type="button" class="btn btn-default" v-on:click="denyBuy">No</button>
 				</td>
@@ -47,7 +47,7 @@
     			<div class="modal-content">
       			<div class="modal-header">
               <button type="button" class="close" v-on:click="closeGraphModal">&times;</button>
-        		  <h5 class="modal-title">Details Over Time</h5>
+        		  <h5 class="modal-title">Details Overtime</h5>
       			</div>
       			<div class="modal-body">
               <div id="buttonOptionSet">

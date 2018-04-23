@@ -231,6 +231,10 @@ body,html {
   justify-content: center;
 }
 
+.tableEl {
+  height: 200px;
+  width: 500px;
+}
 
 
 .typewriter h1 {

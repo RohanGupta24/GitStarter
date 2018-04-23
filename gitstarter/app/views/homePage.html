@@ -10,6 +10,9 @@
  	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" type="text/css" charset="utf-8">
  	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+	<script src="../scripts/vue-charts.js"></script>
 
 
 	<!-- Latest compiled and minified JavaScript -->
@@ -38,6 +41,48 @@
 </div>
 </div>
 
+<script type="text/x-template" id="search-template">
+		<tr :id="index">
+	            <td class="tableEl" v-if="showElement" style="font-size:30px;"><img :src="icon" height="42" width="42"> <a :href="ownerurl" target="_blank">{{author}}</a>/
+	            <a :href="projecturl" target="_blank">{{projectname}}</a>
+	            <br>
+	            {{projectdescription}}
+	           	<br>
+	            <b>Price: {{price}}</b>
+              <button type="button" class="btn btn-default" v-on:click="showGraphModal"><b>Show Details</b></button>
+	       </td>
+				<div class="container" id="modalGraph" v-if="showGraph">
+  				<div class="modal-dialog">
+    			<div class="modal-content">
+      			<div class="modal-header">
+              <button type="button" class="close" v-on:click="closeGraphModal">&times;</button>
+        		  <h5 class="modal-title">Details Overtime</h5>
+      			</div>
+      			<div class="modal-body">
+              <div id="buttonOptionSet">
+                <button type="button" v-on:click="weekly()" class="btn btn-default">Weekly</button>
+                <button type="button" v-on:click="monthly()" class="btn btn-default">Monthly</button>
+                <button type="button" v-on:click="yearly()" class="btn btn-default">Annually</button>
+              </div>
+
+							<div v-model="headerTitle" class="lineGraphHeader">{{headerTitle}}</div>
+
+        		<vue-chart
+            :columns="columnsData"
+            :rows="rowsData"
+            :options="optionsData"
+        		></vue-chart>
+      			</div>
+      			<div class="modal-footer">
+        		<button type="button" id="OK" class="btn-lg btn-primary" v-on:click="closeGraphModal">OK</button>
+     		 	</div>
+    			</div>
+  				</div>
+  				</div>
+		</tr>
+
+	 </script>
+
 
 
 <body onload="onLoad()">
@@ -54,30 +99,19 @@
 
 
 		
-		<table class="table table-hover" id="table1">
-	 	<h1 id="tableTitle" v-model="tableHeader"><b>{{ tableHeader }}</b></h1>
-	    <tbody>
-	        <template v-for="project in ProjectsLists">
-
-	            <tr> 
-	            
-	           <td style="font-size:30px"><img v-bind:src="project.Icon" height="42" width="42"> <a v-bind:href="project.OwnerURL" target="_blank">{{project.Author}}</a> / <a v-bind:href="project.ProjectURL" target="_blank">{{project.ProjectName}}</a>
-
-	            <br>
-	            {{project.ProjectDescription }}
-	            <br>
-	            <b>Price: {{project.Prices}}</b>
-
-
-
-	            </td>
-	                <!-- <td>{{batch.Icon}}</td>
-	                <td>{{batch.ProjectName}}</td>
-	                <td>{{batch.Prices}}</td>
-	                 -->
-	 	
-	            </tr>
-	        </template>
+		 	<h1 id="tableTitle" v-model="tableHeader"><b>{{ tableHeader }}</b></h1>
+	 	<table class="table table-hover" id="table1">
+	 		<tbody>
+	        <tr is="search-box" v-for="project, key in ProjectsLists"
+	        	v-bind:icon="project.Icon"
+	        	v-bind:ownerurl="project.OwnerURL"
+	        	v-bind:author="project.Author"
+	        	v-bind:projecturl="project.ProjectURL"
+	        	v-bind:projectname="project.ProjectName"
+	        	v-bind:projectdescription="project.ProjectDescription"
+	        	v-bind:price="project.Prices"
+	        	v-bind:index="key">
+	        </tr>
 	    </tbody>
 	</table>
 </div>
