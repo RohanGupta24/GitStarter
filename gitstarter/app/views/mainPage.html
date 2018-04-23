@@ -3,7 +3,7 @@
 <head>
 
 	<title>GitStarter</title>
-	<script src="https://www.gstatic.com/charts/loader.js"></script>
+
 
 	<script src="https://code.jquery.com/jquery-latest.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
@@ -30,7 +30,7 @@
 	            <b>Price: {{price}}</b>
 	            <button type="button" class="btn btn-default" id="sellButton" v-on:click="showSellModal"><b>Sell</b></button>
 				      <button type="button" class="btn btn-default" id="buyButton" v-on:click="showBuyModal"><b>Buy</b></button>
-              <button type="button" v-on:click="showGraphModal"><b>Show Details</b></button>
+              <button type="button" class="btn btn-default" v-on:click="showGraphModal"><b>Show Details</b></button>
 	       </td>
 				<td v-if="showSell" style="font-size:30px">
 					<a>Are you sure you want to sell {{projectname}}?</a>
@@ -47,22 +47,25 @@
     			<div class="modal-content">
       			<div class="modal-header">
               <button type="button" class="close" v-on:click="closeGraphModal">&times;</button>
-        		  <h5 class="modal-title">Details</h5>
+        		  <h5 class="modal-title">Details Over Time</h5>
       			</div>
       			<div class="modal-body">
               <div id="buttonOptionSet">
-                <button type="button" v-on:click="weekly()" class="btn btn-default active">Weekly</button>
+                <button type="button" v-on:click="weekly()" class="btn btn-default">Weekly</button>
                 <button type="button" v-on:click="monthly()" class="btn btn-default">Monthly</button>
                 <button type="button" v-on:click="yearly()" class="btn btn-default">Annually</button>
               </div>
+
+							<div v-model="headerTitle" class="lineGraphHeader">{{headerTitle}}</div>
+
         		<vue-chart
-            :columns="columns"
-            :rows="rows"
-            :options="options"
+            :columns="columnsData"
+            :rows="rowsData"
+            :options="optionsData"
         		></vue-chart>
       			</div>
       			<div class="modal-footer">
-        		<button type="button" class="btn-lg btn-primary" v-on:click="closeGraphModal">OK</button>
+        		<button type="button" id="OK" class="btn-lg btn-primary" v-on:click="closeGraphModal">OK</button>
      		 	</div>
     			</div>
   				</div>
@@ -74,24 +77,30 @@
 	 <script type="text/x-template" id="navbar-template">
 	 	<div id="contain">
 	 	<a v-on:click="openpopup">{{projectownedname}}</a>
-	 	<div class="container" v-if="isProjectModal">
+	 	<div class="container" v-if="isProjectModal" id="modalProject">
 	 		<div class="modal-dialog">
 	 		<div class="modal-content">
       		<div class="modal-header">
         		<button type="button" style="background-color:red" class="close" v-on:click="closeProjectModal">&times;</button>
         		<h5 class="modal-title" style="text-align: center">{{projectownedname}} Investment Details</h5>
       		</div>
-      		<div class="modal-body" style="height: 200px">
-        		<strong>INFO</strong>
+      		<div class="modal-body">
+        		<div id="buttonOptionSet">
+                <button type="button" v-on:click="weekly()" class="btn btn-default">Weekly</button>
+                <button type="button" v-on:click="monthly()" class="btn btn-default">Monthly</button>
+                <button type="button" v-on:click="yearly()" class="btn btn-default">Annually</button>
+              </div>
+
+              <div v-model="headerTitle" class="lineGraphHeader">{{headerTitle}}</div>
 
               <vue-chart
-            :columns="columns"
-            :rows="rows"
-            :options="options"
+            :columns="columnsData"
+            :rows="rowsData"
+            :options="optionsData"
             ></vue-chart>
       		</div>
       		<div class="modal-footer">
-        		<button type="button" id="buttonOk" style="background-color:#337ab7" class="btn-lg btn-primary" v-on:click="closeProjectModal">OK</button>
+        		<button type="button" id="buttonOk" style="background-color:#337ab7" class="btn btn-default" v-on:click="closeProjectModal">OK</button>
       		</div>
   		</div>
   	</div>
@@ -153,12 +162,11 @@
         <button type="button" class="close" v-on:click="closeBalanceModal">&times;</button>
         <h5 class="modal-title">Balance Details</h5>
       </div>
-      <div class="modal-body" style="height: 200px">
-        <strong>INFO</strong>
+      <div class="modal-body">
         <vue-chart
-            :columns="columns"
-            :rows="rows"
-            :options="options"
+            :columns="columnsWeek"
+            :rows="rowsWeek"
+            :options="optionsWeek"
             ></vue-chart>
       </div>
       <div class="modal-footer">
