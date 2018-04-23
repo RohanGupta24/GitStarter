@@ -18,8 +18,7 @@
 
 }
 
-#jumbo button {
-
+#logoutButton {
     float:right;
     display:block;
     background:none;
@@ -31,6 +30,11 @@
      /*border is optional*/
      padding-right: 30px;
      cursor: pointer;
+}
+
+#jumbo button {
+
+    float: center;
 
 }
 
@@ -178,11 +182,6 @@ html, body {
   width: 800px;
 }
 
-#modalProject {
-  height: 500px;
-  width: 800px;
-}
-
 
 .modal-content {
     margin: auto;
@@ -196,7 +195,7 @@ body,html {
 
 .container {
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 1000; /* Sit on top */
     /* Full height */
     top: 200px;
     left: 200px;
@@ -204,6 +203,10 @@ body,html {
     width: 600px;
     /*background-color: rgb(0,0,0);*/ /* Fallback color */
      /* Black w/ opacity */
+}
+
+.modal-body {
+  z-index: 3;
 }
 
 .modal-header {

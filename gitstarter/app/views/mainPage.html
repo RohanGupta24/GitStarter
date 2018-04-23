@@ -81,7 +81,7 @@
 	 		<div class="modal-dialog">
 	 		<div class="modal-content">
       		<div class="modal-header">
-        		<button type="button" style="background-color:red" class="close" v-on:click="closeProjectModal">&times;</button>
+        		<button type="button" class="close" v-on:click="closeProjectModal">&times;</button>
         		<h5 class="modal-title" style="text-align: center">{{projectownedname}} Investment Details</h5>
       		</div>
       		<div class="modal-body">
@@ -89,7 +89,7 @@
                 <button type="button" v-on:click="weekly()" class="btn btn-default">Weekly</button>
                 <button type="button" v-on:click="monthly()" class="btn btn-default">Monthly</button>
                 <button type="button" v-on:click="yearly()" class="btn btn-default">Annually</button>
-              </div>
+            </div>
 
               <div v-model="headerTitle" class="lineGraphHeader">{{headerTitle}}</div>
 
@@ -126,7 +126,7 @@
 		<nav id="navbar" class="navbar navbar-default navbar-fixed-top">
 
 		<span id="hamburger" onclick="openNav()">&#9776;</span>
-			<button v-on:click="BacktoHomePage">Logout</button>
+			<button id="logoutButton" v-on:click="BacktoHomePage">Logout</button>
 			<div class="typewriter">
 			<div id="projectTitle">
 		  		<h1 id=upperText>GitStarter</h1>
