@@ -9,12 +9,46 @@ function closeNav() {
 function onLoad() {
 Vue.use(VueCharts);
 
-
 Vue.component("navbar-box", {
   template: "#navbar-template",
   props: ["projectownedname"],
   data: function() {
-    return {isProjectModal: false};
+    return {isProjectModal: false,
+    columns: [{
+            'type': 'string',
+            'label': 'Year'
+        }, {
+            'type': 'number',
+            'label': 'Sales'
+        }, {
+            'type': 'number',
+            'label': 'Expenses'
+        }],
+        rows: [
+            ['2004', 1000, 400],
+            ['2005', 1170, 460],
+            ['2006', 660, 1120],
+            ['2007', 1030, 540]
+        ],
+        options: {
+            title: 'Company Performance',
+            textAlign: 'center',
+            hAxis: {
+                title: 'Year',
+                minValue: '2004',
+                maxValue: '2005'
+            },
+            vAxis: {
+                title: '$',
+                minValue: 300,
+                maxValue: 1200
+            },
+            width: 500,
+            height: 200,
+            linearType: 'function',
+            backgroundColor: '#f87979'
+        } 
+    };
   },
   methods: {
     closeProjectModal: function() {
@@ -50,10 +84,8 @@ Vue.component("search-box", {
             ['2007', 1030, 540]
         ],
         options: {
-            legend: {
-              display: true
-            },
             title: 'Company Performance',
+            textAlign: 'center',
             hAxis: {
                 title: 'Year',
                 minValue: '2004',
@@ -73,21 +105,28 @@ Vue.component("search-box", {
       };
     },
     methods: {
+      weekly: function() {
+        console.log("weekly")
+      },
+      monthly: function() {
+        console.log("monthly")
+      },
+      yearly: function() {
+        console.log("yearly")
+      },
       showSellModal: function() {
         this.showSell = true;
-	this.showBuy = false;
-        this.showElement = true;
+	      this.showBuy = false;
+        this.showElement = false;
       },
       showBuyModal: function() {
         this.showBuy = true;
         this.showSell = false;
-        this.showElement = true;
+        this.showElement = false;
       },
 
       showGraphModal: function() {
-        console.log("hello");
         this.showGraph = true;
-
       },
 
       closeGraphModal: function() {
@@ -110,7 +149,7 @@ Vue.component("search-box", {
         this.showSell = false;
         this.showBuy = false;
         this.showElement = true;
-      }
+      },
     }
   });
 
@@ -128,6 +167,40 @@ var vm = new Vue({
         showBuy: false,
         balanceAmount: 200,
         isBalanceModal: false,
+        columns: [{
+            'type': 'string',
+            'label': 'Year'
+        }, {
+            'type': 'number',
+            'label': 'Sales'
+        }, {
+            'type': 'number',
+            'label': 'Expenses'
+        }],
+        rows: [
+            ['2004', 1000, 400],
+            ['2005', 1170, 460],
+            ['2006', 660, 1120],
+            ['2007', 1030, 540]
+        ],
+        options: {
+            title: 'Company Performance',
+            textAlign: 'center',
+            hAxis: {
+                title: 'Year',
+                minValue: '2004',
+                maxValue: '2005'
+            },
+            vAxis: {
+                title: '$',
+                minValue: 300,
+                maxValue: 1200
+            },
+            width: 500,
+            height: 200,
+            linearType: 'function',
+            backgroundColor: '#f87979'
+        },
         isSellModal: false,
         isBuyModal: false,
         busy: false,

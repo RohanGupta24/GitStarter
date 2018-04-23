@@ -29,16 +29,16 @@
 	           	<br>
 	            <b>Price: {{price}}</b>
 	            <button type="button" class="btn btn-default" id="sellButton" v-on:click="showSellModal"><b>Sell</b></button>
-				<button type="button" class="btn btn-default" id="buyButton" v-on:click="showBuyModal"><b>Buy</b></button>
-				<button type="button" class="btn btn-default" id="graphButton" v-on:click="showGraphModal"><b>Show Details</b></button>
-	            </td>
+				      <button type="button" class="btn btn-default" id="buyButton" v-on:click="showBuyModal"><b>Buy</b></button>
+              <button type="button" v-on:click="showGraphModal"><b>Show Details</b></button>
+	       </td>
 				<td v-if="showSell" style="font-size:30px">
-					<a>Are you sure you want to sell this?</a>
+					<a>Are you sure you want to sell {{projectname}}?</a>
 					<button type="button" class="btn btn-default" v-on:click="confirmSell">Yes</button>
 					<button type="button" class="btn btn-default" v-on:click="denySell">No</button>
 				</td>
 				<td v-if="showBuy" style="font-size:30px">
-					<a>Are you sure you want to buy this?</a>
+					<a>Are you sure you want to buy {{projectname}}?</a>
 					<button type="button" class="btn btn-default" v-on:click="confirmBuy">Yes</button>
 					<button type="button" class="btn btn-default" v-on:click="denyBuy">No</button>
 				</td>
@@ -50,8 +50,11 @@
         		  <h5 class="modal-title">Details</h5>
       			</div>
       			<div class="modal-body">
-        		<strong>PENIS</strong>
-
+              <div id="buttonOptionSet">
+                <button type="button" v-on:click="weekly()" class="btn btn-default active">Weekly</button>
+                <button type="button" v-on:click="monthly()" class="btn btn-default">Monthly</button>
+                <button type="button" v-on:click="yearly()" class="btn btn-default">Annually</button>
+              </div>
         		<vue-chart
             :columns="columns"
             :rows="rows"
@@ -80,6 +83,12 @@
       		</div>
       		<div class="modal-body" style="height: 200px">
         		<strong>INFO</strong>
+
+              <vue-chart
+            :columns="columns"
+            :rows="rows"
+            :options="options"
+            ></vue-chart>
       		</div>
       		<div class="modal-footer">
         		<button type="button" id="buttonOk" style="background-color:#337ab7" class="btn-lg btn-primary" v-on:click="closeProjectModal">OK</button>
@@ -146,6 +155,11 @@
       </div>
       <div class="modal-body" style="height: 200px">
         <strong>INFO</strong>
+        <vue-chart
+            :columns="columns"
+            :rows="rows"
+            :options="options"
+            ></vue-chart>
       </div>
       <div class="modal-footer">
         <button type="button" id="confirmAddYes" class="btn-lg btn-primary" v-on:click="closeBalanceModal">OK</button>
