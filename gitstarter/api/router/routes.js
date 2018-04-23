@@ -15,4 +15,5 @@ module.exports = function(app) {
   app.get('/data/month', projectController.getMonthData);
   app.get('/data/year', projectController.getYearData);
   app.post('/invest', investController.investProject);
+  app.post('/sell', investController.sellProject);
 }
