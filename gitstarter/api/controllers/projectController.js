@@ -268,7 +268,7 @@ exports.getYearData = function (req, res, next) {
       for(var z = 0; z < 7; z++) {
         myArray[l][1]+=totalData[dayOfWeek-z];
       }
-      // dayOfWeek=dayOfWeek-7;
+       dayOfWeek=dayOfWeek-7;
       // if(dayOfWeek < 7) {
       //   myArray[l][1]=-1;
       //   break;
