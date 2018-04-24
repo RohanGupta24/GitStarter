@@ -182,23 +182,6 @@ html, body {
   width: 800px;
 }
 
-#modalSell {
-  top: 300px;
-  left: 300px;
-}
-
-#modalBuy {
-  top: 300px;
-  left: 300px;
-}
-
-
-.modal-content {
-    margin: auto;
-    padding: 20px;
-    
-}
-
 body,html {
   height: 100%;
 }
@@ -209,13 +192,13 @@ body,html {
     /* Full height */
     top: 200px;
     left: 300px;
-    height: 500px;
-    width: 600px;
+    height: 800px;
+    width: 900px;
     /*background-color: rgb(0,0,0);*/ /* Fallback color */
      /* Black w/ opacity */
 }
 
-.modal-body {
+-body {
   z-index: 3;
   width: 500px;
   height: 400px;
