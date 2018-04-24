@@ -33,9 +33,9 @@
 <!--   <h1 id=upperText>GitStarter</h1> -->
 
 <!--   <hr class="my-4">
- -->  
+ -->
  <div id="LoginButton">
-  <a class="btn btn-primary btn-lg" href="http://github.com" role="button"><i class="icon ion-social-github"></i>  Login/Register</a>
+  <a class="btn btn-primary btn-lg" href="/login" role="button"><i class="icon ion-social-github"></i>  Login/Register</a>
 </div>
 </div>
 
@@ -54,7 +54,7 @@
 
 
 
-		
+
 		<table class="table table-hover" id="table1">
 	 	<h1 id="tableTitle" v-model="tableHeader"><b>{{ tableHeader }}</b></h1>
 	    <tbody>
@@ -62,8 +62,8 @@
 
 	            <tr>
 
-	            <tr> 
-	            
+	            <tr>
+
 	           <td style="font-size:30px"><img v-bind:src="project.Icon" height="42" width="42"> <a v-bind:href="project.OwnerURL" target="_blank">{{project.Author}}</a> / <a v-bind:href="project.ProjectURL" target="_blank">{{project.ProjectName}}</a>
 
 	            <br>
