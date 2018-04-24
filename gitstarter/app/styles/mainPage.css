@@ -182,11 +182,21 @@ html, body {
   width: 800px;
 }
 
+#modalSell {
+  top: 300px;
+  left: 300px;
+}
+
+#modalBuy {
+  top: 300px;
+  left: 300px;
+}
+
 
 .modal-content {
     margin: auto;
     padding: 20px;
-    width: 100%;
+    
 }
 
 body,html {
@@ -195,10 +205,10 @@ body,html {
 
 .container {
     position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
+    z-index: 1; /* Sit on top */
     /* Full height */
     top: 200px;
-    left: 200px;
+    left: 300px;
     height: 500px;
     width: 600px;
     /*background-color: rgb(0,0,0);*/ /* Fallback color */
@@ -207,6 +217,8 @@ body,html {
 
 .modal-body {
   z-index: 3;
+  width: 500px;
+  height: 400px;
 }
 
 .modal-header {
