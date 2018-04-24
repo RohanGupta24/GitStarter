@@ -21,6 +21,12 @@ exports.callback = function(req, res) {
   return githubOAuth.callback(req, res);
 };
 
+exports.logout = function(req, res) {
+  res.clearCookie('username');
+  res.clearCookie('session_token');
+  res.redirect('/');
+};
+
 githubOAuth.on('error', function(err, res) {
   console.log(err);
   res.status(401).redirect('/');
