@@ -4,17 +4,12 @@
 
 	<title>GitStarter</title>
 
-  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"></link>
-  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"></link>
 	<script src="https://code.jquery.com/jquery-latest.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 	<script src="../scripts/mainPage.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
   <script src="../scripts/vue-charts.js"></script>
-  <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
-<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
-
 	<!-- <script src="../../../node_modules/vue-infinite-scroll/vue-infinite-scroll.js"></script> -->
  	<link rel="stylesheet" type="text/css" href="../styles/mainPage.css"></link>
 
@@ -32,16 +27,27 @@
 	            {{projectdescription}}
 	           	<br>
 	            <b>Price: {{price}}</b>
-              <b-btn v-on:click="showSellModal">Sell</b-btn>
-              <b-btn v-on:click="showBuyModal">Buy</b-btn>
+                <button type="button" id="sellButton" class="btn btn-default" v-on:click="showSellModal"><b>Sell</b></button>
+               <button type="button" id="buyButton" class="btn btn-default" v-on:click="showBuyModal"><b>Buy</b></button>
               <button type="button" class="btn btn-default" v-on:click="showGraphModal"><b>Show Details</b></button>
 	           </td>
-             <div v-if="showSell">
-              <b-modal>
-              <div class="d-block">Hello From My Modal!</div>
-              <b-btn @click="closeSellModal">No</b-btn>
-              </b-modal>
+             <div class="container" id="modalSell" v-if="showSell">
+          <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" v-on:click="closeSellModal">&times;</button>
+              <h5 class="modal-title">Verify Sell</h5>
             </div>
+          <div class="modal-body">
+            <a><b>Are you sure you want to sell {{projectname}} by {{author}}?</b></a>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" v-on:click="confirmSell">Yes</button>
+          <button type="button" class="btn btn-default" v-on:click="denySell">No</button>
+        </div>
+      </div>
+      </div>
+      </div>
 					 <div class="container" id="modalBuy" v-if="showBuy">
           <div class="modal-dialog">
           <div class="modal-content">
