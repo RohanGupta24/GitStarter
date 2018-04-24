@@ -342,7 +342,7 @@ Vue.component("search-box", {
       this.headerTitle = "Weekly Performance";
     },
     data: function() {
-      return {headerTitle: "", columnsData: this.columnsWeek, rowsData: this.rowsWeek, optionsData: this.optionsWeek, showSell: false, showBuy: false, showGraph: false,
+      return {headerTitle: "", columnsData: this.columnsWeek, rowsData: this.rowsWeek, optionsData: this.optionsWeek, showElement: false, showSell: false, showBuy: false, showGraph: false,
         columnsWeek: [{
             'type': 'string',
             'label': 'Days'
@@ -544,18 +544,22 @@ Vue.component("search-box", {
       showSellModal: function() {
         this.showSell = true;
 	      this.showBuy = false;
+          this.showElement = false;
       },
       closeSellModal: function() {
         this.showSell = false;
         this.showBuy = false;
+        this.showElement = true;
       },
       showBuyModal: function() {
         this.showBuy = true;
         this.showSell = false;
+        this.showElement = false;
       },
       closeBuyModal: function() {
         this.showBuy = false;
         this.showSell = false;
+        this.showElement = true;
       },
       showGraphModal: function() {
         this.showGraph = true;
@@ -570,6 +574,7 @@ Vue.component("search-box", {
       denyBuy: function() {
         this.showSell = false;
         this.showBuy = false;
+        this.showElement = true;
       },
       confirmSell: function() {
         //IMPORTANT
@@ -578,6 +583,7 @@ Vue.component("search-box", {
       denySell: function() {
         this.showSell = false;
         this.showBuy = false;
+        this.showElement = false;
       },
     }
   });
