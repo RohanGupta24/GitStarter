@@ -7,30 +7,34 @@
     padding-top:50px;
     padding-bottom:100px;
     height: 50px;
-    
+
 }
 
 #myProjects {
-  
+
 }
 
 #OrderPickContainer {
-  
+
 }
 
-#jumbo button {
-
+#logoutButton {
     float:right;
     display:block;
     background:none;
     color: #f2f2f2;
-    border:none; 
+    border:none;
     padding:0;
     font-weight: bold;
     font-size: 30px;
      /*border is optional*/
      padding-right: 30px;
      cursor: pointer;
+}
+
+#jumbo button {
+
+    float: center;
 
 }
 
@@ -131,8 +135,8 @@ html, body {
     overflow-x: hidden;
 }
  #table1 {
-    width:70%; 
-    margin-left:15%; 
+    width:70%;
+    margin-left:15%;
     margin-right:35%;
     height: 50px;
     vertical-align: middle;
@@ -173,11 +177,26 @@ html, body {
   justify-content: center;
 }
 
+#modalBalance {
+  height: 500px;
+  width: 800px;
+}
+
+#modalSell {
+  top: 300px;
+  left: 300px;
+}
+
+#modalBuy {
+  top: 300px;
+  left: 300px;
+}
+
 
 .modal-content {
     margin: auto;
     padding: 20px;
-    width: 100%;
+    
 }
 
 body,html {
@@ -188,18 +207,29 @@ body,html {
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     /* Full height */
-    top: 400px;
-    left: 200px;
+    top: 200px;
+    left: 300px;
     height: 500px;
-    width: 1000px;
+    width: 600px;
     /*background-color: rgb(0,0,0);*/ /* Fallback color */
      /* Black w/ opacity */
+}
+
+.modal-body {
+  z-index: 3;
+  width: 500px;
+  height: 400px;
 }
 
 .modal-header {
   text-align: center;
 }
 
+.lineGraphHeader {
+  text-align: center;
+  padding-bottom: 1px;
+  font-size: 40px;
+}
 .modal-title {
   text-align: center;
 }
@@ -209,10 +239,17 @@ body,html {
 }
 
 .modal-dialog {
-  
+  min-height: 3000px;
+  min-width: 1000px;
+}
+#OK {
+  justify-content: center;
 }
 
-
+.tableEl {
+  height: 200px;
+  width: 500px;
+}
 
 
 .typewriter h1 {
@@ -221,7 +258,7 @@ body,html {
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
   letter-spacing: .15em; /* Adjust as needed */
-  animation: 
+  animation:
     typing 3.5s steps(40, end),
     blink-caret .75s step-end infinite;
 }
