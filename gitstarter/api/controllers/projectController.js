@@ -102,9 +102,18 @@ exports.getWeekData = function (req, res, next) {
       dayOfWeek--;
 
     }
-
+    var min = NUMBER.MAX_VALUE;
+    var max = -1;
+    for(var fukYou = 0; fukYou < 7; fukYou++){
+      if(myArray[fukYou][1] >max)
+        max = myArray[fukYou][1];
+      if(myArray[fukYou][1] < min)
+        min = myArray[fukYou][1];
+    }
     const data = {
-      "data" : myArray
+      "data" : myArray,
+      "max" : max,
+      "min" : min
     }
     res.send(data);
   }).catch(function(err) {
@@ -186,9 +195,18 @@ exports.getMonthData = function (req, res, next) {
       dayOfWeek--;
 
     }
-
+    var min = NUMBER.MAX_VALUE;
+    var max = -1;
+    for(var fukYou = 0; fukYou < 30; fukYou++){
+      if(myArray[fukYou][1] >max)
+        max = myArray[fukYou][1];
+      if(myArray[fukYou][1] < min)
+        min = myArray[fukYou][1];
+    }
     const data = {
-      "data" : myArray
+      "data" : myArray,
+      "max" : max,
+      "min" : min
     }
     res.send(data);
   }).catch(function(err) {
@@ -269,16 +287,19 @@ exports.getYearData = function (req, res, next) {
         myArray[l][1]+=totalData[dayOfWeek-z];
       }
        dayOfWeek=dayOfWeek-7;
-      // if(dayOfWeek < 7) {
-      //   myArray[l][1]=-1;
-      //   break;
-      // }
-
-
     }
-
+    var min = NUMBER.MAX_VALUE;
+    var max = -1;
+    for(var fukYou = 0; fukYou < 51; fukYou++){
+      if(myArray[fukYou][1] >max)
+        max = myArray[fukYou][1];
+      if(myArray[fukYou][1] < min)
+        min = myArray[fukYou][1];
+    }
     const data = {
-      "data" : myArray
+      "data" : myArray,
+      "max" : max,
+      "min" : min
     }
     res.send(data);
   }).catch(function(err) {

@@ -533,7 +533,6 @@ Vue.component("search-box", {
           method: 'GET',
         })
         .then(function(res) {
-
           if(res.ok) {
             res.json().then(function(data) {
               console.log(data);
@@ -542,6 +541,8 @@ Vue.component("search-box", {
               self.columns = "columnWeek";
               self.rows = "rowWeek";
               self.options = "optionWeek";
+              self.optionsWeek.vAxis.minValue = data.min;
+              self.optionsWeek.vAxis.maxValue = data.max;
             }.bind(self));
           }
         }).catch(function(err) {
