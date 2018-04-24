@@ -6,4 +6,4 @@ Project Name: GitStarter
 
 Project Description: A web application that allows users to invest in open source projects on Github. Investment value will change based on the level of activity (number of commits, insertions, and deletions) that the repository has. Some features of the project include a "My Investment" page that lists all of the user's current investments, a page that allows users to search for open source projects to invest in, and a progress page that shows how the investments are doing. Statistics for the number of commits will be shown on a graph.
 
-Technologies/Services: Vue.js (Web Framework), Node.js (Server Framework), D3.js (Frontend Visualization), Github API v3, PostgreSQL (Database), Heroku (Hosting)
+Technologies/Services: Vue.js (Web Framework), Node.js (Server Framework),vue-charts (Frontend Visualization), Github API v3, PostgreSQL (Database), Heroku (Hosting)
