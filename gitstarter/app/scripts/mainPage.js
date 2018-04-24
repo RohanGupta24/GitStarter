@@ -542,7 +542,7 @@ Vue.component("search-box", {
               self.columns = "columnWeek";
               self.rows = "rowWeek";
               self.options = "optionWeek";
-            }.bind(this));
+            }.bind(self));
           }
         }).catch(function(err) {
           console.log("Week Charts Error");
