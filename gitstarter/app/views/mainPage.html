@@ -3,11 +3,21 @@
 <head>
 
 	<title>GitStarter</title>
+
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"></link>
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"></link>
 	<script src="https://code.jquery.com/jquery-latest.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 	<script src="../scripts/mainPage.js"></script>
-	<script src="../../../node_modules/vue-infinite-scroll/vue-infinite-scroll.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+  <script src="../scripts/vue-charts.js"></script>
+  <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+
+	<!-- <script src="../../../node_modules/vue-infinite-scroll/vue-infinite-scroll.js"></script> -->
  	<link rel="stylesheet" type="text/css" href="../styles/mainPage.css"></link>
+
  	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" type="text/css" charset="utf-8">
  	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -16,44 +26,97 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script type="text/x-template" id="search-template">
 		<tr :id="index">
-	            <td v-if="showElement" style="font-size:30px"><img :src="icon" height="42" width="42"> <a :href="ownerurl" target="_blank">{{author}}</a>/
+	            <td class="tableEl" style="font-size:30px;"><img :src="icon" height="42" width="42"> <a :href="ownerurl" target="_blank">{{author}}</a>/
 	            <a :href="projecturl" target="_blank">{{projectname}}</a>
 	            <br>
 	            {{projectdescription}}
 	           	<br>
 	            <b>Price: {{price}}</b>
-	            <button type="button" class="btn btn-default" id="sellButton" v-on:click="showSellModal"><b>Sell</b></button>
-				<button type="button" class="btn btn-default" id="buyButton" v-on:click="showBuyModal"><b>Buy</b></button>
-	            </td>
-				<td v-if="showSell" style="font-size:30px">
-					<a>Are you sure you want to sell this?</a>
-					<button type="button" class="btn btn-default" v-on:click="confirmSell">Yes</button>
-					<button type="button" class="btn btn-default" v-on:click="denySell">No</button>
-				</td>
-				<td v-if="showBuy" style="font-size:30px">
-					<a>Are you sure you want to buy this?</a>
-					<button type="button" class="btn btn-default" v-on:click="confirmBuy">Yes</button>
-					<button type="button" class="btn btn-default" v-on:click="denyBuy">No</button>
-				</td>
-		</tr>
-		
+              <b-btn v-on:click="showSellModal">Sell</b-btn>
+              <b-btn v-on:click="showBuyModal">Buy</b-btn>
+              <button type="button" class="btn btn-default" v-on:click="showGraphModal"><b>Show Details</b></button>
+	           </td>
+             <div v-if="showSell">
+              <b-modal>
+              <div class="d-block">Hello From My Modal!</div>
+              <b-btn @click="closeSellModal">No</b-btn>
+              </b-modal>
+            </div>
+					 <div class="container" id="modalBuy" v-if="showBuy">
+          <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" v-on:click="closeBuyModal">&times;</button>
+              <h5 class="modal-title">Verify Purchase</h5>
+            </div>
+          <div class="modal-body">
+            <a><b>Are you sure you want to buy {{projectname}} by {{author}}?</b></a>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" v-on:click="confirmBuy">Yes</button>
+          <button type="button" class="btn btn-default" v-on:click="denyBuy">No</button>
+        </div>
+      </div>
+      </div>
+      </div>
+				<div class="container" id="modalGraph" v-if="showGraph">
+  				<div class="modal-dialog">
+    			<div class="modal-content">
+      			<div class="modal-header">
+              <button type="button" class="close" v-on:click="closeGraphModal">&times;</button>
+        		  <h5 class="modal-title">Details Overtime</h5>
+      			</div>
+      			<div class="modal-body">
+              <div id="buttonOptionSet">
+                <button type="button" v-on:click="weekly()" class="btn btn-default">Weekly</button>
+                <button type="button" v-on:click="monthly()" class="btn btn-default">Monthly</button>
+                <button type="button" v-on:click="yearly()" class="btn btn-default">Annually</button>
+              </div>
+
+							<div v-model="headerTitle" class="lineGraphHeader">{{headerTitle}}</div>
+
+        		<vue-chart
+            :columns="columnsData"
+            :rows="rowsData"
+            :options="optionsData"
+        		></vue-chart>
+      			</div>
+      			<div class="modal-footer">
+        		<button type="button" id="OK" class="btn-lg btn-primary" v-on:click="closeGraphModal">OK</button>
+     		 	</div>
+    			</div>
+  				</div>
+  				</div>
+      </tr>
 	 </script>
 
 	 <script type="text/x-template" id="navbar-template">
 	 	<div id="contain">
 	 	<a v-on:click="openpopup">{{projectownedname}}</a>
-	 	<div class="container" v-if="isProjectModal">
+	 	<div class="container" v-if="isProjectModal" id="modalProject">
 	 		<div class="modal-dialog">
 	 		<div class="modal-content">
       		<div class="modal-header">
-        		<button type="button" style="background-color:red" class="close" v-on:click="closeProjectModal">&times;</button>
+        		<button type="button" class="close" v-on:click="closeProjectModal">&times;</button>
         		<h5 class="modal-title" style="text-align: center">{{projectownedname}} Investment Details</h5>
       		</div>
-      		<div class="modal-body" style="height: 200px">
-        		<strong>INFO</strong>
+      		<div class="modal-body">
+        		<div id="buttonOptionSet">
+                <button type="button" v-on:click="weekly()" class="btn btn-default">Weekly</button>
+                <button type="button" v-on:click="monthly()" class="btn btn-default">Monthly</button>
+                <button type="button" v-on:click="yearly()" class="btn btn-default">Annually</button>
+            </div>
+
+              <div v-model="headerTitle" class="lineGraphHeader">{{headerTitle}}</div>
+
+              <vue-chart
+            :columns="columnsData"
+            :rows="rowsData"
+            :options="optionsData"
+            ></vue-chart>
       		</div>
       		<div class="modal-footer">
-        		<button type="button" id="buttonOk" style="background-color:#337ab7" class="btn-lg btn-primary" v-on:click="closeProjectModal">OK</button>
+        		<button type="button" id="buttonOk" style="background-color:#337ab7" class="btn btn-default" v-on:click="closeProjectModal">OK</button>
       		</div>
   		</div>
   	</div>
@@ -79,7 +142,7 @@
 		<nav id="navbar" class="navbar navbar-default navbar-fixed-top">
 
 		<span id="hamburger" onclick="openNav()">&#9776;</span>
-			<button v-on:click="BacktoHomePage">Logout</button>
+			<button id="logoutButton" v-on:click="BacktoHomePage">Logout</button>
 			<div class="typewriter">
 			<div id="projectTitle">
 		  		<h1 id=upperText>GitStarter</h1>
@@ -98,7 +161,7 @@
 	</div>
 		</div>
 
-  
+
 
 	<h1 id="welcomeTag">Welcome {{user}}</h1>
 	<h2 id="introduceBalanceTag">Here is your balance:</h2>
@@ -115,8 +178,12 @@
         <button type="button" class="close" v-on:click="closeBalanceModal">&times;</button>
         <h5 class="modal-title">Balance Details</h5>
       </div>
-      <div class="modal-body" style="height: 200px">
-        <strong>INFO</strong>
+      <div class="modal-body">
+        <vue-chart
+            :columns="columnsWeek"
+            :rows="rowsWeek"
+            :options="optionsWeek"
+            ></vue-chart>
       </div>
       <div class="modal-footer">
         <button type="button" id="confirmAddYes" class="btn-lg btn-primary" v-on:click="closeBalanceModal">OK</button>
@@ -180,6 +247,7 @@
     			</div>
   				</div>
   				</div>
+
 	                <!-- <td>{{batch.Icon}}</td>
 	                <td>{{batch.ProjectName}}</td>
 	                <td>{{batch.Prices}}</td>
