@@ -256,6 +256,7 @@ Vue.component("navbar-box", {
         this.rows = "rowWeek";
         this.options = "optionWeek";
         this.headerTitle = "Weekly Performance";
+
       },
     monthly: function() {
         this.columns = "columnMonth";
@@ -524,10 +525,28 @@ Vue.component("search-box", {
     },
     methods: {
       weekly: function() {
-        this.columns = "columnWeek";
-        this.rows = "rowWeek";
-        this.options = "optionWeek";
+        self=this;
         this.headerTitle = "Weekly Performance";
+
+        var url = "/data/week?owner=" +this.author+ "&repo="+this.projectname;
+        fetch(url, {
+          method: 'GET',
+        })
+        .then(function(res) {
+
+          if(res.ok) {
+            res.json().then(function(data) {
+              console.log(data);
+              self.rowsWeek=data.data;
+              console.log(this.rowsWeek);
+              self.columns = "columnWeek";
+              self.rows = "rowWeek";
+              self.options = "optionWeek";
+            }.bind(this));
+          }
+        }).catch(function(err) {
+          console.log("Week Charts Error");
+        });
       },
       monthly: function() {
         this.columns = "columnMonth";
