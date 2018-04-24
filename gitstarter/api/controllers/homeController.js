@@ -6,7 +6,11 @@ var scraper = new Trending.Scraper();
 const baseURL = "https://api.github.com";
 
 exports.getHome = function (req, res, next) {
-  res.sendFile(path.join(__dirname, '../../app/views/homePage.html'));
+  if (req.cookies.session_token == null) {
+    res.sendFile(path.join(__dirname, '../../app/views/homePage.html'));
+  } else {
+    res.redirect('/home');
+  }
 };
 
 exports.getTrending = function (req, res, next) {

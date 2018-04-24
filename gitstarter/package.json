@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "chai": "^4.1.2",
+    "cookie-parser": "^1.4.3",
     "ejs": "^2.5.8",
     "express": "^4.16.3",
     "express-vue": "^5.6.2",
@@ -18,8 +19,7 @@
     "node-fetch": "^2.1.2",
     "npm": "^5.8.0",
     "path": "^0.12.7",
-    "pg": "^7.4.1"
-    "path": "^0.12.7",
+    "pg": "^7.4.1",
     "vue-infinite-scroll": "^2.0.2"
   },
   "devDependencies": {
