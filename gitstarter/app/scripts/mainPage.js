@@ -897,7 +897,9 @@ var vm = new Vue({
         this.isBuyModal = false;
       },
       BacktoHomePage: function() {
-	     window.location.href="homePage.html"
+	     fetch('/logout').catch(function(err) {
+         console.log(err);
+       });
 	   },
      loadMore: function() {
       this.busy = true;

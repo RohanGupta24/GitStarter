@@ -12,6 +12,7 @@ module.exports = function(app) {
   app.get('/trending', homeController.getTrending);
   app.get('/value', homeController.getValue);
   app.get('/login', loginController.login);
+  app.get('/logout', loginController.logout);
   app.get('/main', loginController.callback);
   app.get('/data/week', projectController.getWeekData);
   app.get('/data/month', projectController.getMonthData);
