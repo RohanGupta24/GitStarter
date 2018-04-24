@@ -550,16 +550,54 @@ Vue.component("search-box", {
         });
       },
       monthly: function() {
-        this.columns = "columnMonth";
-        this.rows = "rowMonth";
-        this.options = "optionMonth";
+        self=this;
         this.headerTitle = "Monthly Performance";
+
+        var url = "/data/month?owner=" +this.author+ "&repo="+this.projectname;
+        fetch(url, {
+          method: 'GET',
+        })
+        .then(function(res) {
+          if(res.ok) {
+            res.json().then(function(data) {
+              console.log(data);
+              self.rowsMonth=data.data;
+              console.log(this.rowsWeek);
+              self.columns = "columnMonth";
+              self.rows = "rowMonth";
+              self.options = "optionMonth";
+              self.optionsMonth.vAxis.minValue = data.min;
+              self.optionsMonth.vAxis.maxValue = data.max;
+            }.bind(self));
+          }
+        }).catch(function(err) {
+          console.log("Month Charts Error");
+        });
       },
       yearly: function() {
-        this.columns = "columnYear";
-        this.rows = "rowYear";
-        this.options = "optionYear";
+        self=this;
         this.headerTitle = "Yearly Performance";
+
+        var url = "/data/year?owner=" +this.author+ "&repo="+this.projectname;
+        fetch(url, {
+          method: 'GET',
+        })
+        .then(function(res) {
+          if(res.ok) {
+            res.json().then(function(data) {
+              console.log(data);
+              self.rowsYear=data.data;
+              console.log(this.rowsWeek);
+              self.columns = "columnYear";
+              self.rows = "rowYear";
+              self.options = "optionYear";
+              self.optionsYear.vAxis.minValue = data.min;
+              self.optionsYear.vAxis.maxValue = data.max;
+            }.bind(self));
+          }
+        }).catch(function(err) {
+          console.log("Year Charts Error");
+        });
       },
       showSellModal: function() {
         this.showSell = true;
