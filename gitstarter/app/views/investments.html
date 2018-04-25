@@ -1,0 +1,133 @@
+<html>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <script src="https://code.jquery.com/jquery-latest.js"></script>
+  <!-- Required Stylesheets -->
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+
+  <!-- Required scripts -->
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.min.js"></script>
+  <script src="../scripts/vue-charts.js"></script>
+  <script src="../scripts/investments.js"></script>
+  <link type="text/css" rel="stylesheet" href="../styles/investments.css"/>
+
+  <script type="text/x-template" id="project-template">
+    <tr :id="index">
+      <td class="tableEl" v-if="showElement" style="font-size:30px;">
+        <img :src="icon" height="42" width="42">
+        <br>
+        <a :href="ownerurl" target="_blank">{{author}}</a>/<a :href="projecturl" target="_blank">{{projectname}}</a>
+        <br>
+        <h5>{{projectdescription}}</h5>
+       	<br>
+        <b>Price: {{price}}G</b>
+    		<br>
+        <!-- <button type="button" class="btn btn-default" v-on:click="showGraphModal"><b>Show Details</b></button> -->
+      </td>
+		</tr>
+ </script>
+
+</head>
+<body onload="bodyOnload()">
+  <div id="app">
+    <b-navbar id="navbar" toggleable="md" type="dark" variant="info">
+
+      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+
+      <b-navbar-brand href="#">GitStarter</b-navbar-brand>
+
+      <b-collapse is-nav id="nav_collapse">
+
+        <b-navbar-nav>
+          <b-nav-item href="#">My Investments</b-nav-item>
+          <b-nav-item href="/explore">Explore</b-nav-item>
+        </b-navbar-nav>
+
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item href="/logout">Sign out</b-nav-item>
+        </b-navbar-nav>
+
+      </b-collapse>
+    </b-navbar>
+
+    <div class="container-fluid">
+      <div class="row content">
+        <div class="col-sm-7">
+          <b-card id="performanceCard">
+            <b-tabs card>
+              <b-tab title="1W" active>
+                <h3>Performance</h3>
+              </b-tab>
+              <b-tab title="1M">
+                <h3>Performance</h3>
+              </b-tab>
+              <b-tab title="1Y">
+                <h3>Performance</h3>
+              </b-tab>
+            </b-tabs>
+            <vue-chart ref="performanceChart"
+              :columns="columns"
+              :rows="rows"
+              :options="options">
+            </vue-chart>
+              <div class="container-fluid">
+                <div class="row content">
+                  <div class="col-sm-6">
+                    <b-card>
+                      <p>Amount Invested:</p>
+                      <p>Amount to Buy:</p>
+                      <b-form-input type="number"></b-form-input><br>
+                      <b-button variant="success" class="btn-block">Buy</b-btn>
+                    </b-card>
+                  </div>
+                  <div class="col-sm-6">
+                    <b-card>
+                        <p>Amount Invested:</p>
+                        <p>Amount to Sell:</p>
+                        <b-form-input type="number"></b-form-input><br>
+                        <b-button variant="danger" class="btn-block">Sell</b-btn>
+                    </b-card>
+                  </div>
+                </div>
+              </div>
+          </bcard>
+        </div>
+        <div class="col-sm-5">
+          <b-card id="userCard">
+            <h4>{{ username }}</h4>
+            <p>Current Balance: <strong>{{ balance }}</strong></p>
+          </b-card>
+          <h2>My Investments</h2>
+          <b-card id="projectsCard">
+            <table class="table table-hover" id="table1">
+        	 		<tbody>
+        	        <tr is="project-cell" v-for="project, key in projectsList"
+        	        	v-bind:icon="project.Icon"
+        	        	v-bind:ownerurl="project.OwnerURL"
+        	        	v-bind:author="project.Author"
+        	        	v-bind:projecturl="project.ProjectURL"
+        	        	v-bind:projectname="project.ProjectName"
+        	        	v-bind:projectdescription="project.ProjectDescription"
+        	        	v-bind:price="project.Prices"
+                    v-bind:previousvalue="project.previous_value"
+                    v-bind:valuebought="project.value_bought"
+        	        	v-bind:index="key">
+        	        </tr>
+        	    </tbody>
+        	</table>
+          </b-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

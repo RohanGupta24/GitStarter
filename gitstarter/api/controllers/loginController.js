@@ -25,7 +25,7 @@ exports.callback = function(req, res) {
 exports.logout = function(req, res) {
   res.cookie('username', '', {expires: new Date(0)});
   res.cookie('session_token', '', {expires: new Date(0)});
-  res.sendFile(path.join(__dirname, '../../app/views/homePage.html'));
+  res.status(401).redirect('/');
 };
 
 githubOAuth.on('error', function(err, res) {

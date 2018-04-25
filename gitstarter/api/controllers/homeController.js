@@ -35,7 +35,10 @@ exports.getTrending = function (req, res, next) {
 
 exports.getUserContent = function (req, res, next) {
   const user = req.query.user;
-  const path = "/users/" + user;
+  var path = "/users/" + user;
+  if (req.cookies.session_token != null) {
+    path = path + "?access_token=" + req.cookies.session_token;
+  }
   fetch(baseURL + path).then(function(response) {
     return response.json();
   }).then(function(json) {
@@ -52,7 +55,7 @@ exports.getUserContent = function (req, res, next) {
 exports.getValue = function (req, res, next) {
   const owner = req.query.owner;
   const repo = req.query.repo;
-  const path = "/repos/" + owner + "/" + repo + "/stats/commit_activity";
+  var path = "/repos/" + owner + "/" + repo + "/stats/commit_activity";
   if (req.cookies.session_token != null) {
     path = path + "?access_token=" + req.cookies.session_token;
   }

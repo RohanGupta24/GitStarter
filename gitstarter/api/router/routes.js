@@ -8,7 +8,7 @@ module.exports = function(app) {
   var investController = require('../controllers/investController');
 
   app.get('/', homeController.getHome);
-  app.get('/home', mainController.getMain);
+  app.get('/home', investController.getInvested);
   app.get('/trending', homeController.getTrending);
   app.get('/value', homeController.getValue);
   app.get('/login', loginController.login);
@@ -22,4 +22,5 @@ module.exports = function(app) {
   app.get('/investments', investController.getInvestments);
   app.get('/activities', investController.getActivities);
   app.get('/balance', investController.getBalance);
+  app.get('/explore', mainController.getMain);
 }
