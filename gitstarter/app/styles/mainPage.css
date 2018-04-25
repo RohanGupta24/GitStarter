@@ -187,6 +187,8 @@ body,html {
 }
 
 .container {
+    .center-block();
+     padding: 10px;
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     /* Full height */
