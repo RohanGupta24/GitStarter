@@ -252,22 +252,80 @@ Vue.component("navbar-box", {
   },
   methods: {
     weekly: function() {
-        this.columns = "columnWeek";
-        this.rows = "rowWeek";
-        this.options = "optionWeek";
+        self=this;
         this.headerTitle = "Weekly Performance";
+
+        var url = "/data/week?owner=" +this.author+ "&repo="+this.projectname;
+        fetch(url, {
+          method: 'GET',
+        })
+        .then(function(res) {
+
+          if(res.ok) {
+            res.json().then(function(data) {
+              console.log(data);
+              self.rowsMonth=data.data;
+              console.log(this.rowsWeek);
+              self.columns = "columnWeek";
+              self.rows = "rowWeek";
+              self.options = "optionWeek";
+            }.bind(self));
+          }
+        }).catch(function(err) {
+          console.log("Week Charts Error");
+        });
       },
     monthly: function() {
-        this.columns = "columnMonth";
-        this.rows = "rowMonth";
-        this.options = "optionMonth";
+        self=this;
         this.headerTitle = "Monthly Performance";
-    },
+
+        var url = "/data/month?owner=" +this.author+ "&repo="+this.projectname;
+        fetch(url, {
+          method: 'GET',
+        })
+        .then(function(res) {
+
+          if(res.ok) {
+            res.json().then(function(data) {
+              console.log(data);
+              self.rowsMonth=data.data;
+              console.log(this.rowsMonth);
+              self.columns = "columnMonth";
+              self.rows = "rowMonth";
+              self.options = "optionMonth";
+              self.optionsMonth.vAxis.minValue = data.min;
+              self.optionsMonth.vAxis.maxValue = data.max;
+            }.bind(self));
+          }
+        }).catch(function(err) {
+          console.log("Month Charts Error");
+        });
+      },
     yearly: function() {
-        this.columns = "columnYear";
-        this.rows = "rowYear";
-        this.options = "optionYear";
+        self=this;
         this.headerTitle = "Yearly Performance";
+        console.log()
+        var url = "/data/year?owner=" +this.author+ "&repo="+this.projectname;
+        fetch(url, {
+          method: 'GET',
+        })
+        .then(function(res) {
+
+          if(res.ok) {
+            res.json().then(function(data) {
+              console.log(data);
+              self.rowsYear=data.data;
+              console.log(this.rowsYear);
+              self.columns = "columnYear";
+              self.rows = "rowYear";
+              self.options = "optionYear";
+              self.optionsYear.vAxis.minValue = data.min;
+              self.optionsYear.vAxis.maxValue = data.max;
+            }.bind(self));
+          }
+        }).catch(function(err) {
+          console.log("Year Charts Error");
+        });
     },
     closeProjectModal: function() {
       console.log("where")
@@ -342,7 +400,7 @@ Vue.component("search-box", {
       this.headerTitle = "Weekly Performance";
     },
     data: function() {
-      return {headerTitle: "", columnsData: this.columnsWeek, rowsData: this.rowsWeek, optionsData: this.optionsWeek, showElement: false, showSell: false, showBuy: false, showGraph: false,
+      return {headerTitle: "", columnsData: this.columnsWeek, rowsData: this.rowsWeek, optionsData: this.optionsWeek, buyPrice: "", sellPrice: "", showElement: false, showSell: false, showBuy: false, showConfirmationBuy: false, showConfirmationSell: false, showGraph: false,
         columnsWeek: [{
             'type': 'string',
             'label': 'Days'
@@ -567,24 +625,39 @@ Vue.component("search-box", {
       closeGraphModal: function() {
         this.showGraph = false;
       },
-      confirmBuy: function() {
-        //IMPORTANT
-        console.log("confirmed purchase")
-      },
-      denyBuy: function() {
-        this.showSell = false;
-        this.showBuy = false;
-        this.showElement = true;
-      },
-      confirmSell: function() {
-        //IMPORTANT
-        console.log("confirmed sell")
-      },
-      denySell: function() {
-        this.showSell = false;
+      sellConfirmAmount: function() {
         this.showBuy = false;
         this.showElement = false;
+        this.showConfirmationSell = true;
       },
+      buyConfirmAmount: function() {
+        this.showSell = false;
+        this.showElement = false;
+        this.showConfirmationBuy = true;
+      },
+      closeSellConfirmModal: function() {
+        this.showConfirmationSell = false;
+      },
+      closeBuyConfirmModal: function() {
+        this.showConfirmationBuy = false;
+      },
+      yesSellAmount: function() {
+        console.log("confirmed sell")
+      },
+      noSellAmount: function() {
+        this.showConfirmationSell = false;
+        this.showSell = false;
+        this.showElement = true;
+      },
+      yesBuyAmount: function() {
+        console.log("confirmed buy")
+      },
+      noBuyAmount: function() {
+        console.log("reached here")
+        this.showConfirmationBuy = false;
+        this.showBuy = false;
+        this.showElement = true;
+      }
     }
   });
 
