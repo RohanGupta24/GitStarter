@@ -10,12 +10,21 @@
 
 }
 
-#myProjects {
 
-}
 
 #OrderPickContainer {
 
+}
+#overlay {
+   position:fixed;
+   top:0;
+   left:0;
+   height:100%;
+   width:100%;
+   z-index:1;
+   background-color:#444444;
+   opacity:0.5;
+   filter:alpha(opacity=50);
 }
 
 #logoutButton {
@@ -194,6 +203,7 @@ body,html {
   height: 100%;
 }
 
+<<<<<<< HEAD
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -292,6 +302,20 @@ body,html {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+ 
+}
+.container {
+    .center-block();
+     padding: 10px;
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    /* Full height */
+    top: 200px;
+    left: 300px;
+    height: 800px;
+    width: 900px;
+    /*background-color: rgb(0,0,0);*/ /* Fallback color */
+     /* Black w/ opacity */
 }
 
 -body {
