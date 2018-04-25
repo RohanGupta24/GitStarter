@@ -21,12 +21,13 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script type="text/x-template" id="search-template">
 		<tr :id="index">
-	            <td class="tableEl" style="font-size:30px;"><img :src="icon" height="42" width="42"> <a :href="ownerurl" target="_blank">{{author}}</a>/
+	            <td class="tableEl warning" style="font-size:30px;"><img :src="icon" height="42" width="42"> <a :href="ownerurl" target="_blank">{{author}}</a>/
 	            <a :href="projecturl" target="_blank">{{projectname}}</a>
 	            <br>
 	            {{projectdescription}}
 	           	<br>
 	            <b>Price: {{price}}</b>
+                <b-button>Hello</b-button>
                 <button type="button" id="sellButton" class="btn btn-default" v-on:click="showSellModal"><b>Sell</b></button>
                <button type="button" id="buyButton" class="btn btn-default" v-on:click="showBuyModal"><b>Buy</b></button>
               <button type="button" class="btn btn-default" v-on:click="showGraphModal"><b>Show Details</b></button>
@@ -36,14 +37,16 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" v-on:click="closeSellModal">&times;</button>
-              <h5 class="modal-title">Verify Sell</h5>
+              <h5 class="modal-title">Selling Amount</h5>
             </div>
           <div class="modal-body">
-            <a><b>Are you sure you want to sell {{projectname}} by {{author}}?</b></a>
+            <a><b>How much do you want to sell?</b></a>
+            <br>Quantity of Balance:
+              <input type="text" v-model="sellPrice">
+            </br>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" v-on:click="confirmSell">Yes</button>
-          <button type="button" class="btn btn-default" v-on:click="denySell">No</button>
+          <button type="button" class="btn btn-default" v-on:click="sellConfirmAmount">Ok</button>
         </div>
       </div>
       </div>
@@ -53,14 +56,52 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" v-on:click="closeBuyModal">&times;</button>
+              <h5 class="modal-title">Buying Amount</h5>
+            </div>
+          <div class="modal-body">
+            <a><b>How much do you want to buy?</b></a>
+            <br>Quantity of Balance:
+              <input type="text" v-model="buyPrice">
+            </br>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-default" v-on:click="buyConfirmAmount">Ok</button>
+        </div>
+      </div>
+      </div>
+      </div>
+
+      <div class="container" id="sellAmount" v-if="showConfirmationSell">
+          <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" v-on:click="closeSellConfirmModal">&times;</button>
+              <h5 class="modal-title">Verify Sell</h5>
+            </div>
+          <div class="modal-body">
+            <a><b>Are you sure you want to sell {{projectname}} by {{author}} for {{sellPrice}}?</b></a>
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-default" v-on:click="yesSellAmount">Yes</button>
+         <button type="button" class="btn btn-default" v-on:click="noSellAmount">No</button>
+        </div>
+      </div>
+      </div>
+      </div>
+
+      <div class="container" id="purchaseAmouunt" v-if="showConfirmationBuy">
+          <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" v-on:click="closeBuyConfirmModal">&times;</button>
               <h5 class="modal-title">Verify Purchase</h5>
             </div>
           <div class="modal-body">
-            <a><b>Are you sure you want to buy {{projectname}} by {{author}}?</b></a>
+            <a><b>Are you sure you want to buy {{projectname}} by {{author}} for {{buyPrice}}?</b></a>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" v-on:click="confirmBuy">Yes</button>
-          <button type="button" class="btn btn-default" v-on:click="denyBuy">No</button>
+         <button type="button" class="btn btn-default" v-on:click="yesBuyAmount">Yes</button>
+         <button type="button" class="btn btn-default" v-on:click="noBuyAmount">No</button>
         </div>
       </div>
       </div>
