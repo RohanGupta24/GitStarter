@@ -11,6 +11,7 @@ div.jumbotron.hero-nature{
   background-position:center;
   padding-top:50px;
   padding-bottom:100px;
+  height: 100%;
 }
 
 table#table1 {
@@ -58,7 +59,15 @@ table#table1 {
 }
 
 
+.btn-primary {
+    background-color: black !important;
+    color: white !important;
+}
 
+.btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: white !important;
+  color: black !important;
+}
 
 .typewriter h1 {
   overflow: hidden; /* Ensures the content is not revealed until the animation */
@@ -77,10 +86,19 @@ table#table1 {
 
 #projectTitle {
   margin-bottom: 50px;
+  padding-left: 20px;
 }
 
 #LoginButton {
   margin-top: 50px;
+
+}
+.btn {
+  color: black;
+  align: center;
+}
+#LoginButtonColor {
+  color: black;
 }
 
 #tableTitle {
@@ -106,8 +124,56 @@ table#table1 {
 }
 
 #upperText {
+  /* padding-top: 200px; */
 	font-weight: bold;
 	/*background: #1e5799;*/
+  text-align: center;
 	color:white;
+  font-size: 25px;
 	font-family:"Lucida Console", Monaco, monospace
 }
+#titleText {
+  padding-top: 200px;
+	font-weight: bold;
+	/*background: #1e5799;*/
+  text-align: center;
+	color:white;
+  font-size: 100px;
+	font-family:"Lucida Console", Monaco, monospace
+}
+
+
+.back:focus {outline:0;}
+ .slide .row {
+   margin-top: 0;
+   display: flex;
+   justify-content: left;
+   align-items: left;
+   height: 100vh;
+   text-align: left;
+ }
+ .intro {
+   background: #f2fff0;
+ }
+ .parallax {
+   color: #f2fff0;
+   background: url(./images/background.png) 0% 0;
+ }
+ .slidein {
+   color: black;
+   background: #f2fff0;
+ }
+ .slidein2 {
+   color: black;
+   background: #f2fff0;
+ }
+ .slidein2 .row {
+   justify-content: space-around;
+ }
+ .slidein3 {
+   color: black;
+   background: #f2fff0;
+ }
+ .slidein3 .row {
+   justify-content: space-around;
+ }
