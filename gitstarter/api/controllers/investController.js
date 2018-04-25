@@ -1,12 +1,22 @@
+var path = require('path');
 var { Pool } = require('pg');
 var pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: true
 });
 
+exports.getInvested = function(req, res) {
+  if (req.cookies.session_token == null || req.cookies.session_token == "") {
+    res.sendFile(path.join(__dirname, '../../app/views/homePage.html'));
+  } else {
+    res.sendFile(path.join(__dirname, '../../app/views/investments.html'));
+  }
+}
+
 exports.investProject = function(req, res) {
   if (req.cookies.username == null) {
     res.redirect('/logout');
+    return;
   }
   const username = req.cookies.username;
   const value_bought = req.body.value_bought;
@@ -120,6 +130,7 @@ exports.investProject = function(req, res) {
 exports.sellProject = function(req, res) {
   if (req.cookies.username == null) {
     res.redirect('/logout');
+    return;
   }
   const username = req.cookies.username;
   const value_sold = req.body.value_sold;
@@ -231,10 +242,11 @@ exports.sellProject = function(req, res) {
 exports.getInvestments = function(req, res) {
   if (req.cookies.username == null) {
     res.redirect('/logout');
+    return;
   }
   const user = req.cookies.username;
   pool.connect(function(err, client, done) {
-    client.query("SELECT * FROM Investor, Investment WHERE Investor.username = $1 AND Investor.username = Investment.username AND Investment.value_bought > 0", [user], function(err, result) {
+    client.query("SELECT * FROM Project, Investor, Investment WHERE Investor.username = $1 AND Investor.username = Investment.username AND Investment.project_id = Project.project_id AND Investment.value_bought > 0", [user], function(err, result) {
       if (err) {
         done();
         console.log(err);
@@ -250,6 +262,7 @@ exports.getInvestments = function(req, res) {
 exports.getActivities = function(req, res) {
   if (req.cookies.username == null) {
     res.redirect('/logout');
+    return;
   }
   const user = req.cookies.username;
   pool.connect(function(err, client, done) {
@@ -269,10 +282,11 @@ exports.getActivities = function(req, res) {
 exports.getBalance = function(req, res) {
   if (req.cookies.username == null) {
     res.redirect('/logout');
+    return;
   }
   const user = req.cookies.username;
   pool.connect(function(err, client, done) {
-    client.query("SELECT balance FROM Investor WHERE Investor.username = $1", [user], function(err, result) {
+    client.query("SELECT * FROM Investor WHERE Investor.username = $1", [user], function(err, result) {
       if (err) {
         done();
         console.log(err);

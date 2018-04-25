@@ -27,14 +27,14 @@
 	            {{projectdescription}}
 	           	<br>
 	            <b>Price: {{price}}</b>
-                <b-button>Hello</b-button>
+							<br>
                 <button type="button" id="sellButton" class="btn btn-default" v-on:click="showSellModal"><b>Sell</b></button>
                <button type="button" id="buyButton" class="btn btn-default" v-on:click="showBuyModal"><b>Buy</b></button>
               <button type="button" class="btn btn-default" v-on:click="weekly"><b>Show Details</b></button>
 	           </td>
-             <div class="container" id="modalSell" v-if="showSell">
-          <div class="modal-dialog">
-          <div class="modal-content">
+             <div class="modal-mask" id="modalSell" v-if="showSell">
+          <div class="modal-wrapper">
+          <div class="modal-container">
             <div class="modal-header">
               <button type="button" class="close" v-on:click="closeSellModal">&times;</button>
               <h5 class="modal-title">Selling Amount</h5>
@@ -51,9 +51,9 @@
       </div>
       </div>
       </div>
-					 <div class="container" id="modalBuy" v-if="showBuy">
-          <div class="modal-dialog">
-          <div class="modal-content">
+					 <div class="modal-mask" id="modalBuy" v-if="showBuy">
+          <div class="modal-wrapper">
+          <div class="modal-container">
             <div class="modal-header">
               <button type="button" class="close" v-on:click="closeBuyModal">&times;</button>
               <h5 class="modal-title">Buying Amount</h5>
@@ -65,15 +65,15 @@
             </br>
         </div>
         <div class="modal-footer">
-         <button type="button" class="btn btn-default" v-on:click="buyConfirmAmount">Ok</button>
+         <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="buyConfirmAmount">Ok</button>
         </div>
       </div>
       </div>
       </div>
 
-      <div class="container" id="sellAmount" v-if="showConfirmationSell">
-          <div class="modal-dialog">
-          <div class="modal-content">
+      <div class="modal-mask" id="sellAmount" v-if="showConfirmationSell">
+          <div class="modal-wrapper">
+          <div class="modal-container">
             <div class="modal-header">
               <button type="button" class="close" v-on:click="closeSellConfirmModal">&times;</button>
               <h5 class="modal-title">Verify Sell</h5>
@@ -82,16 +82,16 @@
             <a><b>Are you sure you want to sell {{projectname}} by {{author}} for {{sellPrice}}?</b></a>
         </div>
         <div class="modal-footer">
-         <button type="button" class="btn btn-default" v-on:click="yesSellAmount">Yes</button>
-         <button type="button" class="btn btn-default" v-on:click="noSellAmount">No</button>
+         <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="yesSellAmount">Yes</button>
+         <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="noSellAmount">No</button>
         </div>
       </div>
       </div>
       </div>
 
-      <div class="container" id="purchaseAmouunt" v-if="showConfirmationBuy">
-          <div class="modal-dialog">
-          <div class="modal-content">
+      <div class="modal-mask" id="purchaseAmouunt" v-if="showConfirmationBuy">
+          <div class="modal-wrapper">
+          <div class="modal-container">
             <div class="modal-header">
               <button type="button" class="close" v-on:click="closeBuyConfirmModal">&times;</button>
               <h5 class="modal-title">Verify Purchase</h5>
@@ -100,16 +100,17 @@
             <a><b>Are you sure you want to buy {{projectname}} by {{author}} for {{buyPrice}}?</b></a>
         </div>
         <div class="modal-footer">
-         <button type="button" class="btn btn-default" v-on:click="yesBuyAmount">Yes</button>
-         <button type="button" class="btn btn-default" v-on:click="noBuyAmount">No</button>
+         <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="yesBuyAmount">Yes</button>
+         <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="noBuyAmount">No</button>
         </div>
       </div>
       </div>
       </div>
-				<div class="container" id="modalGraph" v-if="showGraph">
-  				<div class="modal-dialog">
-    			<div class="modal-content">
+				<div class="modal-mask" id="modalGraph" v-if="showGraph">
+  				<div class="modal-wrapper">
+    			<div class="modal-container" id="graphContainer">
       			<div class="modal-header">
+
               <button type="button" class="close" v-on:click="closeGraphModal">&times;</button>
         		  <h5 class="modal-title">Details Overtime</h5>
       			</div>
@@ -132,7 +133,8 @@
         		<button type="button" id="OK" class="btn-lg btn-primary" v-on:click="closeGraphModal">OK</button>
      		 	</div>
     			</div>
-  				</div>
+					</div>
+
   				</div>
       </tr>
 	 </script>
@@ -140,9 +142,9 @@
 	 <script type="text/x-template" id="navbar-template">
 	 	<div id="contain">
 	 	<a v-on:click="openpopup">{{projectownedname}}</a>
-	 	<div class="container" v-if="isProjectModal" id="modalProject">
-	 		<div class="modal-dialog">
-	 		<div class="modal-content">
+	 	<div class="modal-mask" v-if="isProjectModal">
+	 		<div class="modal-wrapper">
+	 		<div class="modal-container" id="graphProject">
       		<div class="modal-header">
         		<button type="button" class="close" v-on:click="closeProjectModal">&times;</button>
         		<h5 class="modal-title" style="text-align: center">{{projectownedname}} Investment Details</h5>
@@ -183,32 +185,29 @@
 	<!-- Change this -->
 	<div id="OrderPickContainer">
 
+ <div id="jumbo" class="jumbotron hero-nature">
 
-		<div id="jumbo" class="jumbotron hero-nature">
+    <nav id="navbar" class="navbar navbar-default navbar-fixed-top">
 
-		<nav id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <span id="hamburger" onclick="openNav()">&#9776;</span>
+      <button id="logoutButton" v-on:click="BacktoHomePage">Logout</button>
+      <div class="typewriter">
+      <div id="projectTitle">
+          <h1 id=upperText>GitStarter</h1>
+        </div>
+      </div>
+    <div id="mySidenav" class="sidenav">
+      <h1>My Projects</h1>
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <ul style="list-style-type:none">
+          <navbar-box v-for="data,key in ownedProjects"
+            v-bind:projectownedname="data.ProjectName">
+          </navbar-box>
 
-		<span id="hamburger" onclick="openNav()">&#9776;</span>
-			<button id="logoutButton" v-on:click="BacktoHomePage">Logout</button>
-			<div class="typewriter">
-			<div id="projectTitle">
-		  		<h1 id=upperText>GitStarter</h1>
-		  	</div>
-			</div>
-		<div id="mySidenav" class="sidenav">
-			<h1>My Projects</h1>
-			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  			<ul style="list-style-type:none">
-  				<navbar-box v-for="data,key in ownedProjects"
-  					v-bind:projectownedname="data.ProjectName">
-  				</navbar-box>
-
-  			</li>
-  		</ul>
-	</div>
-		</div>
-
-
+        </li>
+      </ul>
+  </div>
+    </div>
 
 	<h1 id="welcomeTag">Welcome {{user}}</h1>
 	<h2 id="introduceBalanceTag">Here is your balance:</h2>
@@ -218,9 +217,9 @@
 	</div>
 	<br></br>
 
-	<div class="container" id="modalBalance" v-show="isBalanceModal">
-  	<div class="modal-dialog">
-    <div class="modal-content">
+	<div class="modal-mask" v-show="isBalanceModal">
+  	<div class="modal-wrapper">
+    <div class="modal-container" id="graphBalance">
       <div class="modal-header">
         <button type="button" class="close" v-on:click="closeBalanceModal">&times;</button>
         <h5 class="modal-title">Balance Details</h5>

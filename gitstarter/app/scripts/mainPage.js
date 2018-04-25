@@ -567,9 +567,9 @@ Vue.component("search-box", {
         });
       },
       showSellModal: function() {
-        this.showSell = true;
+          this.showSell = true;
 	      this.showBuy = false;
-        this.showElement = false;
+          this.showElement = true;
       },
       closeSellModal: function() {
         this.showSell = false;
@@ -579,7 +579,7 @@ Vue.component("search-box", {
       showBuyModal: function() {
         this.showBuy = true;
         this.showSell = false;
-        this.showElement = false;
+        this.showElement = true;
       },
       closeBuyModal: function() {
         this.showBuy = false;
@@ -597,13 +597,13 @@ Vue.component("search-box", {
 
       },
       sellConfirmAmount: function() {
-        this.showBuy = false;
-        this.showElement = false;
+        this.showSell = false;
+        this.showElement = true;
         this.showConfirmationSell = true;
       },
       buyConfirmAmount: function() {
-        this.showSell = false;
-        this.showElement = false;
+        this.showBuy = false;
+        this.showElement = true;
         this.showConfirmationBuy = true;
       },
       confirmSell: function() {
@@ -665,7 +665,6 @@ Vue.component("search-box", {
         });
       },
       noBuyAmount: function() {
-        console.log("reached here")
         this.showConfirmationBuy = false;
         this.showBuy = false;
         this.showElement = true;
@@ -768,18 +767,7 @@ var vm = new Vue({
 
         topTrendingList: [],
 
-        ProjectsLists: [
-          {
-            Icon: "https://www.iconfinder.com/icons/99689/apple_os_icon#size=256",
-            ProjectName: "tabler",
-            ProjectURL: "wow",
-            OwnerURL: "wowOwn",
-            ProjectDescription: "Tabler is free and open-source HTML Dashboard UI Kit built on Bootstrap 4",
-            Author: "tabler",
-            Prices: 400
-          },
-
-        ],
+        ProjectsLists: [],
     },
     created: function() {
       var promises = fetch("/trending").then(function(response) {
@@ -826,6 +814,8 @@ var vm = new Vue({
                   }
                 }
               }
+            } else {
+              Vue.set(this.ProjectsLists[i], 'Prices', 'N/A');
             }
           }
         }.bind(this)).catch(function(err) {
@@ -835,7 +825,6 @@ var vm = new Vue({
       }.bind(this)).catch(function(err) {
         console.log(err);
       });
-      console.log(promises);
 
     },
     methods: {
@@ -885,7 +874,7 @@ var vm = new Vue({
                   }
                   this.busy = false;
                 }, 1000);*/
-                for(var i = 0; i < data.items.length; i++) {
+                for(var i = 0; i < Math.min(10, data.items.length); i++) {
                   var obj = new Object();
                   obj.Icon = data.items[i].owner.avatar_url;
                   console.log(obj.Icon);
@@ -899,30 +888,61 @@ var vm = new Vue({
                     obj.ProjectDescription = data.items[i].description;
                   }
                   obj.Author = data.items[i].owner.login;
-                  obj.Prices = 200;
                   results.push(obj);
                 }
               }
+
+              self.ProjectsLists = results;
+
+              var promises = [];
+              for (var i = 0; i < results.length; i++) {
+                promises.push(fetch("/value?repo=" + results[i].ProjectName + "&owner=" + results[i].Author));
+              }
+              Promise.all(promises).then(function(response) {
+                console.log(response)
+                var responses = [];
+                for (var i = 0; i < response.length; i++) {
+                  responses.push(response[i].json());
+                }
+                return Promise.all(responses);
+              }).then(function(json) {
+                console.log(json);
+                for (var i = 0; i < json.length; i++) {
+                  if (json[i].repo != null && json[i].owner != null) {
+                   for (var j = 0; j < self.ProjectsLists.length; j++) {
+                     if (self.ProjectsLists[j].ProjectName == json[i].repo && self.ProjectsLists[j].Author == json[i].owner) {
+                       Vue.set(self.ProjectsLists[j], 'Prices', json[i].currentValue);
+                     }
+                   }
+                 } else {
+                   Vue.set(self.ProjectsLists[i], 'Prices', 'N/A');
+                 }
+                }
+              }.bind(this)).catch(function(err) {
+                console.log(err);
+              });
             }.bind(this));
           }
           else {
             if(res.status == 422) {
               //SHOW TOP TRENDING PROJECTS HERE
               self.tableErrorMessage = "";
-              results = self.topTrendingList;
+              self.ProjectsLists = self.topTrendingList;
             }
             else if(res.status == 403) {
               //SHOW TOP TRENDING PROJECTS
               self.tableErrorMessage = "Please try again"
-              results = self.topTrendingList;
+              self.ProjectsLists = self.topTrendingList;
             }
           }
         });
         if(this.searchWords.length == 0) {
           this.tableHeader = "Top Trending Projects"
+          self.ProjectsLists = self.topTrendingList;
         }
-        this.ProjectsLists = results;
+        // this.ProjectsLists = results;
         //console.log(this.ProjectsLists)
+
       },
       getBalance: function() {
         this.showGraph=true;
@@ -966,7 +986,9 @@ var vm = new Vue({
         this.isBuyModal = false;
       },
       BacktoHomePage: function() {
-	     fetch('/logout', {credentials: 'same-origin'}).catch(function(err) {
+	     fetch('/logout', {credentials: 'same-origin'}).then(function(response) {
+         location.reload();
+       }).catch(function(err) {
          console.log(err);
        });
 	   },

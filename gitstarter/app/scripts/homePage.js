@@ -1,9 +1,144 @@
+// init controller
+   var controller = new ScrollMagic.Controller();
+
+   // Parallax background
+   new ScrollMagic.Scene({
+           triggerElement: "#parallax",
+           triggerHook: "onEnter",
+       })
+       .duration('200%')
+       .setTween("#parallax", {
+           backgroundPosition: "500% 100%",
+           ease: Linear.easeNone
+       })
+       //.addIndicators() // add indicators (requires plugin)
+       .addTo(controller);
+
+
+   new ScrollMagic.Scene({
+           triggerElement: "#slidein2",
+           triggerHook: "onLeave",
+       })
+       .duration('100%')
+       .setTween("#parallax", {
+           backgroundPosition: "500% 100%",
+           ease: Linear.easeNone
+       })
+       .setPin("#slidein2")
+//        .addIndicators() // add indicators (requires plugin)
+       .addTo(controller);
+
+   new ScrollMagic.Scene({
+           triggerElement: "#slidein3",
+           triggerHook: "onLeave",
+       })
+       .setPin("#slidein3")
+//        .addIndicators() // add indicators (requires plugin)
+       .addTo(controller);
+
+
+   //Moving divs
+   // Fade in
+   var fadeInTimeline = new TimelineMax();
+   var fadeInFrom = TweenMax.from("#opacity1", 1, {
+       autoAlpha: 0
+   });
+   var fadeInTo = TweenMax.to("#opacity2", 0, {
+       autoAlpha: 1
+   });
+   fadeInTimeline
+       .add(fadeInFrom)
+       .add(fadeInTo);
+
+   new ScrollMagic.Scene({
+           triggerElement: "#slidein2",
+           offset: 100,
+       })
+       .setTween(fadeInTimeline)
+       .duration(200)
+       //    .reverse(false)
+       //.addIndicators() // add indicators (requires plugin)
+       .addTo(controller);
+
+
+   var fadeInTimeline2 = new TimelineMax();
+   var fadeInFrom2 = TweenMax.from("#opacity2", 1, {
+       autoAlpha: 0
+   });
+   var fadeInTo2 = TweenMax.to("#opacity1", 0, {
+       autoAlpha: 1
+   });
+   fadeInTimeline2
+       .add(fadeInFrom2)
+       .add(fadeInTo2);
+
+   new ScrollMagic.Scene({
+           triggerElement: "#slidein3",
+           offset: 100,
+       })
+       .setTween(fadeInTimeline2)
+       .duration(400)
+       //    .reverse(false)
+       //.addIndicators() // add indicators (requires plugin)
+       .addTo(controller);
 function onLoad() {
+
+
 Vue.use(VueCharts);
 
 Vue.component("search-box", {
     template: "#search-template",
     props: ["icon", "ownerurl", "author", "projecturl", "projectname", "projectdescription", "price", "index"],
+
+    created: function() {
+    },
+    data: function() {
+      return {headerTitle: "", columnsData: this.columnsWeek, rowsData: this.rowsWeek, optionsData: this.optionsWeek, showElement: true, showSell: false, showBuy: false,
+
+
+      };
+    },
+    methods: {
+
+      showSellModal: function() {
+        this.showSell = true;
+        this.showBuy = false;
+        this.showElement = false;
+      },
+      showBuyModal: function() {
+        this.showBuy = true;
+        this.showSell = false;
+        this.showElement = false;
+      },
+
+      showGraphModal: function() {
+        this.showGraph = true;
+        this.$root.weekly();
+      },
+
+      confirmBuy: function() {
+        //IMPORTANT
+        console.log("confirmed purchase")
+      },
+      denyBuy: function() {
+        this.showSell = false;
+        this.showBuy = false;
+        this.showElement = true;
+      },
+      confirmSell: function() {
+        //IMPORTANT
+        console.log("confirmed sell")
+      },
+      denySell: function() {
+        this.showSell = false;
+        this.showBuy = false;
+        this.showElement = true;
+      },
+    }
+  });
+
+new Vue({
+    el: "#OrderPickContainer",
     computed: {
       columns: {
         get: function() {
@@ -56,105 +191,167 @@ Vue.component("search-box", {
         }
       }
     },
+    data: function() {
+      return {
+        searchWords: "",
+        tableErrorMessage: "",
+        tableHeader: "",
+        topTrendingList: [],
+        ProjectsLists: [],
+        showGraph: false,
+         columnsWeek: [{
+             'type': 'string',
+             'label': 'Days'
+         }, {
+             'type': 'number',
+             'label': 'Worth'
+         }],
+         rowsWeek: [],
+         optionsWeek: {
+             legend: {
+               display: true
+             },
+
+             hAxis: {
+                 title: 'Days',
+                 minValue: 'Monday',
+                 maxValue: 'Friday',
+                   textStyle: {color: 'white'}
+             },
+             vAxis: {
+                 title: 'GitCoins',
+                 minValue: 0,
+                 maxValue: 1
+             },
+             width: 900,
+             height: 400,
+             linearType: 'function',
+         },
+
+         columnsMonth: [{
+             'type': 'string',
+             'label': 'Days'
+         }, {
+             'type': 'number',
+             'label': 'Worth'
+         }],
+         rowsMonth: [],
+         optionsMonth: {
+             legend: {
+               display: true
+             },
+
+             hAxis: {
+                 title: 'Days',
+                 titlePosition: 'none',
+                 minValue: '4/01',
+                 maxValue: '4/29',
+                 textStyle: {color: 'white'}
+             },
+             vAxis: {
+                 title: 'GitCoins',
+                 minValue: 0,
+                 maxValue: 1
+             },
+             width: 900,
+             height: 400,
+             linearType: 'function',
+         },
+
+         columnsYear: [{
+             'type': 'string',
+             'label': 'Week'
+         }, {
+             'type': 'number',
+             'label': 'Worth'
+         }],
+         rowsYear: [],
+         optionsYear: {
+             legend: {
+               display: true
+             },
+
+             hAxis: {
+                 title: 'Days',
+                 titlePosition: 'none',
+                 minValue: '4/01',
+                 maxValue: '4/29',
+                 textStyle: {color: 'white'}
+             },
+             vAxis: {
+                 title: 'GitCoins',
+                 minValue: 0,
+                 maxValue: 1
+             },
+             width: 900,
+             height: 400,
+             linearType: 'function',
+         },
+      }
+    },
     created: function() {
       this.columnsData = this.columnsWeek;
       this.rowsData = this.rowsWeek;
       this.optionsData = this.optionsWeek;
       this.headerTitle = "Weekly Performance";
-    },
-    data: function() {
-      return {headerTitle: "", columnsData: this.columnsWeek, rowsData: this.rowsWeek, optionsData: this.optionsWeek, showElement: true, showSell: false, showBuy: false, showGraph: false,
-        columnsWeek: [{
-            'type': 'string',
-            'label': 'Days'
-        }, {
-            'type': 'number',
-            'label': 'Worth'
-        }],
-        rowsWeek: [],
-        optionsWeek: {
-            legend: {
-              display: true
-            },
 
-            hAxis: {
-                title: 'Days',
-                minValue: 'Monday',
-                maxValue: 'Friday',
-                  textStyle: {color: 'white'}
-            },
-            vAxis: {
-                title: 'GitCoins',
-                minValue: 0,
-                maxValue: 1
-            },
-            width: 900,
-            height: 400,
-            linearType: 'function',
-        },
+      var promises = fetch("/trending").then(function(response) {
+        return response.json();
+      }).then(function(json) {
+        this.topTrendingList = json.projectsList;
+        this.ProjectsLists = json.projectsList;
+        console.log(this.ProjectsLists);
+        var projects = json.projectsList;
+        var promises = [];
+        for (var i = 0; i < projects.length; i++) {
+          promises.push(fetch("https://api.github.com/repos/" + projects[i].Author + "/" + projects[i].ProjectName));
+          promises.push(fetch("/value?repo=" + projects[i].ProjectName + "&owner=" + projects[i].Author));
+        }
+        Promise.all(promises).then(function(response) {
+          console.log(response)
+          var responses = [];
+          for (var i = 0; i < response.length; i++) {
+            responses.push(response[i].json());
+          }
+          return Promise.all(responses);
+        }).then(function(json) {
+          console.log(json);
+          for (var i = 0; i < json.length; i++) {
+            if (json[i].repo != null && json[i].owner != null) {
+             for (var j = 0; j < this.topTrendingList.length; j++) {
+               if (this.topTrendingList[j].ProjectName == json[i].repo && this.topTrendingList[j].Author == json[i].owner) {
+                 Vue.set(this.topTrendingList[j], 'Prices', json[i].currentValue);
+                 if (this.ProjectsLists[j] == this.topTrendingList[j]) {
+                   Vue.set(this.ProjectsLists[j], 'Prices', json[i].currentValue);
+                 }
+               }
+             }
+           } else if (json[i].name != null && json[i].owner.login != null) {
+              for (var j = 0; j < this.topTrendingList.length; j++) {
+                if (this.topTrendingList[j].ProjectName == json[i].name && this.topTrendingList[j].Author == json[i].owner.login) {
+                  Vue.set(this.topTrendingList[j], 'Icon', json[i].owner.avatar_url);
+                  Vue.set(this.topTrendingList[j], 'ProjectURL', json[i].html_url);
+                  Vue.set(this.topTrendingList[j], 'OwnerURL', json[i].owner.html_url);
+                  if (this.ProjectsLists[j] == this.topTrendingList[j]) {
+                    Vue.set(this.ProjectsLists[j], 'Icon', json[i].owner.avatar_url);
+                    Vue.set(this.ProjectsLists[j], 'ProjectURL', json[i].html_url);
+                    Vue.set(this.ProjectsLists[j], 'OwnerURL', json[i].owner.html_url);
+                  }
+                }
+              }
+            } else {
+              Vue.set(this.ProjectsLists[i], 'Prices', 'N/A');
+            }
+          }
+        }.bind(this)).catch(function(err) {
+          console.log(err);
+        });
+        return promises
+      }.bind(this)).catch(function(err) {
+        console.log(err);
+      });
+      console.log(promises);
 
-        columnsMonth: [{
-            'type': 'string',
-            'label': 'Days'
-        }, {
-            'type': 'number',
-            'label': 'Worth'
-        }],
-        rowsMonth: [],
-        optionsMonth: {
-            legend: {
-              display: true
-            },
-
-            hAxis: {
-                title: 'Days',
-                titlePosition: 'none',
-                minValue: '4/01',
-                maxValue: '4/29',
-                textStyle: {color: 'white'}
-            },
-            vAxis: {
-                title: 'GitCoins',
-                minValue: 0,
-                maxValue: 1
-            },
-            width: 900,
-            height: 400,
-            linearType: 'function',
-        },
-
-        columnsYear: [{
-            'type': 'string',
-            'label': 'Week'
-        }, {
-            'type': 'number',
-            'label': 'Worth'
-        }],
-        rowsYear: [],
-        optionsYear: {
-            legend: {
-              display: true
-            },
-
-            hAxis: {
-                title: 'Days',
-                titlePosition: 'none',
-                minValue: '4/01',
-                maxValue: '4/29',
-                textStyle: {color: 'white'}
-            },
-            vAxis: {
-                title: 'GitCoins',
-                minValue: 0,
-                maxValue: 1
-            },
-            width: 900,
-            height: 400,
-            linearType: 'function',
-        },
-
-
-      };
     },
     methods: {
       weekly: function() {
@@ -230,116 +427,11 @@ Vue.component("search-box", {
           console.log("Year Charts Error");
         });
       },
-      showSellModal: function() {
-        this.showSell = true;
-        this.showBuy = false;
-        this.showElement = false;
-      },
-      showBuyModal: function() {
-        this.showBuy = true;
-        this.showSell = false;
-        this.showElement = false;
-      },
-
-      showGraphModal: function() {
-        this.showGraph = true;
-        this.weekly();
-      },
-
       closeGraphModal: function() {
         this.showGraph = false;
       },
-      confirmBuy: function() {
-        //IMPORTANT
-        console.log("confirmed purchase")
-      },
-      denyBuy: function() {
-        this.showSell = false;
-        this.showBuy = false;
-        this.showElement = true;
-      },
-      confirmSell: function() {
-        //IMPORTANT
-        console.log("confirmed sell")
-      },
-      denySell: function() {
-        this.showSell = false;
-        this.showBuy = false;
-        this.showElement = true;
-      },
-    }
-  });
-
-new Vue({
-    el: "#OrderPickContainer",
-    data: {
-        searchWords: "",
-        tableErrorMessage: "",
-        tableHeader: "",
-        topTrendingList: [],
-        ProjectsLists: [],
-    },
-    created: function() {
-      var promises = fetch("/trending").then(function(response) {
-        return response.json();
-      }).then(function(json) {
-        this.topTrendingList = json.projectsList;
-        this.ProjectsLists = json.projectsList;
-        console.log(this.ProjectsLists);
-        var projects = json.projectsList;
-        var promises = [];
-        for (var i = 0; i < projects.length; i++) {
-          promises.push(fetch("https://api.github.com/repos/" + projects[i].Author + "/" + projects[i].ProjectName));
-          promises.push(fetch("/value?repo=" + projects[i].ProjectName + "&owner=" + projects[i].Author));
-        }
-        Promise.all(promises).then(function(response) {
-          console.log(response)
-          var responses = [];
-          for (var i = 0; i < response.length; i++) {
-            responses.push(response[i].json());
-          }
-          return Promise.all(responses);
-        }).then(function(json) {
-          console.log(json);
-          for (var i = 0; i < json.length; i++) {
-            if (json[i].repo != null && json[i].owner != null) {
-             for (var j = 0; j < this.topTrendingList.length; j++) {
-               if (this.topTrendingList[j].ProjectName == json[i].repo && this.topTrendingList[j].Author == json[i].owner) {
-                 Vue.set(this.topTrendingList[j], 'Prices', json[i].currentValue);
-                 if (this.ProjectsLists[j] == this.topTrendingList[j]) {
-                   Vue.set(this.ProjectsLists[j], 'Prices', json[i].currentValue);
-                 }
-               }
-             }
-           } else if (json[i].name != null && json[i].owner.login != null) {
-              for (var j = 0; j < this.topTrendingList.length; j++) {
-                if (this.topTrendingList[j].ProjectName == json[i].name && this.topTrendingList[j].Author == json[i].owner.login) {
-                  Vue.set(this.topTrendingList[j], 'Icon', json[i].owner.avatar_url);
-                  Vue.set(this.topTrendingList[j], 'ProjectURL', json[i].html_url);
-                  Vue.set(this.topTrendingList[j], 'OwnerURL', json[i].owner.html_url);
-                  if (this.ProjectsLists[j] == this.topTrendingList[j]) {
-                    Vue.set(this.ProjectsLists[j], 'Icon', json[i].owner.avatar_url);
-                    Vue.set(this.ProjectsLists[j], 'ProjectURL', json[i].html_url);
-                    Vue.set(this.ProjectsLists[j], 'OwnerURL', json[i].owner.html_url);
-                  }
-                }
-              }
-            }
-          }
-        }.bind(this)).catch(function(err) {
-          console.log(err);
-        });
-        return promises
-      }.bind(this)).catch(function(err) {
-        console.log(err);
-      });
-      console.log(promises);
-
-    },
-    methods: {
       search: function() {
         let self = this
-        var results = new Array();
         if(this.searchWords.length != 0) {
           this.tableHeader = "Search Results"
         }
@@ -353,6 +445,7 @@ new Vue({
         .then(function(res) {
           if(res.ok) {
             res.json().then(function(data) {
+              var results = new Array();
               if(data.items.length == 0 || data.items[0] == undefined) {
                 //SHOW TOP TRENDING PROJECTS HERE
                 self.tableErrorMessage = "No search results found"
@@ -361,7 +454,7 @@ new Vue({
               }
               else {
                 self.tableErrorMessage = "";
-                for(var i = 0; i < data.items.length; i++) {
+                for(var i = 0; i < Math.min(10, data.items.length); i++) {
                   var obj = new Object();
                   obj.Icon = data.items[i].owner.avatar_url;
                   console.log(obj.Icon);
@@ -375,29 +468,60 @@ new Vue({
                     obj.ProjectDescription = data.items[i].description;
                   }
                   obj.Author = data.items[i].owner.login;
-                  obj.Prices = 200;
                   results.push(obj);
                 }
               }
+
+              self.ProjectsLists = results;
+
+              var promises = [];
+              for (var i = 0; i < results.length; i++) {
+                promises.push(fetch("/value?repo=" + results[i].ProjectName + "&owner=" + results[i].Author));
+              }
+              Promise.all(promises).then(function(response) {
+                console.log(response)
+                var responses = [];
+                for (var i = 0; i < response.length; i++) {
+                  responses.push(response[i].json());
+                }
+                return Promise.all(responses);
+              }).then(function(json) {
+                console.log(json);
+                for (var i = 0; i < json.length; i++) {
+                  if (json[i].repo != null && json[i].owner != null) {
+                   for (var j = 0; j < self.ProjectsLists.length; j++) {
+                     if (self.ProjectsLists[j].ProjectName == json[i].repo && self.ProjectsLists[j].Author == json[i].owner) {
+                       Vue.set(self.ProjectsLists[j], 'Prices', json[i].currentValue);
+                     }
+                   }
+                 } else {
+                   Vue.set(self.ProjectsLists[i], 'Prices', 'N/A');
+                 }
+                }
+              }.bind(this)).catch(function(err) {
+                console.log(err);
+              });
             }.bind(this));
           }
           else {
             if(res.status == 422) {
               //SHOW TOP TRENDING PROJECTS HERE
               self.tableErrorMessage = ""
-              results = self.topTrendingList;
+              self.ProjectsLists = self.topTrendingList;
             }
             else if(res.status == 403) {
               //SHOW TOP TRENDING PROJECTS
               self.tableErrorMessage = "Please try again"
-              self.topTrendingList;
+              self.ProjectsLists = self.topTrendingList;
             }
           }
         });
         if(this.searchWords.length == 0) {
           this.tableHeader = "Top Trending Projects"
+          self.ProjectsLists = self.topTrendingList;
         }
-        this.ProjectsLists = results;
+        // this.ProjectsLists = results;
+
     }
   }
 

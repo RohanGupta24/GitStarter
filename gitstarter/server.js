@@ -7,6 +7,7 @@ var PORT = process.env.PORT || 8080;
 
 var app = express();
 
+app.use(cookieParser());
 var routes = require('./api/router/routes');
 
 app.use(bodyParser.urlencoded({
@@ -14,7 +15,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'app')));
-app.use(cookieParser());
 
 app.listen(PORT, function() {
   console.log("Listening on port " + PORT);
