@@ -6,7 +6,7 @@ var scraper = new Trending.Scraper();
 const baseURL = "https://api.github.com";
 
 exports.getHome = function (req, res, next) {
-  if (req.cookies.session_token == null) {
+  if (req.cookies.session_token == null || req.cookies.session_token == "") {
     res.sendFile(path.join(__dirname, '../../app/views/homePage.html'));
   } else {
     res.redirect('/home');
@@ -15,12 +15,17 @@ exports.getHome = function (req, res, next) {
 
 exports.getTrending = function (req, res, next) {
   scraper.scrapeTrendingReposFullInfo('').then(repos => {
-    var repositories = new Object();
-    repositories.author = repos.owner;
-    repositories.projectName = repos.name;
-    repositories.projectDescription = repos.description;
+    var projectsList = [];
+    for (var i = 0; i < Math.min(5, repos.length); i++) {
+      var repo = new Object();
+
+      repo.Author = repos[i].owner;
+      repo.ProjectName = repos[i].name;
+      repo.ProjectDescription = repos[i].description;
+      projectsList.push(repo);
+    }
     const data = {
-      projectsList: repositories
+      projectsList: projectsList
     }
     res.send(data);
   }).catch(err => {
@@ -48,6 +53,9 @@ exports.getValue = function (req, res, next) {
   const owner = req.query.owner;
   const repo = req.query.repo;
   const path = "/repos/" + owner + "/" + repo + "/stats/commit_activity";
+  if (req.cookies.session_token != null) {
+    path = path + "?access_token=" + req.cookies.session_token;
+  }
   fetch(baseURL + path).then(function(response) {
     return response.json();
   }).then(function(json) {

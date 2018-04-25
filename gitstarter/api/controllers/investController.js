@@ -5,6 +5,9 @@ var pool = new Pool({
 });
 
 exports.investProject = function(req, res) {
+  if (req.cookies.username == null) {
+    res.redirect('/logout');
+  }
   const username = req.cookies.username;
   const value_bought = req.body.value_bought;
   const value = req.body.value;
@@ -115,6 +118,9 @@ exports.investProject = function(req, res) {
 }
 
 exports.sellProject = function(req, res) {
+  if (req.cookies.username == null) {
+    res.redirect('/logout');
+  }
   const username = req.cookies.username;
   const value_sold = req.body.value_sold;
   const value = req.body.value;
@@ -223,6 +229,9 @@ exports.sellProject = function(req, res) {
 }
 
 exports.getInvestments = function(req, res) {
+  if (req.cookies.username == null) {
+    res.redirect('/logout');
+  }
   const user = req.cookies.username;
   pool.connect(function(err, client, done) {
     client.query("SELECT * FROM Investor, Investment WHERE Investor.username = $1 AND Investor.username = Investment.username AND Investment.value_bought > 0", [user], function(err, result) {
@@ -239,6 +248,9 @@ exports.getInvestments = function(req, res) {
 }
 
 exports.getActivities = function(req, res) {
+  if (req.cookies.username == null) {
+    res.redirect('/logout');
+  }
   const user = req.cookies.username;
   pool.connect(function(err, client, done) {
     client.query("SELECT * FROM Investor, Activity WHERE Investor.username = $1 AND Investor.username = Activity.username ORDER BY Activity.timestamp", [user], function(err, result) {
@@ -255,6 +267,9 @@ exports.getActivities = function(req, res) {
 }
 
 exports.getBalance = function(req, res) {
+  if (req.cookies.username == null) {
+    res.redirect('/logout');
+  }
   const user = req.cookies.username;
   pool.connect(function(err, client, done) {
     client.query("SELECT balance FROM Investor WHERE Investor.username = $1", [user], function(err, result) {
