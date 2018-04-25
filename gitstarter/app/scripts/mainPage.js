@@ -12,7 +12,7 @@ Vue.use(VueCharts);
 
 Vue.component("navbar-box", {
   template: "#navbar-template",
-  props: ["projectownedname"],
+  props: ["projectownedname", "projectauthor", "projectdescription", "index"],
   computed: {
       columns: {
         get: function() {
