@@ -567,9 +567,9 @@ Vue.component("search-box", {
         });
       },
       showSellModal: function() {
-        this.showSell = true;
+          this.showSell = true;
 	      this.showBuy = false;
-          this.showElement = false;
+          this.showElement = true;
       },
       closeSellModal: function() {
         this.showSell = false;
@@ -579,7 +579,7 @@ Vue.component("search-box", {
       showBuyModal: function() {
         this.showBuy = true;
         this.showSell = false;
-        this.showElement = false;
+        this.showElement = true;
       },
       closeBuyModal: function() {
         this.showBuy = false;
@@ -593,13 +593,13 @@ Vue.component("search-box", {
         this.showGraph = false;
       },
       sellConfirmAmount: function() {
-        this.showBuy = false;
-        this.showElement = false;
+        this.showSell = false;
+        this.showElement = true;
         this.showConfirmationSell = true;
       },
       buyConfirmAmount: function() {
-        this.showSell = false;
-        this.showElement = false;
+        this.showBuy = false;
+        this.showElement = true;
         this.showConfirmationBuy = true;
       },
       closeSellConfirmModal: function() {
@@ -620,7 +620,6 @@ Vue.component("search-box", {
         console.log("confirmed buy")
       },
       noBuyAmount: function() {
-        console.log("reached here")
         this.showConfirmationBuy = false;
         this.showBuy = false;
         this.showElement = true;
