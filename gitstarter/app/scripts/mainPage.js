@@ -513,7 +513,7 @@ Vue.component("search-box", {
       showSellModal: function() {
         this.showSell = true;
 	      this.showBuy = false;
-          this.showElement = false;
+        this.showElement = false;
       },
       closeSellModal: function() {
         this.showSell = false;
@@ -538,7 +538,26 @@ Vue.component("search-box", {
       },
       confirmBuy: function() {
         //IMPORTANT
-        console.log("confirmed purchase")
+        console.log("confirmed purchase");
+        fetch("/invest", {
+          method: "POST",
+          headers: {
+            'Accept' : 'application/json'
+          },
+          body: {
+            'value_bought' : this.value_bought,
+            'value' : this.price,
+            'repo' : this.projectname,
+            'owner' : this.author,
+            'previous_value' : this.current_value
+          }
+        }).then(function(response) {
+          return response.json();
+        }).then(function(json) {
+          console.log(json);
+        }).catch(function(err) {
+          console.log(err);
+        });
       },
       denyBuy: function() {
         this.showSell = false;
@@ -547,7 +566,25 @@ Vue.component("search-box", {
       },
       confirmSell: function() {
         //IMPORTANT
-        console.log("confirmed sell")
+        console.log("confirmed sell");
+        fetch("/sell", {
+          method: "POST",
+          headers: {
+            'Accept' : 'application/json'
+          },
+          body: {
+            'value_sold' : this.value_sold,
+            'value' : this.price,
+            'repo' : this.projectname,
+            'owner' : this.author
+          }
+        }).then(function(response) {
+          return response.json();
+        }).then(function(json) {
+          console.log(json);
+        }).catch(function(err) {
+          console.log(err);
+        });
       },
       denySell: function() {
         this.showSell = false;
@@ -570,21 +607,15 @@ var vm = new Vue({
         showBuy: false,
         balanceAmount: 200,
         isBalanceModal: false,
-         columnsWeek: [{
+        columns: [{
             'type': 'string',
             'label': 'Days'
         }, {
             'type': 'number',
             'label': 'Worth'
         }],
-        rowsWeek: [
-            ['Monday', 1000],
-            ['Tuesday', 1170],
-            ['Wednesday', 660],
-            ['Thursday', 1100],
-            ['Friday', 1300]
-        ],
-        optionsWeek: {
+        rows: [],
+        options: {
             legend: {
               display: true
             },
@@ -597,8 +628,8 @@ var vm = new Vue({
             },
             vAxis: {
                 title: 'GitCoins',
-                minValue: 300,
-                maxValue: 1200
+                minValue: 0,
+                maxValue: 1
             },
             width: 900,
             height: 400,
@@ -705,7 +736,6 @@ var vm = new Vue({
 
         ],
     },
-
     created: function() {
     },
     methods: {
@@ -791,6 +821,32 @@ var vm = new Vue({
         }
         this.ProjectsLists = results;
         //console.log(this.ProjectsLists)
+      },
+      getBalance: function() {
+        this.showGraph=true;
+        self=this;
+        this.headerTitle = "Balance";
+
+        var url = "/activities";
+        fetch(url, {
+          method: 'GET',
+        })
+        .then(function(res) {
+          if(res.ok) {
+            res.json().then(function(data) {
+              console.log(data);
+              for (var i = 0; i < Math.min(data.rows.length, 50); i++) {
+                var dateFromTimestamp = new Date(data.rows[i].timestamp * 1000);
+                var formattedDate = (dateFromTimestamp.getMonth() + 1) + "/" + dateFromTimestamp.getDate() + "/" + dateFromTimestamp.getFullYear();
+                var point = [formattedDate, data.rows[i].balance];
+                self.rows.push(point);
+              }
+              console.log(this.rows);
+            }.bind(self));
+          }
+        }).catch(function(err) {
+          console.log("Balance Charts Error");
+        });
       },
       showBalanceModal: function() {
         this.isBalanceModal = true;
