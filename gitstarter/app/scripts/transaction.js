@@ -1,8 +1,7 @@
-function onLoad() {
-	export default {
+export default {
 		data() {
 			return {
-				items: []
+				items: [{Age: "Hello"}]
 			}
 		},
 		created: function() {
@@ -29,7 +28,7 @@ function onLoad() {
         		console.log(this.items);
       		}.bind(this)).catch(function(err) {
         		console.log(err);
-      		});
+      	});
 		}
 	}
 }
