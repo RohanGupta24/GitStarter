@@ -1,7 +1,13 @@
 function onLoad() {
 	new Vue({
     el: "#tableResults",
-    data: {items: []},
+    export default {
+    	data() {
+    		return {
+    			items: []
+    		}
+    	}
+    },
     created: function() {
       fetch("/activities", {credentials: 'same-origin'}).then(function(response) {
         console.log(response);
