@@ -353,7 +353,7 @@ function bodyOnload() {
         }
       },
       buyProject: function() {
-        if (this.buy_value < 0.1) {
+        if (this.value_bought < 0.1) {
           this.buyDisabled = true;
           return;
         }
@@ -384,7 +384,7 @@ function bodyOnload() {
         this.showBuyModal = false;
       },
       sellProject: function() {
-        if (this.sell_value < 0.1) {
+        if (this.value_sold < 0.1) {
           this.sellDisabled = true;
           return;
         }
