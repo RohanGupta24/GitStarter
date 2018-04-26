@@ -511,8 +511,9 @@ new Vue({
             }
             else if(res.status == 403) {
               //SHOW TOP TRENDING PROJECTS
-              self.tableErrorMessage = "Please try again"
-              self.ProjectsLists = self.topTrendingList;
+              self.tableErrorMessage = "Please sign in to continue searching";
+              self.tableHeader = "";
+              self.ProjectsLists ="";
             }
           }
         });
