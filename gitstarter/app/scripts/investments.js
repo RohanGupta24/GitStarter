@@ -106,11 +106,13 @@ function bodyOnload() {
         this.balance = json.rows[0].balance;
         return fetch("/user?user=" + this.username, {credentials: 'same-origin'});
       }.bind(this)).then(function(response) {
+
         console.log(response);
         return response.json();
       }).then(function(json) {
         console.log(json);
-        this.avatar = json.avatar_url;
+        this.username = json.rows[0].username;
+        this.balance = json.rows[0].balance;
       }.bind(this)).catch(function(err) {
         console.log(err);
       });
