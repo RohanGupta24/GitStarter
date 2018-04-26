@@ -86,7 +86,7 @@
                       <p>Amount Invested: {{invested}}</p>
                       <p>Amount to Buy: {{buy_value}}</p>
                       <b-form-input type="number" v-model="buy_value" :disabled="buyInputDisabled"></b-form-input><br>
-                      <b-button variant="success" class="btn-block" :disabled="buyDisabled" v-b-modal="promptModal">Buy</b-btn>
+                      <b-btn variant="success" class="btn-block" :disabled="buyDisabled" v-b-modal="'promptModal'">Buy</b-btn>
                     </b-card>
                   </div>
                   <div class="col-sm-6">
@@ -94,7 +94,7 @@
                         <p>Amount Invested: {{invested}}</p>
                         <p>Amount to Sell: {{sell_value}}</p>
                         <b-form-input type="number" v-model="sell_value" :disabled="sellDisabled"></b-form-input><br>
-                        <b-button variant="danger" class="btn-block" :disabled="sellDisabled" v-b-modal="promptModal">Sell</b-btn>
+                        <b-btn variant="danger" class="btn-block" :disabled="sellDisabled" v-b-modal="'promptModal'">Sell</b-btn>
                     </b-card>
                   </div>
                 </div>
@@ -132,7 +132,6 @@
         </div>
       </div>
     </div>
-
     <b-modal id="promptModal">
       Are you sure you would like to go through with this transaction?
     </b-modal>
