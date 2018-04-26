@@ -14,13 +14,16 @@ function bodyOnload() {
         showElement: true,
         showSell: false,
         showBuy: false,
+        showStatus: false,
       };
     },
     methods: {
       getData: function(author, projectname, price, previousvalue, valuebought) {
         this.$emit('get-project-data', author, projectname, price, previousvalue, valuebought);
       },
-
+      showStatusModal: function() {
+        this.showStatusModal = true;
+      },
       showSellModal: function() {
         this.showSell = true;
         this.showBuy = false;
@@ -169,6 +172,8 @@ function bodyOnload() {
         previousValue: 0,
         showBuyModal: false,
         showSellModal: false,
+        showStatusModal: false,
+        status_message:""
       }
     },
     created() {
@@ -375,9 +380,11 @@ function bodyOnload() {
           return response.json();
         }).then(function(response) {
           this.balance = response.balance;
+          this.status_message = "Transaction successful."
         }.bind(this)).catch(function(err) {
           console.log(err);
-        });
+          this.status_message = "Transaction was unsuccessful. Please try again later."
+        }.bind(this));
         this.showBuyModal = false;
       },
       rejectBuy: function() {
@@ -405,13 +412,18 @@ function bodyOnload() {
           return response.json();
         }).then(function(response) {
           this.balance = response.balance;
+          this.status_message = "Transaction successful."
         }.bind(this)).catch(function(err) {
           console.log(err);
-        });
+          this.status_message = "Transaction was unsuccessful. Please try again later."
+        }.bind(this));
         this.showSellModal = false;
       },
       rejectSell: function() {
         this.showSellModal = false;
+      },
+      closeStatusModal: function() {
+        this.showStatusModal = false;
       }
     },
     computed: {

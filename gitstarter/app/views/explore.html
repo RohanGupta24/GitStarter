@@ -143,17 +143,33 @@
     <b-modal id="buyModal" v-model="showBuyModal">
       Are you sure you would like to go through with this transaction?
       <div slot="modal-footer">
-        <b-btn variant="success" v-on:click="buyProject">YES</b-btn>
+        <b-btn variant="success" v-on:click="buyProject" v-b-modal="'statusModal'" >YES</b-btn>
         <b-btn variant="danger" v-on:click="rejectBuy">NO</b-btn>
       </div>
     </b-modal>
     <b-modal id="sellModal" v-model="showSellModal">
       Are you sure you would like to go through with this transaction?
       <div slot="modal-footer">
-        <b-btn variant="success" v-on:click="sellProject">YES</b-btn>
+        <b-btn variant="success" v-on:click="sellProject" v-b-modal="'statusModal'">YES</b-btn>
         <b-btn variant="danger" v-on:click="rejectSell">NO</b-btn>
       </div>
     </b-modal>
+
+    <b-modal id="statusModal" v-model="showStatusModal">
+      {{status_message}}
+      <div slot="modal-footer">
+        <button type="button" id="OK" class="btn-lg btn-primary" v-on:click="closeStatusModal">OK</button>
+      </div>
+    </b-modal>
+
+
+
+
+
+
+
+
+
   </div>
 
 </body>
