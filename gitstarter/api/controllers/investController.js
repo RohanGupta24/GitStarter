@@ -109,6 +109,7 @@ exports.investProject = function(req, res) {
                     res.status(400).send(errMessage);
                   }
                 }
+                const returnedBalance = result.rows[0].balance;
                 client.query("COMMIT", function(err) {
                   if (shouldAbort(err)) {
                     console.log(err);
@@ -117,7 +118,7 @@ exports.investProject = function(req, res) {
                     return;
                   }
                   done();
-                  res.send({message : "Success."});
+                  res.send({message : "Success.", balance : returnedBalance});
                 });
               });
             });
@@ -221,6 +222,7 @@ exports.sellProject = function(req, res) {
                     res.status(400).send(errMessage);
                   }
                 }
+                const returnedBalance = result.rows[0].balance;
                 client.query("COMMIT", function(err) {
                   if (shouldAbort(err)) {
                     console.log(err);
@@ -229,7 +231,7 @@ exports.sellProject = function(req, res) {
                     return;
                   }
                   done();
-                  res.send({message : "Success."});
+                  res.send({message : "Success.", balance : returnedBalance});
                 });
               });
             });

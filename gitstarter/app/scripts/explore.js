@@ -511,6 +511,10 @@ function bodyOnload() {
         }
       },
       buyProject: function() {
+        if (this.buy_value < 0.1) {
+          this.buyDisabled = true;
+          return;
+        }
         fetch("/invest", {
           method: 'POST',
           credentials: 'same-origin',
@@ -526,7 +530,10 @@ function bodyOnload() {
           })
         }).then(function(response) {
           console.log(response);
-        }).catch(function(err) {
+          return response.json();
+        }).then(function(response) {
+          this.balance = response.balance;
+        }.bind(this)).catch(function(err) {
           console.log(err);
         });
         this.showBuyModal = false;
@@ -535,6 +542,10 @@ function bodyOnload() {
         this.showBuyModal = false;
       },
       sellProject: function() {
+        if (this.sell_value < 0.1) {
+          this.sellDisabled = true;
+          return;
+        }
         fetch("/sell", {
           method: 'POST',
           credentials: 'same-origin',
@@ -549,7 +560,10 @@ function bodyOnload() {
           })
         }).then(function(response) {
           console.log(response);
-        }).catch(function(err) {
+          return response.json();
+        }).then(function(response) {
+          this.balance = response.balance;
+        }.bind(this)).catch(function(err) {
           console.log(err);
         });
         this.showSellModal = false;
