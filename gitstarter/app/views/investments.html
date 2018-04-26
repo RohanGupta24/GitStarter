@@ -93,7 +93,7 @@
                       <p>Amount Invested: {{invested}}</p>
                       <p>Amount to Buy: {{buy_value}}</p>
                       <b-form-input type="number" v-model="buy_value" :disabled="buyInputDisabled"></b-form-input><br>
-                      <b-button variant="success" class="btn-block" :disabled="buyDisabled">Buy</b-btn>
+                      <b-button variant="success" class="btn-block" :disabled="buyDisabled" v-b-modal="'buyModal'">Buy</b-btn>
                     </b-card>
                   </div>
                   <div class="col-sm-6">
@@ -101,7 +101,7 @@
                         <p>Amount Invested: {{invested}}</p>
                         <p>Amount to Sell: {{sell_value}}</p>
                         <b-form-input type="number" v-model="sell_value" :disabled="sellDisabled"></b-form-input><br>
-                        <b-button variant="danger" class="btn-block" :disabled="sellDisabled">Sell</b-btn>
+                        <b-button variant="danger" class="btn-block" :disabled="sellDisabled" v-b-modal="'sellModal'">Sell</b-btn>
                     </b-card>
                   </div>
                 </div>
@@ -136,6 +136,21 @@
         </div>
       </div>
     </div>
+
+    <b-modal id="buyModal" v-model="showBuyModal">
+      Are you sure you would like to go through with this transaction?
+      <div slot="modal-footer">
+        <b-btn variant="success" v-on:click="buyProject">YES</b-btn>
+        <b-btn variant="danger" v-on:click="rejectBuy">NO</b-btn>
+      </div>
+    </b-modal>
+    <b-modal id="sellModal" v-model="showSellModal">
+      Are you sure you would like to go through with this transaction?
+      <div slot="modal-footer">
+        <b-btn variant="success" v-on:click="sellProject">YES</b-btn>
+        <b-btn variant="danger" v-on:click="rejectSell">NO</b-btn>
+      </div>
+    </b-modal>
   </div>
 
 </body>

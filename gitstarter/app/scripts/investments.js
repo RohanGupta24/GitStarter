@@ -337,19 +337,66 @@ function bodyOnload() {
         console.log(price);
         console.log(previousvalue);
         console.log(valuebought);
+        this.buyInputDisabled = false;
         this.invested = valuebought;
-        this.previousValue = previousValue;
+        this.previousValue = previousvalue;
         this.author = author;
         this.projectname = projectname;
         this.performanceTab = 0;
         this.weekly();
         this.projectPrice = price;
-        this.buyInputDisabled = false;
         this.buyDisabled = false;
         if (this.invested > 0.1) {
           this.sellDisabled = false;
         }
       },
+      buyProject: function() {
+        fetch("/invest", {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            value : this.projectPrice,
+            value_bought : this.value_bought,
+            repo : this.projectname,
+            owner : this.author,
+            previous_value : this.previousValue
+          })
+        }).then(function(response) {
+          console.log(response);
+        }).catch(function(err) {
+          console.log(err);
+        });
+        this.showBuyModal = false;
+      },
+      rejectBuy: function() {
+        this.showBuyModal = false;
+      },
+      sellProject: function() {
+        fetch("/sell", {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            value : this.projectPrice,
+            value_sold : this.value_sold,
+            repo : this.projectname,
+            owner : this.author
+          })
+        }).then(function(response) {
+          console.log(response);
+        }).catch(function(err) {
+          console.log(err);
+        });
+        this.showSellModal = false;
+      },
+      rejectSell: function() {
+        this.showSellModal = false;
+      }
     },
     computed: {
       buy_value: {

@@ -11,7 +11,7 @@ function onLoad() {
         for(var i = 0; i < json.rows.length; i++) {
         	console.log("reached here");
         	console.log(json.rows.length);
-        	Object r = new Object();
+        	var r = new Object();
         	r.Timestamp = new Date(json.rows[i].timestamp);
         	console.log(r.Timestamp);
         	r.Owner = json.rows[i].owner;
