@@ -7,3 +7,7 @@ exports.getMain = function(req, res) {
     res.sendFile(path.join(__dirname, '../../app/views/explore.html'));
   }
 }
+
+exports.getFAQ = function(req, res) {
+  res.sendFile(path.join(__dirname, '../../app/views/faq.html'));
+}
