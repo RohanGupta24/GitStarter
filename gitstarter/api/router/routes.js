@@ -8,6 +8,7 @@ module.exports = function(app) {
   var investController = require('../controllers/investController');
 
   app.get('/', homeController.getHome);
+  app.get('/user', homeController.getUserContent);
   app.get('/home', investController.getInvested);
   app.get('/trending', homeController.getTrending);
   app.get('/value', homeController.getValue);
