@@ -51,8 +51,11 @@
 </div>
 
 
-</div>
 
+<a href="#topTrending" id="centeredDown"><img src="/downArrow.gif" title="Explore!" width="300" height="200" /></a>
+
+</div>
+<p id="topTrending">Top Trending Projects</p>
 <script type="text/x-template" id="search-template">
 		<tr :id="index">
 	            <td class="tableEl" v-if="showElement" style="font-size:30px;"><img :src="icon" height="42" width="42"> <a :href="ownerurl" target="_blank">{{author}}</a>/
@@ -68,7 +71,6 @@
 		</tr>
 
 	 </script>
-
 
 
 <body id="bodyStyle" onload="onLoad()">

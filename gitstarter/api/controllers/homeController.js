@@ -5,6 +5,10 @@ var scraper = new Trending.Scraper();
 
 const baseURL = "https://api.github.com";
 
+exports.getDownArrow = function (req, res, next) {
+	res.sendFile(path.join(__dirname, '../../app/views/downArrow.gif'));
+}
+
 exports.getHome = function (req, res, next) {
   if (req.cookies.session_token == null || req.cookies.session_token == "") {
     res.sendFile(path.join(__dirname, '../../app/views/homePage.html'));
