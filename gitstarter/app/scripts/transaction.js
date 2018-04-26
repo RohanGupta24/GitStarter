@@ -1,13 +1,7 @@
 function onLoad() {
 	new Vue({
     el: "#tableResults",
-    export default {
-    	data() {
-    		return {
-    			items: []
-    		}
-    	}
-    },
+	data: {items: []},   
     created: function() {
       fetch("/activities", {credentials: 'same-origin'}).then(function(response) {
         console.log(response);
@@ -29,6 +23,7 @@ function onLoad() {
         	console.log(r.ValueDifference);
         	this.items.push(r);
         }
+        console.log(items);
       }.bind(this)).catch(function(err) {
         console.log(err);
       });
