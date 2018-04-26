@@ -23,7 +23,7 @@ function onLoad() {
         	console.log(r.ValueDifference);
         	this.items.push(r);
         }
-        console.log(items);
+        console.log(this.items);
       }.bind(this)).catch(function(err) {
         console.log(err);
       });
