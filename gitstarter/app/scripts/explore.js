@@ -527,6 +527,32 @@ function bodyOnload() {
           console.log(err);
         });
         this.showBuyModal = false;
+      },
+      rejectBuy: function() {
+        this.showBuyModal = false;
+      },
+      sellProject: function() {
+        fetch("/sell", {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            value : this.projectPrice,
+            value_sold : this.value_sold,
+            repo : this.projectname,
+            owner : this.author
+          })
+        }).then(function(response) {
+          console.log(response);
+        }).catch(function(err) {
+          console.log(err);
+        });
+        this.showSellModal = false;
+      },
+      rejectSell: function() {
+        this.showSellModal = false;
       }
     },
     computed: {
@@ -549,7 +575,7 @@ function bodyOnload() {
         },
         set: function(newValue) {
           this.value_sold = newValue;
-          if (this.value_sold > this.invested && this.value_sold > 0.1) {
+          if (this.value_sold > this.invested && this.value_sold < 0.1) {
             this.sellDisabled = true;
           } else {
             this.sellDisabled = false;

@@ -141,14 +141,14 @@
       Are you sure you would like to go through with this transaction?
       <div slot="modal-footer">
         <b-btn variant="success" v-on:click="buyProject">YES</b-btn>
-        <b-btn variant="danger">NO</b-btn>
+        <b-btn variant="danger" v-on:click="rejectBuy">NO</b-btn>
       </div>
     </b-modal>
     <b-modal id="sellModal" v-model="showSellModal">
       Are you sure you would like to go through with this transaction?
       <div slot="modal-footer">
-        <b-btn variant="success">YES</b-btn>
-        <b-btn variant="danger">NO</b-btn>
+        <b-btn variant="success" v-on:click="sellProject">YES</b-btn>
+        <b-btn variant="danger" v-on:click="rejectSell">NO</b-btn>
       </div>
     </b-modal>
   </div>
