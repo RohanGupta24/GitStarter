@@ -140,8 +140,12 @@
 	 </script>
 
 	 <script type="text/x-template" id="navbar-template">
-	 	<div id="contain">
-	 	<a v-on:click="openpopup">{{projectownedname}}</a>
+    <div>
+	 	<div class="column" style="background-color: #aaa;">
+      <h1>{{projectauthor}}/{{projectownedname}}</h1>
+      <h2>{{projectdescription}}</h2>
+      <button type="button" class="btn btn-default" id="graphDetails" v-on:click="openpopup">Show Details</button>
+    </div>
 	 	<div class="modal-mask" v-if="isProjectModal">
 	 		<div class="modal-wrapper">
 	 		<div class="modal-container" id="graphProject">
@@ -189,33 +193,30 @@
 
     <nav id="navbar" class="navbar navbar-default navbar-fixed-top">
 
-    <span id="hamburger" onclick="openNav()">&#9776;</span>
       <button id="logoutButton" v-on:click="BacktoHomePage">Logout</button>
       <div class="typewriter">
       <div id="projectTitle">
-          <h1 id=upperText>GitStarter</h1>
+          <h1 id=upperText>Welcome {{user}}</h1>
         </div>
       </div>
-    <div id="mySidenav" class="sidenav">
-      <h1>My Projects</h1>
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <ul style="list-style-type:none">
-          <navbar-box v-for="data,key in ownedProjects"
-            v-bind:projectownedname="data.ProjectName">
-          </navbar-box>
-
-        </li>
-      </ul>
-  </div>
     </div>
 
-	<h1 id="welcomeTag">Welcome {{user}}</h1>
-	<h2 id="introduceBalanceTag">Here is your balance:</h2>
-	<h1 id="balanceTag"><b>{{balanceAmount}}</b></h1>
+	<h2 id="introduceBalanceTag">Total Balance: </h2>
+	<h1 id="balanceTag" style="color:red;"><b>{{balanceAmount}}</b></h1>
+  <br></br>
 	<div style="text-align:center;">
 		<button id="balanceDetails" type="button" class="btn btn-default btn-lg" v-on:click="showBalanceModal">View Details</button>
 	</div>
 	<br></br>
+  <h1 style="text-align:center;">My Investment Projects</h1>
+  <div class="row">
+    <navbar-box v-for="data,key in ownedProjects"
+      v-bind:projectownedname="data.ProjectName"
+      v-bind:projectdescription="data.ProjectDescription"
+      v-bind:projectauthor="data.Author"
+      v-bind:index="key">
+    </navbar-box>
+  </div>
 
 	<div class="modal-mask" v-show="isBalanceModal">
   	<div class="modal-wrapper">
@@ -238,7 +239,8 @@
   	</div>
   	</div>
 
-
+    <h1 style="text-align: center">Find a Project to Invest In</h1>
+    <br></br>
 		<div class="form-group row" id=centered>
   		<div class="col-10">
     	<input id="searchBar" class="form-control" type="search" placeholder="Search for projects" v-model="searchWords" v-on:keyup.enter="search">

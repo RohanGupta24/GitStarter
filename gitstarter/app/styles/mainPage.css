@@ -10,7 +10,23 @@
 
 }
 
+/* Create two equal columns that floats next to each other */
+.column {
+    width: 100%;
+}
 
+/* Clear floats after the columns */
+
+.row {
+  padding-left: 200px;
+  padding-right: 200px;
+  float: center;
+  padding-bottom: 100px;
+}
+
+#graphDetails {
+  float: center;
+}
 
 #OrderPickContainer {
 
@@ -203,7 +219,6 @@ body,html {
   height: 100%;
 }
 
-<<<<<<< HEAD
 .modal-mask {
   position: fixed;
   z-index: 9998;
