@@ -368,7 +368,7 @@ new Vue({
                 //SHOW TOP TRENDING PROJECTS HERE
                 self.tableErrorMessage = "No search results found"
                 self.tableHeader = "Top Trending Projects"
-                
+
               }
               else {
                 self.tableErrorMessage = "";
@@ -399,7 +399,9 @@ new Vue({
             }
             else if(res.status == 403) {
               //SHOW TOP TRENDING PROJECTS
-              self.tableErrorMessage = "Please try again"
+              self.tableErrorMessage = "Please sign in to continue searching";
+              this.tableHeader = "";
+              this.ProjectsLists ="";
             }
           }
         });
