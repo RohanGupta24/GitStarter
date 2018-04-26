@@ -62,7 +62,7 @@
       <div class="row content">
         <div class="col-sm-7">
           <b-card id="performanceCard">
-            <b-tabs card>
+            <b-tabs card v-model="performanceTab">
               <b-tab title="1W" active v-on:click="weekly">
                 <h3>{{performance}}</h3>
               </b-tab>
