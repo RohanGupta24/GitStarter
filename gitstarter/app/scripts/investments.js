@@ -355,6 +355,32 @@ function bodyOnload() {
       },
     },
     computed: {
+      buy_value: {
+        get: function() {
+          return this.value_bought;
+        },
+        set: function(newValue) {
+          this.value_bought = newValue;
+          if (this.projectPrice < 1 || this.value_bought < 1) {
+            this.buyDisabled = true;
+          } else {
+            this.buyDisabled = false;
+          }
+        }
+      },
+      sell_value: {
+        get: function() {
+          return this.value_sold;
+        },
+        set: function(newValue) {
+          this.value_sold = newValue;
+          if (this.value_sold > this.invested && this.value_sold < 0.1) {
+            this.sellDisabled = true;
+          } else {
+            this.sellDisabled = false;
+          }
+        }
+      },
       columns: {
         get: function() {
           return this.columnsData;

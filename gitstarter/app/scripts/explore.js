@@ -153,6 +153,7 @@ function bodyOnload() {
               linearType: 'function',
           },
         username: "",
+        balance: 0,
         invested: 0,
         value_bought: 0,
         value_sold: 0,
@@ -168,7 +169,7 @@ function bodyOnload() {
         projectPrice: 0,
         previousValue: 0,
         showBuyModal: false,
-        showSellModal: false
+        showSellModal: false,
       }
     },
     created() {
@@ -562,7 +563,7 @@ function bodyOnload() {
         },
         set: function(newValue) {
           this.value_bought = newValue;
-          if (this.projectPrice < 1 || this.value_bought < 1) {
+          if (this.projectPrice < 1 || this.value_bought < 1 || this.value_bought > this.balance) {
             this.buyDisabled = true;
           } else {
             this.buyDisabled = false;
@@ -575,7 +576,7 @@ function bodyOnload() {
         },
         set: function(newValue) {
           this.value_sold = newValue;
-          if (this.value_sold > this.invested && this.value_sold < 0.1) {
+          if (this.value_sold > this.invested || this.value_sold < 0.1) {
             this.sellDisabled = true;
           } else {
             this.sellDisabled = false;
