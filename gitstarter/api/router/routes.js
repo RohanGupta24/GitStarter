@@ -26,5 +26,6 @@ module.exports = function(app) {
   app.get('/explore', mainController.getMain);
   app.get('/transactions', mainController.getTransaction);
   app.get('/downArrow.gif', homeController.getDownArrow);
+  app.get('/logo.png', mainController.getLogo);
   app.get('/faq', mainController.getFAQ);
 }
