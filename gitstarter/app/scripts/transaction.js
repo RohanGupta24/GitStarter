@@ -1,4 +1,4 @@
-function bodyOnload() {
+function onLoad() {
 	new Vue({
     el: "#tableResults",
     data: {items: []},
