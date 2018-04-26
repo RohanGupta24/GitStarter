@@ -174,7 +174,10 @@ function bodyOnload() {
         showBuyModal: false,
         showSellModal: false,
         showStatusModal: false,
-        status_message:""
+        status_message:"",
+        weeklyDisabled: true,
+        monthlyDisabled: true,
+        yearlyDisabled: true
       }
     },
     created() {
@@ -288,7 +291,6 @@ function bodyOnload() {
           return;
         }
         self=this;
-        this.performance = "Performance for " + this.projectname;
         var url = "/data/week?owner=" +this.author+ "&repo="+this.projectname;
         fetch(url, {
           method: 'GET',
@@ -303,6 +305,7 @@ function bodyOnload() {
               self.rows = "rowWeek";
               self.options = "optionWeek";
 
+              this.performance = "Performance for " + this.projectname;
             }.bind(self));
           }
         }).catch(function(err) {
@@ -314,7 +317,6 @@ function bodyOnload() {
           return;
         }
         self=this;
-        this.performance = "Performance for " + this.projectname;
         var url = "/data/month?owner=" +this.author+ "&repo="+this.projectname;
         fetch(url, {
           method: 'GET',
@@ -329,6 +331,7 @@ function bodyOnload() {
               self.rows = "rowMonth";
               self.options = "optionMonth";
 
+              this.performance = "Performance for " + this.projectname;
             }.bind(self));
           }
         }).catch(function(err) {
@@ -340,7 +343,6 @@ function bodyOnload() {
           return;
         }
         self=this;
-        this.performance = "Performance for " + this.projectname;
         var url = "/data/year?owner=" +this.author+ "&repo="+this.projectname;
         fetch(url, {
           method: 'GET',
@@ -355,6 +357,7 @@ function bodyOnload() {
               self.rows = "rowYear";
               self.options = "optionYear";
 
+              this.performance = "Performance for " + this.projectname;
             }.bind(self));
           }
         }).catch(function(err) {
@@ -387,14 +390,17 @@ function bodyOnload() {
         console.log(price);
         console.log(previousvalue);
         console.log(valuebought);
+        this.weeklyDisabled = false;
+        this.monthlyDisabled = false;
+        this.yearlyDisabled = false;
         this.buyInputDisabled = false;
         this.sellInputDisabled = false;
         this.invested = valuebought;
         this.previousValue = previousvalue;
         this.author = author;
         this.projectname = projectname;
-        this.performanceTab = 0;
         this.weekly();
+        this.performanceTab = 0;
         this.projectPrice = price;
         this.buyDisabled = false;
         if (this.invested > 0.1) {

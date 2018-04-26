@@ -57,7 +57,7 @@
         <b-navbar-nav class="ml-auto">
           <img :src="avatar" height="42" width="42">
            <b-dropdown id="ddown1" class="m-md-2" right>
-            <b-dropdown-item href="/transactions">My History</b-dropdown-item>
+            <!-- <b-dropdown-item href="/transactions">My History</b-dropdown-item> -->
             <b-dropdown-item :href="profile">My Profile</b-dropdown-item>
             <b-dropdown-item href="/logout">Sign out</b-dropdown-item>
           </b-dropdown>
@@ -71,13 +71,13 @@
         <div class="col-sm-7">
           <b-card id="performanceCard">
             <b-tabs card v-model="performanceTab">
-              <b-tab title="1W" active v-on:click="weekly">
+              <b-tab title="1W" active v-on:click="weekly" :disabled="weeklyDisabled">
                 <h3>{{performance}}</h3>
               </b-tab>
-              <b-tab title="1M" v-on:click="monthly">
+              <b-tab title="1M" v-on:click="monthly" :disabled="monthlyDisabled">
                 <h3>{{performance}}</h3>
               </b-tab>
-              <b-tab title="1Y" v-on:click="yearly">
+              <b-tab title="1Y" v-on:click="yearly" :disabled="yearlyDisabled">
                 <h3>{{performance}}</h3>
               </b-tab>
               <b-tab title="Balance" v-on:click="getBalanceData" right>
