@@ -164,7 +164,9 @@ function bodyOnload() {
         performanceTab: 0,
         tableHeader: "",
         projectPrice: 0,
-        previousValue: 0
+        previousValue: 0,
+        showBuyModal: false,
+        showSellModal: false
       }
     },
     created() {
@@ -492,20 +494,21 @@ function bodyOnload() {
           method: 'POST',
           credentials: 'same-origin',
           headers: {
-            'Accept': 'application/json'
+            'Content-Type': 'application/json'
           },
           body: {
-            value : this.projectPrice,
-            value_bought : this.invested,
-            repo : this.projectname,
-            owner : this.author,
-            previous_value : this.previousValue
+            'value' : this.projectPrice,
+            'value_bought' : this.invested,
+            'repo' : this.projectname,
+            'owner' : this.author,
+            'previous_value' : this.previousValue
           }
         }).then(function(response) {
           console.log(response);
         }).catch(function(err) {
           console.log(err);
         });
+        this.showBuyModal = false;
       }
     },
     computed: {

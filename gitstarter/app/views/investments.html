@@ -41,7 +41,7 @@
 
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-      <b-navbar-brand href="#">GitStarter</b-navbar-brand>
+      <b-navbar-brand>GitStarter</b-navbar-brand>
 
       <b-collapse is-nav id="nav_collapse">
 
@@ -53,7 +53,11 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <img :src="avatar" height="42" width="42">
-          <b-nav-item href="/logout">Sign out</b-nav-item>
+           <b-dropdown id="ddown1" class="m-md-2" right>
+            <b-dropdown-item href="/transaction">My History</b-dropdown-item>
+            <b-dropdown-item :href="profile">My Profile</b-dropdown-item>
+            <b-dropdown-item href="/logout">Sign out</b-dropdown-item>
+          </b-dropdown>
         </b-navbar-nav>
 
       </b-collapse>
