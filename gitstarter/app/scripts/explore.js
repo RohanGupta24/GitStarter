@@ -506,13 +506,13 @@ function bodyOnload() {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: {
+          body: JSON.stringify({
             'value' : this.projectPrice,
             'value_bought' : this.invested,
             'repo' : this.projectname,
             'owner' : this.author,
             'previous_value' : this.previousValue
-          }
+          })
         }).then(function(response) {
           console.log(response);
         }).catch(function(err) {
