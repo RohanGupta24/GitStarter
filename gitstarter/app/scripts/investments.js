@@ -89,7 +89,8 @@ function bodyOnload() {
         },
         username: "",
         balance: 0,
-        avatar: ""
+        avatar: "",
+        profile: ""
       }
     },
     created() {
@@ -111,6 +112,7 @@ function bodyOnload() {
       }).then(function(json) {
         console.log(json);
         this.avatar = json.avatar_url;
+        this.profile = json.html_url;
       }.bind(this)).catch(function(err) {
         console.log(err);
       });
