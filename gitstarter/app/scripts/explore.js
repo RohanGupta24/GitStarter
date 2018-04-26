@@ -61,6 +61,8 @@ function bodyOnload() {
     el: "#app",
     data: function () {
       return {
+        avatar: "",
+        profile: "",
         projectsList: [],
         investmentsList: [],
         topTrendingList: [],
@@ -180,6 +182,14 @@ function bodyOnload() {
         console.log(json);
         this.username = json.rows[0].username;
         this.balance = json.rows[0].balance;
+        return fetch("/user?user=" + this.username, {credentials: 'same-origin'});
+      }.bind(this)).then(function(response) {
+        console.log(response);
+        return response.json();
+      }).then(function(json) {
+        console.log(json);
+        this.avatar = json.avatar_url;
+        this.profile = json.html_url;
       }.bind(this)).catch(function(err) {
         console.log(err);
       });
