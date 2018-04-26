@@ -2,7 +2,7 @@ function onLoad() {
 	new Vue({
     el: "#tableResults",
     data: {items: []},
-    created: {
+    created: function() {
       fetch("/activities", {credentials: 'same-origin'}).then(function(response) {
         console.log(response);
         return response.json();
