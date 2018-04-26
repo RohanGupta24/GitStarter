@@ -29,5 +29,5 @@ export default {
       		}.bind(this)).catch(function(err) {
         		console.log(err);
       	});
-		}
 	}
+}
