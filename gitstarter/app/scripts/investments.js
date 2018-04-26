@@ -154,7 +154,17 @@ function bodyOnload() {
         username: "",
         balance: 0,
         avatar: "",
-        profile: ""
+        profile: "",
+        invested: 0,
+        value_bought: 0,
+        value_sold: 0,
+        sellDisabled: true,
+        buyDisabled: true,
+        buyInputDisabled: true,
+        author: "",
+        projectname: "",
+        performance: "",
+        performanceTab: 0,
       }
     },
     created() {

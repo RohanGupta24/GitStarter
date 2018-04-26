@@ -70,38 +70,38 @@
       <div class="row content">
         <div class="col-sm-7">
           <b-card id="performanceCard">
-            <b-tabs card>
-              <b-tab title="1W" active>
-                <h3>Performance</h3>
+            <b-tabs card v-model="performanceTab">
+              <b-tab title="1W" active v-on:click="weekly">
+                <h3>{{performance}}</h3>
               </b-tab>
-              <b-tab title="1M">
-                <h3>Performance</h3>
+              <b-tab title="1M" v-on:click="monthly">
+                <h3>{{performance}}</h3>
               </b-tab>
-              <b-tab title="1Y">
-                <h3>Performance</h3>
+              <b-tab title="1Y" v-on:click="yearly">
+                <h3>{{performance}}</h3>
               </b-tab>
             </b-tabs>
             <vue-chart ref="performanceChart"
-              :columns="columns"
-              :rows="rows"
-              :options="options">
+              :columns="columnsData"
+              :rows="rowsData"
+              :options="optionsData">
             </vue-chart>
               <div class="container-fluid">
                 <div class="row content">
                   <div class="col-sm-6">
                     <b-card>
-                      <p>Amount Invested:</p>
-                      <p>Amount to Buy:</p>
-                      <b-form-input type="number"></b-form-input><br>
-                      <b-button variant="success" class="btn-block">Buy</b-btn>
+                      <p>Amount Invested: {{invested}}</p>
+                      <p>Amount to Buy: {{buy_value}}</p>
+                      <b-form-input type="number" v-model="buy_value" :disabled="buyInputDisabled"></b-form-input><br>
+                      <b-button variant="success" class="btn-block" :disabled="buyDisabled">Buy</b-btn>
                     </b-card>
                   </div>
                   <div class="col-sm-6">
                     <b-card>
-                        <p>Amount Invested:</p>
-                        <p>Amount to Sell:</p>
-                        <b-form-input type="number"></b-form-input><br>
-                        <b-button variant="danger" class="btn-block">Sell</b-btn>
+                        <p>Amount Invested: {{invested}}</p>
+                        <p>Amount to Sell: {{sell_value}}</p>
+                        <b-form-input type="number" v-model="sell_value" :disabled="sellDisabled"></b-form-input><br>
+                        <b-button variant="danger" class="btn-block" :disabled="sellDisabled">Sell</b-btn>
                     </b-card>
                   </div>
                 </div>
