@@ -23,4 +23,5 @@ module.exports = function(app) {
   app.get('/activities', investController.getActivities);
   app.get('/balance', investController.getBalance);
   app.get('/explore', mainController.getMain);
+  app.get('/downArrow.gif', homeController.getDownArrow);
 }
