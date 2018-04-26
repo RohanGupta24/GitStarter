@@ -486,16 +486,24 @@ function bodyOnload() {
 
       },
       getProjectData: function(author, projectname, price, previousvalue, valuebought) {
+        for (var i = 0; i < this.investmentsList.length; i++) {
+          if (this.investmentsList[i].Author == author && this.investmentsList[i].ProjectName == projectname) {
+            this.invested = this.investmentsList[i].value_bought;
+            this.previousValue = this.investmentsList[i].previous_value;
+            break;
+          }
+        }
+        console.log(price);
+        console.log(previousvalue);
+        console.log(valuebought);
         this.author = author;
         this.projectname = projectname;
         this.performanceTab = 0;
         this.weekly();
         this.projectPrice = price;
-        this.previousValue = previousvalue;
-        this.invested = valuebought;
         this.buyInputDisabled = false;
         this.buyDisabled = false;
-        if (valuebought > 0.1) {
+        if (this.invested > 0.1) {
           this.sellDisabled = false;
         }
       },
@@ -507,11 +515,11 @@ function bodyOnload() {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            'value' : this.projectPrice,
-            'value_bought' : this.invested,
-            'repo' : this.projectname,
-            'owner' : this.author,
-            'previous_value' : this.previousValue
+            value : this.projectPrice,
+            value_bought : this.value_bought,
+            repo : this.projectname,
+            owner : this.author,
+            previous_value : this.previousValue
           })
         }).then(function(response) {
           console.log(response);
@@ -528,7 +536,7 @@ function bodyOnload() {
         },
         set: function(newValue) {
           this.value_bought = newValue;
-          if (this.value_bought > this.invested && this.value_bought > 0.1) {
+          if (this.projectPrice < 1 || this.value_bought < 1) {
             this.buyDisabled = true;
           } else {
             this.buyDisabled = false;

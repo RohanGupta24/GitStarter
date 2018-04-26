@@ -18,6 +18,7 @@ exports.investProject = function(req, res) {
     res.redirect('/logout');
     return;
   }
+  console.log(req);
   const username = req.cookies.username;
   const value_bought = req.body.value_bought;
   const value = req.body.value;
