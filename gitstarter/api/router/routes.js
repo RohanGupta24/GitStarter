@@ -28,4 +28,5 @@ module.exports = function(app) {
   app.get('/downArrow.gif', homeController.getDownArrow);
   app.get('/logo.png', mainController.getLogo);
   app.get('/faq', mainController.getFAQ);
+  app.get('/Matrix.mp4', homeController.getMatrix)
 }

@@ -31,7 +31,15 @@
 </head>
 
 
+
+
+
 <div class="jumbotron hero-nature">
+
+	<video id="grey" preload loop muted autoplay>
+		<source src="/Matrix.mp4" type="video/mp4">
+	</video>
+
 
 	<div class="typewriter">
 	<div id="projectTitle">
@@ -42,6 +50,7 @@
   		<p id=upperText>A marketplace for open source projects.</p>
   	</div>
 	</div>
+
 <!--   <h1 id=upperText>GitStarter</h1> -->
 
 <!--   <hr class="my-4">
@@ -55,7 +64,11 @@
 
 <a href="#topTrending" id="centeredDown"><img src="/downArrow.gif" title="Explore!" width="300" height="200" /></a>
 
+
 </div>
+
+
+
 <p id="topTrending">Top Trending Projects</p>
 <script type="text/x-template" id="search-template">
 		<tr :id="index">
@@ -78,7 +91,7 @@
 
 
 	<div id="OrderPickContainer">
-		<!-- <div class="container" id="modalGraph" v-if="showGraph">
+		<div class="container" id="modalGraph" v-if="showGraph">
 			<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
