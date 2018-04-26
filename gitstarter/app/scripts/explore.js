@@ -155,12 +155,16 @@ function bodyOnload() {
         value_bought: 0,
         value_sold: 0,
         sellDisabled: true,
-        buyDisabled: false,
+        buyDisabled: true,
+        buyInputDisabled: true,
         searchWords: "",
         author: "",
         projectname: "",
         performance: "",
-        performanceTab: 0
+        performanceTab: 0,
+        tableHeader: "",
+        projectPrice: 0,
+        previousValue: 0
       }
     },
     created() {
@@ -470,12 +474,18 @@ function bodyOnload() {
 
       },
       getProjectData: function(author, projectname, price, previousvalue, valuebought) {
-        console.log(author);
-        console.log(projectname);
         this.author = author;
         this.projectname = projectname;
         this.performanceTab = 0;
         this.weekly();
+        this.projectPrice = price;
+        this.previousValue = previousvalue;
+        this.invested = valuebought;
+        this.buyInputDisabled = false;
+        this.buyDisabled = false;
+        if (valuebought > 0.1) {
+          this.sellDisabled = false;
+        }
       }
     },
     computed: {

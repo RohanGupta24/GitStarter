@@ -84,8 +84,8 @@
                     <b-card>
                       <p>Amount Invested: {{invested}}</p>
                       <p>Amount to Buy: {{buy_value}}</p>
-                      <b-form-input type="number" v-model="buy_value"></b-form-input><br>
-                      <b-button variant="success" class="btn-block" :disabled="buyDisabled">Buy</b-btn>
+                      <b-form-input type="number" v-model="buy_value" :disabled="buyInputDisabled"></b-form-input><br>
+                      <b-button variant="success" class="btn-block" :disabled="buyDisabled" v-b-modal="promptModal">Buy</b-btn>
                     </b-card>
                   </div>
                   <div class="col-sm-6">
@@ -93,7 +93,7 @@
                         <p>Amount Invested: {{invested}}</p>
                         <p>Amount to Sell: {{sell_value}}</p>
                         <b-form-input type="number" v-model="sell_value" :disabled="sellDisabled"></b-form-input><br>
-                        <b-button variant="danger" class="btn-block" :disabled="sellDisabled">Sell</b-btn>
+                        <b-button variant="danger" class="btn-block" :disabled="sellDisabled" v-b-modal="promptModal">Sell</b-btn>
                     </b-card>
                   </div>
                 </div>
@@ -108,7 +108,7 @@
               </b-row>
             </b-container>
           </b-card>
-          <h2>Top Trending Projects</h2>
+          <h2>{{tableHeader}}</h2>
           <b-card id="projectsCard">
             <table class="table table-hover" id="table1">
         	 		<tbody>
@@ -132,7 +132,7 @@
       </div>
     </div>
 
-    <b-modal>
+    <b-modal id="promptModal">
       Are you sure you would like to go through with this transaction?
     </b-modal>
   </div>
