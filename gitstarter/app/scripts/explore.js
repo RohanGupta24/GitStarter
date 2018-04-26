@@ -1,7 +1,7 @@
 function bodyOnload() {
   Vue.component("project-cell", {
     template: "#project-template",
-    props: ["icon", "ownerurl", "author", "projecturl", "projectname", "projectdescription", "price", "previousvalue", "valuebought", "index"],
+    props: ["icon", "ownerurl", "author", "projecturl", "projectname", "projectdescription", "price", "previousvalue", "valuebought", "index", "isinvested"],
 
     data: function() {
       return {
@@ -287,6 +287,7 @@ function bodyOnload() {
                  if (this.projectsList[j] == this.topTrendingList[j]) {
                    Vue.set(this.projectsList[j], 'Prices', json[i].currentValue);
                  }
+                 break;
                }
              }
            } else if (json[i].name != null && json[i].owner.login != null) {
@@ -300,6 +301,7 @@ function bodyOnload() {
                     Vue.set(this.projectsList[j], 'ProjectURL', json[i].html_url);
                     Vue.set(this.projectsList[j], 'OwnerURL', json[i].owner.html_url);
                   }
+                  break;
                 }
               }
             } else {

@@ -21,7 +21,7 @@
   <link type="text/css" rel="stylesheet" href="../styles/investments.css"/>
 
   <script type="text/x-template" id="project-template">
-    <tr :id="index">
+    <tr :id="index" @click="getData(author, projectname, price, previousvalue, valuebought)">
       <td class="tableEl" v-if="showElement" style="font-size:30px;">
         <img :src="icon" height="42" width="42">
         <br>
@@ -127,7 +127,8 @@
         	        	v-bind:price="project.Prices"
                     v-bind:previousvalue="project.previous_value"
                     v-bind:valuebought="project.value_bought"
-        	        	v-bind:index="key">
+        	        	v-bind:index="key"
+                    @get-project-data="getProjectData">
         	        </tr>
         	    </tbody>
         	</table>

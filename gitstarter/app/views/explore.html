@@ -25,7 +25,7 @@
       <td class="tableEl" v-if="showElement" style="font-size:30px;">
         <img :src="icon" height="42" width="42">
         <br>
-        <a :href="ownerurl" target="_blank">{{author}}</a>/<a :href="projecturl" target="_blank">{{projectname}}</a>
+        <a :href="ownerurl" target="_blank">{{author}}</a>/<a :href="projecturl" target="_blank">{{projectname}}</a><i :v-if="isinvested" class="fa fa-check-circle"></i>
         <br>
         <h5>{{projectdescription}}</h5>
        	<br>

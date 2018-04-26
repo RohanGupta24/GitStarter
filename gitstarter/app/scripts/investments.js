@@ -165,6 +165,8 @@ function bodyOnload() {
         projectname: "",
         performance: "",
         performanceTab: 0,
+        projectPrice: 0,
+        previousValue: 0
       }
     },
     created() {
@@ -332,16 +334,11 @@ function bodyOnload() {
         });
       },
       getProjectData: function(author, projectname, price, previousvalue, valuebought) {
-        for (var i = 0; i < this.investmentsList.length; i++) {
-          if (this.investmentsList[i].Author == author && this.investmentsList[i].ProjectName == projectname) {
-            this.invested = this.investmentsList[i].value_bought;
-            this.previousValue = this.investmentsList[i].previous_value;
-            break;
-          }
-        }
         console.log(price);
         console.log(previousvalue);
         console.log(valuebought);
+        this.invested = valuebought;
+        this.previousValue = previousValue;
         this.author = author;
         this.projectname = projectname;
         this.performanceTab = 0;
