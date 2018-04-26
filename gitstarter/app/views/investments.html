@@ -1,6 +1,8 @@
 <html>
 <head>
   <!-- Required meta tags -->
+  <title>GitStarter</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="/logo.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -19,7 +21,7 @@
   <link type="text/css" rel="stylesheet" href="../styles/investments.css"/>
 
   <script type="text/x-template" id="project-template">
-    <tr :id="index">
+    <tr :id="index" @click="getData(author, projectname, price, previousvalue, valuebought)">
       <td class="tableEl" v-if="showElement" style="font-size:30px;">
         <img :src="icon" height="42" width="42">
         <br>
@@ -48,12 +50,17 @@
         <b-navbar-nav>
           <b-nav-item href="#">My Investments</b-nav-item>
           <b-nav-item href="/explore">Explore</b-nav-item>
+          <b-nav-item href="/faq">FAQ</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <img :src="avatar" height="42" width="42">
-          <b-nav-item href="/logout">Sign out</b-nav-item>
+           <b-dropdown id="ddown1" class="m-md-2" right>
+            <b-dropdown-item href="/transactions">My History</b-dropdown-item>
+            <b-dropdown-item :href="profile">My Profile</b-dropdown-item>
+            <b-dropdown-item href="/logout">Sign out</b-dropdown-item>
+          </b-dropdown>
         </b-navbar-nav>
 
       </b-collapse>
@@ -63,38 +70,38 @@
       <div class="row content">
         <div class="col-sm-7">
           <b-card id="performanceCard">
-            <b-tabs card>
-              <b-tab title="1W" active>
-                <h3>Performance</h3>
+            <b-tabs card v-model="performanceTab">
+              <b-tab title="1W" active v-on:click="weekly">
+                <h3>{{performance}}</h3>
               </b-tab>
-              <b-tab title="1M">
-                <h3>Performance</h3>
+              <b-tab title="1M" v-on:click="monthly">
+                <h3>{{performance}}</h3>
               </b-tab>
-              <b-tab title="1Y">
-                <h3>Performance</h3>
+              <b-tab title="1Y" v-on:click="yearly">
+                <h3>{{performance}}</h3>
               </b-tab>
             </b-tabs>
             <vue-chart ref="performanceChart"
-              :columns="columns"
-              :rows="rows"
-              :options="options">
+              :columns="columnsData"
+              :rows="rowsData"
+              :options="optionsData">
             </vue-chart>
               <div class="container-fluid">
                 <div class="row content">
                   <div class="col-sm-6">
                     <b-card>
-                      <p>Amount Invested:</p>
-                      <p>Amount to Buy:</p>
-                      <b-form-input type="number"></b-form-input><br>
-                      <b-button variant="success" class="btn-block">Buy</b-btn>
+                      <p>Amount Invested: {{invested}}</p>
+                      <p>Amount to Buy: {{buy_value}}</p>
+                      <b-form-input type="number" v-model="buy_value" :disabled="buyInputDisabled"></b-form-input><br>
+                      <b-button variant="success" class="btn-block" :disabled="buyDisabled" v-b-modal="'buyModal'">Buy</b-btn>
                     </b-card>
                   </div>
                   <div class="col-sm-6">
                     <b-card>
-                        <p>Amount Invested:</p>
-                        <p>Amount to Sell:</p>
-                        <b-form-input type="number"></b-form-input><br>
-                        <b-button variant="danger" class="btn-block">Sell</b-btn>
+                        <p>Amount Invested: {{invested}}</p>
+                        <p>Amount to Sell: {{sell_value}}</p>
+                        <b-form-input type="number" v-model="sell_value" :disabled="sellDisabled"></b-form-input><br>
+                        <b-button variant="danger" class="btn-block" :disabled="sellDisabled" v-b-modal="'sellModal'">Sell</b-btn>
                     </b-card>
                   </div>
                 </div>
@@ -103,7 +110,7 @@
         </div>
         <div class="col-sm-5">
           <b-card id="userCard">
-            <h4>{{ username }}</h4>
+            <h4>Hello <strong>{{ username }}</strong> 👋</h4>
             <p>Current Balance: <strong>{{ balance }} G</strong></p>
           </b-card>
           <h2>My Investments</h2>
@@ -120,7 +127,8 @@
         	        	v-bind:price="project.Prices"
                     v-bind:previousvalue="project.previous_value"
                     v-bind:valuebought="project.value_bought"
-        	        	v-bind:index="key">
+        	        	v-bind:index="key"
+                    @get-project-data="getProjectData">
         	        </tr>
         	    </tbody>
         	</table>
@@ -128,6 +136,29 @@
         </div>
       </div>
     </div>
+
+    <b-modal id="buyModal" v-model="showBuyModal">
+      Are you sure you would like to go through with this transaction?
+      <div slot="modal-footer">
+        <b-btn variant="success" v-on:click="buyProject"v-b-modal="'statusModal'">YES</b-btn>
+        <b-btn variant="danger" v-on:click="rejectBuy">NO</b-btn>
+      </div>
+    </b-modal>
+    <b-modal id="sellModal" v-model="showSellModal">
+      Are you sure you would like to go through with this transaction?
+      <div slot="modal-footer">
+        <b-btn variant="success" v-on:click="sellProject"v-b-modal="'statusModal'">YES</b-btn>
+        <b-btn variant="danger" v-on:click="rejectSell">NO</b-btn>
+      </div>
+    </b-modal>
+
+    <b-modal id="statusModal" v-model="showStatusModal">
+      {{status_message}}
+      <div slot="modal-footer">
+        <button type="button" id="OK" class="btn-lg btn-primary" v-on:click="closeStatusModal">OK</button>
+      </div>
+    </b-modal>
+
   </div>
 
 </body>

@@ -18,6 +18,7 @@ exports.investProject = function(req, res) {
     res.redirect('/logout');
     return;
   }
+  console.log(req);
   const username = req.cookies.username;
   const value_bought = req.body.value_bought;
   const value = req.body.value;
@@ -108,6 +109,7 @@ exports.investProject = function(req, res) {
                     res.status(400).send(errMessage);
                   }
                 }
+                const returnedBalance = result.rows[0].balance;
                 client.query("COMMIT", function(err) {
                   if (shouldAbort(err)) {
                     console.log(err);
@@ -116,7 +118,7 @@ exports.investProject = function(req, res) {
                     return;
                   }
                   done();
-                  res.send({message : "Success."});
+                  res.send({message : "Success.", balance : returnedBalance});
                 });
               });
             });
@@ -220,6 +222,7 @@ exports.sellProject = function(req, res) {
                     res.status(400).send(errMessage);
                   }
                 }
+                const returnedBalance = result.rows[0].balance;
                 client.query("COMMIT", function(err) {
                   if (shouldAbort(err)) {
                     console.log(err);
@@ -228,7 +231,7 @@ exports.sellProject = function(req, res) {
                     return;
                   }
                   done();
-                  res.send({message : "Success."});
+                  res.send({message : "Success.", balance : returnedBalance});
                 });
               });
             });
@@ -266,7 +269,7 @@ exports.getActivities = function(req, res) {
   }
   const user = req.cookies.username;
   pool.connect(function(err, client, done) {
-    client.query("SELECT * FROM Investor, Activity WHERE Investor.username = $1 AND Investor.username = Activity.username ORDER BY Activity.timestamp", [user], function(err, result) {
+    client.query("SELECT * FROM Project, Investor, Activity WHERE Investor.username = $1 AND Investor.username = Activity.username AND Activity.project_id = Project.project_id ORDER BY Activity.timestamp", [user], function(err, result) {
       if (err) {
         done();
         console.log(err);

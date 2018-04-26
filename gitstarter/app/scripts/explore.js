@@ -1,7 +1,7 @@
 function bodyOnload() {
   Vue.component("project-cell", {
     template: "#project-template",
-    props: ["icon", "ownerurl", "author", "projecturl", "projectname", "projectdescription", "price", "previousvalue", "valuebought", "index"],
+    props: ["icon", "ownerurl", "author", "projecturl", "projectname", "projectdescription", "price", "previousvalue", "valuebought", "index", "isinvested"],
 
     data: function() {
       return {
@@ -12,11 +12,19 @@ function bodyOnload() {
         showElement: true,
         showSell: false,
         showBuy: false,
+        showStatus: false,
+        status_message: "Penis"
       };
     },
     methods: {
       getData: function(author, projectname, price, previousvalue, valuebought) {
         this.$emit('get-project-data', author, projectname, price, previousvalue, valuebought);
+      },
+      showStatusModal: function() {
+        this.showStatusModal = true;
+      },
+      closeStatusModal: function() {
+        this.showStatusModal = false;
       },
       showSellModal: function() {
         this.showSell = true;
@@ -61,6 +69,8 @@ function bodyOnload() {
     el: "#app",
     data: function () {
       return {
+        avatar: "",
+        profile: "",
         projectsList: [],
         investmentsList: [],
         topTrendingList: [],
@@ -151,16 +161,24 @@ function bodyOnload() {
               linearType: 'function',
           },
         username: "",
+        balance: 0,
         invested: 0,
         value_bought: 0,
         value_sold: 0,
         sellDisabled: true,
-        buyDisabled: false,
+        buyDisabled: true,
+        buyInputDisabled: true,
         searchWords: "",
         author: "",
         projectname: "",
         performance: "",
-        performanceTab: 0
+        performanceTab: 0,
+        tableHeader: "",
+        projectPrice: 0,
+        previousValue: 0,
+        showBuyModal: false,
+        showSellModal: false,
+        showStatusModal: false
       }
     },
     created() {
@@ -180,6 +198,14 @@ function bodyOnload() {
         console.log(json);
         this.username = json.rows[0].username;
         this.balance = json.rows[0].balance;
+        return fetch("/user?user=" + this.username, {credentials: 'same-origin'});
+      }.bind(this)).then(function(response) {
+        console.log(response);
+        return response.json();
+      }).then(function(json) {
+        console.log(json);
+        this.avatar = json.avatar_url;
+        this.profile = json.html_url;
       }.bind(this)).catch(function(err) {
         console.log(err);
       });
@@ -270,6 +296,7 @@ function bodyOnload() {
                  if (this.projectsList[j] == this.topTrendingList[j]) {
                    Vue.set(this.projectsList[j], 'Prices', json[i].currentValue);
                  }
+                 break;
                }
              }
            } else if (json[i].name != null && json[i].owner.login != null) {
@@ -283,6 +310,7 @@ function bodyOnload() {
                     Vue.set(this.projectsList[j], 'ProjectURL', json[i].html_url);
                     Vue.set(this.projectsList[j], 'OwnerURL', json[i].owner.html_url);
                   }
+                  break;
                 }
               }
             } else {
@@ -470,12 +498,87 @@ function bodyOnload() {
 
       },
       getProjectData: function(author, projectname, price, previousvalue, valuebought) {
-        console.log(author);
-        console.log(projectname);
+        for (var i = 0; i < this.investmentsList.length; i++) {
+          if (this.investmentsList[i].Author == author && this.investmentsList[i].ProjectName == projectname) {
+            this.invested = this.investmentsList[i].value_bought;
+            this.previousValue = this.investmentsList[i].previous_value;
+            break;
+          }
+        }
+        console.log(price);
+        console.log(previousvalue);
+        console.log(valuebought);
         this.author = author;
         this.projectname = projectname;
         this.performanceTab = 0;
         this.weekly();
+        this.projectPrice = price;
+        this.buyInputDisabled = false;
+        this.buyDisabled = false;
+        if (this.invested > 0.1) {
+          this.sellDisabled = false;
+        }
+      },
+      buyProject: function() {
+        if (this.buy_value < 0.1) {
+          this.buyDisabled = true;
+          return;
+        }
+        fetch("/invest", {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            value : this.projectPrice,
+            value_bought : this.value_bought,
+            repo : this.projectname,
+            owner : this.author,
+            previous_value : this.previousValue
+          })
+        }).then(function(response) {
+          console.log(response);
+          return response.json();
+        }).then(function(response) {
+          this.balance = response.balance;
+        }.bind(this)).catch(function(err) {
+          console.log(err);
+        });
+        this.showBuyModal = false;
+      },
+      rejectBuy: function() {
+        this.showBuyModal = false;
+      },
+      sellProject: function() {
+        if (this.sell_value < 0.1) {
+          this.sellDisabled = true;
+          return;
+        }
+        fetch("/sell", {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            value : this.projectPrice,
+            value_sold : this.value_sold,
+            repo : this.projectname,
+            owner : this.author
+          })
+        }).then(function(response) {
+          console.log(response);
+          return response.json();
+        }).then(function(response) {
+          this.balance = response.balance;
+        }.bind(this)).catch(function(err) {
+          console.log(err);
+        });
+        this.showSellModal = false;
+      },
+      rejectSell: function() {
+        this.showSellModal = false;
       }
     },
     computed: {
@@ -485,7 +588,7 @@ function bodyOnload() {
         },
         set: function(newValue) {
           this.value_bought = newValue;
-          if (this.value_bought > this.invested) {
+          if (this.projectPrice < 1 || this.value_bought < 1 || this.value_bought > this.balance) {
             this.buyDisabled = true;
           } else {
             this.buyDisabled = false;
@@ -498,7 +601,7 @@ function bodyOnload() {
         },
         set: function(newValue) {
           this.value_sold = newValue;
-          if (this.value_sold > this.invested) {
+          if (this.value_sold > this.invested || this.value_sold < 0.1) {
             this.sellDisabled = true;
           } else {
             this.sellDisabled = false;
