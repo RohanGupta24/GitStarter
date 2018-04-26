@@ -18,6 +18,7 @@ function bodyOnload() {
     },
     methods: {
 
+
       showSellModal: function() {
         this.showSell = true;
         this.showBuy = false;
@@ -96,13 +97,13 @@ function bodyOnload() {
       this.$on('redrawChart', function() {
         this.$refs.performanceChart.drawChart();
       });
-      fetch("/user?user="+username, {credentials: 'same-origin'}).then(function(response) {
+      fetch("/user?user=" + this.username, {credentials: 'same-origin'}).then(function(response) {
         console.log(response);
         return repsonse.json();
       }).then(function(json) {
         console.log(json);
         this.avatar = json.avatar_url;
-      }).bind(this).catch(function(err) {
+      }.bind(this)).catch(function(err) {
         console.log(err);
       });
       fetch("/balance", {credentials: 'same-origin'}).then(function(response) {
