@@ -15,11 +15,11 @@
   <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.min.js"></script>
   <script src="../scripts/vue-charts.js"></script>
-  <script src="../scripts/investments.js"></script>
-  <link type="text/css" rel="stylesheet" href="../styles/investments.css"/>
+  <script src="../scripts/explore.js"></script>
+  <link type="text/css" rel="stylesheet" href="../styles/explore.css"/>
 
   <script type="text/x-template" id="project-template">
-    <tr :id="index">
+    <tr :id="index" @click="getData(author, projectname, price, previousvalue, valuebought)">
       <td class="tableEl" v-if="showElement" style="font-size:30px;">
         <img :src="icon" height="42" width="42">
         <br>
@@ -27,7 +27,7 @@
         <br>
         <h5>{{projectdescription}}</h5>
        	<br>
-        <b>Price: {{price}}G</b>
+        <b>Price: {{price}} G</b>
     		<br>
         <!-- <button type="button" class="btn btn-default" v-on:click="showGraphModal"><b>Show Details</b></button> -->
       </td>
@@ -63,37 +63,37 @@
         <div class="col-sm-7">
           <b-card id="performanceCard">
             <b-tabs card>
-              <b-tab title="1W" active>
-                <h3>Performance</h3>
+              <b-tab title="1W" active v-on:click="weekly">
+                <h3>{{performance}}</h3>
               </b-tab>
-              <b-tab title="1M">
-                <h3>Performance</h3>
+              <b-tab title="1M" v-on:click="monthly">
+                <h3>{{performance}}</h3>
               </b-tab>
-              <b-tab title="1Y">
-                <h3>Performance</h3>
+              <b-tab title="1Y" v-on:click="yearly">
+                <h3>{{performance}}</h3>
               </b-tab>
             </b-tabs>
             <vue-chart ref="performanceChart"
-              :columns="columns"
-              :rows="rows"
-              :options="options">
+              :columns="columnsData"
+              :rows="rowsData"
+              :options="optionsData">
             </vue-chart>
               <div class="container-fluid">
                 <div class="row content">
                   <div class="col-sm-6">
                     <b-card>
-                      <p>Amount Invested:</p>
-                      <p>Amount to Buy:</p>
-                      <b-form-input type="number"></b-form-input><br>
-                      <b-button variant="success" class="btn-block">Buy</b-btn>
+                      <p>Amount Invested: {{invested}}</p>
+                      <p>Amount to Buy: {{buy_value}}</p>
+                      <b-form-input type="number" v-model="buy_value"></b-form-input><br>
+                      <b-button variant="success" class="btn-block" :disabled="buyDisabled">Buy</b-btn>
                     </b-card>
                   </div>
                   <div class="col-sm-6">
                     <b-card>
-                        <p>Amount Invested:</p>
-                        <p>Amount to Sell:</p>
-                        <b-form-input type="number"></b-form-input><br>
-                        <b-button variant="danger" class="btn-block">Sell</b-btn>
+                        <p>Amount Invested: {{invested}}</p>
+                        <p>Amount to Sell: {{sell_value}}</p>
+                        <b-form-input type="number" v-model="sell_value" :disabled="sellDisabled"></b-form-input><br>
+                        <b-button variant="danger" class="btn-block" :disabled="sellDisabled">Sell</b-btn>
                     </b-card>
                   </div>
                 </div>
@@ -101,11 +101,14 @@
           </bcard>
         </div>
         <div class="col-sm-5">
-          <b-card id="userCard">
-            <h4>{{ username }}</h4>
-            <p>Current Balance: <strong>{{ balance }}</strong></p>
+          <b-card id="searchCard">
+            <b-container fluid>
+              <b-row>
+                <b-col><b-form-input type="search" v-model="searchWords" placeholder="Search for Projects" v-on:keyup.enter.native="searchProjects"></b-form-input></b-col>
+              </b-row>
+            </b-container>
           </b-card>
-          <h2>My Investments</h2>
+          <h2>Top Trending Projects</h2>
           <b-card id="projectsCard">
             <table class="table table-hover" id="table1">
         	 		<tbody>
@@ -119,7 +122,8 @@
         	        	v-bind:price="project.Prices"
                     v-bind:previousvalue="project.previous_value"
                     v-bind:valuebought="project.value_bought"
-        	        	v-bind:index="key">
+        	        	v-bind:index="key"
+                    @get-project-data="getProjectData">
         	        </tr>
         	    </tbody>
         	</table>
@@ -127,6 +131,10 @@
         </div>
       </div>
     </div>
+
+    <b-modal>
+      Are you sure you would like to go through with this transaction?
+    </b-modal>
   </div>
 
 </body>

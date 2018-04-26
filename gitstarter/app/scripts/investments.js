@@ -17,6 +17,7 @@ function bodyOnload() {
       };
     },
     methods: {
+      
 
       showSellModal: function() {
         this.showSell = true;
