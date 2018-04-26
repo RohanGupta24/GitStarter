@@ -8,7 +8,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 	<script src="../scripts/mainPage.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
   <script src="../scripts/vue-charts.js"></script>
 	<!-- <script src="../../../node_modules/vue-infinite-scroll/vue-infinite-scroll.js"></script> -->
  	<link rel="stylesheet" type="text/css" href="../styles/mainPage.css"></link>
@@ -27,6 +27,7 @@
 	            {{projectdescription}}
 	           	<br>
 	            <b>Price: {{price}}</b>
+							<br>
                 <button type="button" id="sellButton" class="btn btn-default" v-on:click="showSellModal"><b>Sell</b></button>
                <button type="button" id="buyButton" class="btn btn-default" v-on:click="showBuyModal"><b>Buy</b></button>
               <button type="button" class="btn btn-default" v-on:click="weekly"><b>Show Details</b></button>
@@ -41,7 +42,7 @@
           <div class="modal-body">
             <a><b>How much do you want to sell?</b></a>
             <br>Quantity of Balance:
-              <input type="text" v-model="sellPrice">
+              <input type="number" min="1" v-model="sellPrice">
             </br>
         </div>
         <div class="modal-footer">
@@ -60,7 +61,7 @@
           <div class="modal-body">
             <a><b>How much do you want to buy?</b></a>
             <br>Quantity of Balance:
-              <input type="text" v-model="buyPrice">
+              <input type="number" min="1" v-model="buyPrice">
             </br>
         </div>
         <div class="modal-footer">
@@ -226,9 +227,9 @@
       </div>
       <div class="modal-body">
         <vue-chart
-            :columns="columnsWeek"
-            :rows="rowsWeek"
-            :options="optionsWeek"
+            :columns="columns"
+            :rows="rows"
+            :options="options"
             ></vue-chart>
       </div>
       <div class="modal-footer">

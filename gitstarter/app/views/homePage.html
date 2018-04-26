@@ -61,36 +61,10 @@
 	            {{projectdescription}}
 	           	<br>
 	            <b>Price: {{price}}</b>
+							<br>
               <button type="button" class="btn btn-default" v-on:click="showGraphModal"><b>Show Details</b></button>
 	       </td>
-				<div class="container" id="modalGraph" v-if="showGraph">
-  				<div class="modal-dialog">
-    			<div class="modal-content">
-      			<div class="modal-header">
-              <button type="button" class="close" v-on:click="closeGraphModal">&times;</button>
-        		  <h5 class="modal-title">Details Overtime</h5>
-      			</div>
-      			<div class="modal-body">
-              <div id="buttonOptionSet">
-                <button type="button" v-on:click="weekly()" class="btn btn-default">Weekly</button>
-                <button type="button" v-on:click="monthly()" class="btn btn-default">Monthly</button>
-                <button type="button" v-on:click="yearly()" class="btn btn-default">Annually</button>
-              </div>
 
-							<div v-model="headerTitle" class="lineGraphHeader">{{headerTitle}}</div>
-
-        		<vue-chart
-            :columns="columnsData"
-            :rows="rowsData"
-            :options="optionsData"
-        		></vue-chart>
-      			</div>
-      			<div class="modal-footer">
-        		<button type="button" id="OK" class="btn-lg btn-primary" v-on:click="closeGraphModal">OK</button>
-     		 	</div>
-    			</div>
-  				</div>
-  				</div>
 		</tr>
 
 	 </script>
@@ -99,7 +73,36 @@
 
 <body id="bodyStyle" onload="onLoad()">
 
+
 	<div id="OrderPickContainer">
+		<div class="container" id="modalGraph" v-if="showGraph">
+			<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" v-on:click="closeGraphModal">&times;</button>
+					<h5 class="modal-title">Details Overtime</h5>
+				</div>
+				<div class="modal-body">
+					<div id="buttonOptionSet">
+						<button type="button" v-on:click="weekly()" class="btn btn-default">Weekly</button>
+						<button type="button" v-on:click="monthly()" class="btn btn-default">Monthly</button>
+						<button type="button" v-on:click="yearly()" class="btn btn-default">Annually</button>
+					</div>
+
+					<div v-model="headerTitle" class="lineGraphHeader">{{headerTitle}}</div>
+
+				<vue-chart
+				:columns="columnsData"
+				:rows="rowsData"
+				:options="optionsData"
+				></vue-chart>
+				</div>
+				<div class="modal-footer">
+				<button type="button" id="OK" class="btn-lg btn-primary" v-on:click="closeGraphModal">OK</button>
+			</div>
+			</div>
+			</div>
+			</div>
 
 		<div class="form-group row" id=centered>
   		<div class="col-10">

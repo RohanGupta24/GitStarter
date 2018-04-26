@@ -1,10 +1,23 @@
+var path = require('path');
 var { Pool } = require('pg');
 var pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: true
 });
 
+exports.getInvested = function(req, res) {
+  if (req.cookies.session_token == null || req.cookies.session_token == "") {
+    res.sendFile(path.join(__dirname, '../../app/views/homePage.html'));
+  } else {
+    res.sendFile(path.join(__dirname, '../../app/views/investments.html'));
+  }
+}
+
 exports.investProject = function(req, res) {
+  if (req.cookies.username == null) {
+    res.redirect('/logout');
+    return;
+  }
   const username = req.cookies.username;
   const value_bought = req.body.value_bought;
   const value = req.body.value;
@@ -69,13 +82,18 @@ exports.investProject = function(req, res) {
             }
             const timestamp = Math.round(Date.now() / 1000);
             const new_value = result.rows[0].value_bought;
-            const query  = "INSERT INTO Activity(new_value, previous_value, timestamp, project_id, username) VALUES ($1, $2, $3, $4, $5)";
-            client.query(query, [new_value, previous_value, timestamp, project_id, username], function(err, result) {
+            const query  = "INSERT INTO Activity(new_value, previous_value, balance, timestamp, project_id, username) VALUES ($1, $2, (SELECT balance - $3 FROM Investor WHERE username = $6), $4, $5, $6) RETURNING balance";
+            client.query(query, [new_value, previous_value, value_bought, timestamp, project_id, username], function(err, result) {
               if (shouldAbort(err)) {
                 console.log(err);
                 errMessage.error = err;
                 res.status(400).send(errMessage);
                 return;
+              } else if (result.rows[0].balance == null || result.rows[0].balance < 0) {
+                if (shouldAbort(true)) {
+                  errMessage.error = err;
+                  res.status(400).send(errMessage);
+                }
               }
               const query = "UPDATE Investor SET balance = (SELECT balance FROM Investor WHERE username = $2 AND balance - $1 >= 0) - $1 WHERE username = $2 RETURNING balance";
               client.query(query, [value_bought, username], function(err, result) {
@@ -110,6 +128,10 @@ exports.investProject = function(req, res) {
 }
 
 exports.sellProject = function(req, res) {
+  if (req.cookies.username == null) {
+    res.redirect('/logout');
+    return;
+  }
   const username = req.cookies.username;
   const value_sold = req.body.value_sold;
   const value = req.body.value;
@@ -171,14 +193,19 @@ exports.sellProject = function(req, res) {
             }
             const timestamp = Math.round(Date.now() / 1000);
             const new_value = result.rows[0].value_bought;
-            const args = [new_value, previous_value_bought, timestamp, project_id, username];
-            const query  = "INSERT INTO Activity(new_value, previous_value, timestamp, project_id, username) VALUES ($1, $2, $3, $4, $5)";
+            const args = [new_value, previous_value_bought, -value_sold, timestamp, project_id, username];
+            const query  = "INSERT INTO Activity(new_value, previous_value, balance, timestamp, project_id, username) VALUES ($1, $2, (SELECT balance - $3 FROM Investor WHERE username = $6), $4, $5, $6) RETURNING balance";
             client.query(query, args, function(err, result) {
               if (shouldAbort(err)) {
                 console.log(err);
                 errMessage.error = err;
                 res.status(400).send(errMessage);
                 return;
+              } else if (result.rows[0].balance == null || result.rows[0].balance < 0) {
+                if (shouldAbort(true)) {
+                  errMessage.error = err;
+                  res.status(400).send(errMessage);
+                }
               }
               const query = "UPDATE Investor SET balance = (SELECT balance FROM Investor WHERE username = $2 AND balance - $1 >= 0) - $1 WHERE username = $2 RETURNING balance";
               client.query(query, [-value_sold, username], function(err, result) {
@@ -213,9 +240,13 @@ exports.sellProject = function(req, res) {
 }
 
 exports.getInvestments = function(req, res) {
+  if (req.cookies.username == null) {
+    res.redirect('/logout');
+    return;
+  }
   const user = req.cookies.username;
   pool.connect(function(err, client, done) {
-    client.query("SELECT * FROM Investor, Investment WHERE Investor.username = $1 AND Investor.username = Investment.username AND Investment.value_bought > 0", [user], function(err, result) {
+    client.query("SELECT * FROM Project, Investor, Investment WHERE Investor.username = $1 AND Investor.username = Investment.username AND Investment.project_id = Project.project_id AND Investment.value_bought > 0", [user], function(err, result) {
       if (err) {
         done();
         console.log(err);
@@ -229,6 +260,10 @@ exports.getInvestments = function(req, res) {
 }
 
 exports.getActivities = function(req, res) {
+  if (req.cookies.username == null) {
+    res.redirect('/logout');
+    return;
+  }
   const user = req.cookies.username;
   pool.connect(function(err, client, done) {
     client.query("SELECT * FROM Investor, Activity WHERE Investor.username = $1 AND Investor.username = Activity.username ORDER BY Activity.timestamp", [user], function(err, result) {
@@ -245,9 +280,13 @@ exports.getActivities = function(req, res) {
 }
 
 exports.getBalance = function(req, res) {
+  if (req.cookies.username == null) {
+    res.redirect('/logout');
+    return;
+  }
   const user = req.cookies.username;
   pool.connect(function(err, client, done) {
-    client.query("SELECT balance FROM Investor WHERE Investor.username = $1", [user], function(err, result) {
+    client.query("SELECT * FROM Investor WHERE Investor.username = $1", [user], function(err, result) {
       if (err) {
         done();
         console.log(err);
