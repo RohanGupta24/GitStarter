@@ -486,6 +486,26 @@ function bodyOnload() {
         if (valuebought > 0.1) {
           this.sellDisabled = false;
         }
+      },
+      buyProject: function() {
+        fetch("/invest", {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Accept': 'application/json'
+          },
+          body: {
+            value : this.projectPrice,
+            value_bought : this.invested,
+            repo : this.projectname,
+            owner : this.author,
+            previous_value : this.previousValue
+          }
+        }).then(function(response) {
+          console.log(response);
+        }).catch(function(err) {
+          console.log(err);
+        });
       }
     },
     computed: {
@@ -495,7 +515,7 @@ function bodyOnload() {
         },
         set: function(newValue) {
           this.value_bought = newValue;
-          if (this.value_bought > this.invested) {
+          if (this.value_bought > this.invested && this.value_bought > 0.1) {
             this.buyDisabled = true;
           } else {
             this.buyDisabled = false;
@@ -508,7 +528,7 @@ function bodyOnload() {
         },
         set: function(newValue) {
           this.value_sold = newValue;
-          if (this.value_sold > this.invested) {
+          if (this.value_sold > this.invested && this.value_sold > 0.1) {
             this.sellDisabled = true;
           } else {
             this.sellDisabled = false;

@@ -266,7 +266,7 @@ exports.getActivities = function(req, res) {
   }
   const user = req.cookies.username;
   pool.connect(function(err, client, done) {
-    client.query("SELECT * FROM Investor, Activity WHERE Investor.username = $1 AND Investor.username = Activity.username ORDER BY Activity.timestamp", [user], function(err, result) {
+    client.query("SELECT * FROM Project, Investor, Activity WHERE Investor.username = $1 AND Investor.username = Activity.username AND Activity.project_id = Project.project_id ORDER BY Activity.timestamp", [user], function(err, result) {
       if (err) {
         done();
         console.log(err);
