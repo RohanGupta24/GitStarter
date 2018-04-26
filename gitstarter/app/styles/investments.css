@@ -1,0 +1,17 @@
+#navbar {
+}
+#performanceCard {
+  margin-top: 10px;
+}
+
+#projectsCard {
+  height: 70%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow: scroll;
+}
+
+#userCard {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

@@ -1,16 +1,43 @@
+
 #bodyStyle {
   background: #fdfdfd;
 }
+#container101 {
+    position: relative;
+}
+
+#grey {
+  max-height: 100%;
+  position: absolute;
+  min-width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -300;
+    object-fit:fill;
+
+    filter: opacity(15%) grayscale(100%);
+
+}
+
 
 div.jumbotron.hero-nature{
   background: linear-gradient(to top left, #1abc9c, #3498db);
   /* background: rgb(0,0,0);
   background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(82,105,236,1) 50%, rgba(0,0,0,1) 100%); */
   text-align:center;
+  align-content: center;
+  align-items: center;
   background-size:cover;
   background-position:center;
   padding-top:50px;
   padding-bottom:100px;
+  height: 100%;
+  z-index:100;
+  position:relative;
+
 }
 
 table#table1 {
@@ -19,14 +46,33 @@ table#table1 {
   margin-right:15%;
   height: 50px;
   vertical-align: middle;
+    z-index:100;
 }
 
 #centered{
 	/*height: 200px;*/
     padding-left: 500px;
     padding-right: 500px;
+      z-index: 900;
 /*    text-align: center
 */}
+
+#centeredDown{
+	/*height: 200px;*/
+
+    padding-top: 100px;
+    margin-top: 30%;
+    padding-right: 1%;
+
+    /* padding-left: 35%; */
+/*    text-align: center
+*/}
+
+#topTrending {
+  text-align: center;
+    z-index:100;
+  font-size: 30px;
+}
 
 .container {
     position: fixed; /* Stay in place */
@@ -43,22 +89,34 @@ table#table1 {
 .modal-content {
     margin: auto;
     padding: 20px;
+      z-index:100;
     width: 100%;
 }
 
 .modal-dialog {
   min-height: 3000px;
   min-width: 1000px;
+    z-index:100;
 }
 
 .lineGraphHeader {
   text-align: center;
   padding-bottom: 1px;
+    z-index:100;
   font-size: 40px;
 }
 
 
+.btn-primary {
+    background-color: black !important;
+      z-index:100;
+    color: white !important;
+}
 
+.btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: white !important;
+  color: black !important;
+}
 
 .typewriter h1 {
   overflow: hidden; /* Ensures the content is not revealed until the animation */
@@ -72,15 +130,29 @@ table#table1 {
 }
 
 #searchBar {
-  min-width: 100px;
+  min-width: 200px;
+  height: 5%;
+  font-size: 20px;
 }
 
 #projectTitle {
   margin-bottom: 50px;
+  padding-left: 20px;
+    z-index:100;
 }
 
 #LoginButton {
   margin-top: 50px;
+    z-index:100;
+
+
+}
+.btn {
+  color: black;
+  align: center;
+}
+#LoginButtonColor {
+  color: black;
 }
 
 #tableTitle {
@@ -96,7 +168,7 @@ table#table1 {
 /* The typing effect */
 @keyframes typing {
   from { width: 0 }
-  to { width: 50% }
+  to { width: 100% }
 }
 
 /* The typewriter cursor effect */
@@ -106,8 +178,22 @@ table#table1 {
 }
 
 #upperText {
+  /* padding-top: 200px; */
 	font-weight: bold;
 	/*background: #1e5799;*/
+  text-align: center;
 	color:white;
+  font-size: 25px;
+	font-family:"Lucida Console", Monaco, monospace
+}
+#titleText {
+  padding-top: 200px;
+	font-weight: bold;
+	/*background: #1e5799;*/
+  text-align: center;
+	color:white;
+  font-size: 100px;
+  z-index: 900 !important;
+  visibility: visible;
 	font-family:"Lucida Console", Monaco, monospace
 }

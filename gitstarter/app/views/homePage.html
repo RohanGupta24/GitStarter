@@ -4,8 +4,15 @@
 <head>
 
 	<title>GitStarter</title>
+	<link rel="icon" type="image/png" sizes="16x16" href="logo.png">
 
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.min.js"></script>
+
+
 	<script src="../scripts/homePage.js"></script>
  	<link rel="stylesheet" type="text/css" href="../styles/homePage.css"></link>
  	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" type="text/css" charset="utf-8">
@@ -23,25 +30,44 @@
 
 </head>
 
+
+
+
+
 <div class="jumbotron hero-nature">
+
+	<video id="grey" preload loop muted autoplay>
+		<source src="/Matrix.mp4" type="video/mp4">
+	</video>
+
+
 	<div class="typewriter">
 	<div id="projectTitle">
-  		<h1 id=upperText>GitStarter</h1>
+  		<h1 id="titleText">GitStarter</h1>
   	</div>
   	<div id="descriptionTitle">
   		<p id=upperText>Built for Developers.</p>
   		<p id=upperText>A marketplace for open source projects.</p>
   	</div>
 	</div>
+
 <!--   <h1 id=upperText>GitStarter</h1> -->
 
-<!--   <hr class="my-4">
- -->
+<!--   <hr class="my-4"> -->
+
  <div id="LoginButton">
-  <a class="btn btn-primary btn-lg" href="/login" role="button"><i class="icon ion-social-github"></i>  Login/Register</a>
-</div>
+  <a class="btn btn-primary btn-primary-active btn-lg" href="/login" role="button"><i class="icon ion-social-github"></i>  Login/Register</a>
 </div>
 
+
+
+<a href="#topTrending" id="centeredDown"><img src="/downArrow.gif" title="Explore!" width="300" height="200" /></a>
+</div>
+
+
+
+
+<p id="topTrending">Top Trending Projects</p>
 <script type="text/x-template" id="search-template">
 		<tr :id="index">
 	            <td class="tableEl" v-if="showElement" style="font-size:30px;"><img :src="icon" height="42" width="42"> <a :href="ownerurl" target="_blank">{{author}}</a>/
@@ -50,45 +76,50 @@
 	            {{projectdescription}}
 	           	<br>
 	            <b>Price: {{price}}</b>
-              <button type="button" class="btn btn-default" v-on:click="showGraphModal"><b>Show Details</b></button>
+							<br>
+              <!-- <button type="button" class="btn btn-default" v-on:click="showGraphModal"><b>Show Details</b></button> -->
 	       </td>
-				<div class="container" id="modalGraph" v-if="showGraph">
-  				<div class="modal-dialog">
-    			<div class="modal-content">
-      			<div class="modal-header">
-              <button type="button" class="close" v-on:click="closeGraphModal">&times;</button>
-        		  <h5 class="modal-title">Details Overtime</h5>
-      			</div>
-      			<div class="modal-body">
-              <div id="buttonOptionSet">
-                <button type="button" v-on:click="weekly()" class="btn btn-default">Weekly</button>
-                <button type="button" v-on:click="monthly()" class="btn btn-default">Monthly</button>
-                <button type="button" v-on:click="yearly()" class="btn btn-default">Annually</button>
-              </div>
 
-							<div v-model="headerTitle" class="lineGraphHeader">{{headerTitle}}</div>
-
-        		<vue-chart
-            :columns="columnsData"
-            :rows="rowsData"
-            :options="optionsData"
-        		></vue-chart>
-      			</div>
-      			<div class="modal-footer">
-        		<button type="button" id="OK" class="btn-lg btn-primary" v-on:click="closeGraphModal">OK</button>
-     		 	</div>
-    			</div>
-  				</div>
-  				</div>
 		</tr>
 
 	 </script>
 
 
-
 <body id="bodyStyle" onload="onLoad()">
 
+
 	<div id="OrderPickContainer">
+		<!-- <div class="container" id="modalGraph" v-if="showGraph">
+
+		<div class="container" id="modalGraph" v-if="showGraph">
+		<div class="container" id="modalGraph" v-if="showGraph">
+			<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" v-on:click="closeGraphModal">&times;</button>
+					<h5 class="modal-title">Details Overtime</h5>
+				</div>
+				<div class="modal-body">
+					<div id="buttonOptionSet">
+						<button type="button" v-on:click="weekly()" class="btn btn-default">Weekly</button>
+						<button type="button" v-on:click="monthly()" class="btn btn-default">Monthly</button>
+						<button type="button" v-on:click="yearly()" class="btn btn-default">Annually</button>
+					</div>
+
+					<div v-model="headerTitle" class="lineGraphHeader">{{headerTitle}}</div>
+
+				<vue-chart
+				:columns="columnsData"
+				:rows="rowsData"
+				:options="optionsData"
+				></vue-chart>
+				</div>
+				<div class="modal-footer">
+				<button type="button" id="OK" class="btn-lg btn-primary" v-on:click="closeGraphModal">OK</button>
+			</div>
+			</div>
+			</div>
+			</div> -->
 
 		<div class="form-group row" id=centered>
   		<div class="col-10">
@@ -99,7 +130,7 @@
 
 
 
-		
+
 		 	<h1 id="tableTitle" v-model="tableHeader"><b>{{ tableHeader }}</b></h1>
 	 	<table class="table table-hover" id="table1">
 	 		<tbody>

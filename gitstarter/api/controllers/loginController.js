@@ -1,3 +1,4 @@
+var path = require('path');
 var { Pool } = require('pg');
 var pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -19,6 +20,12 @@ exports.login = function(req, res) {
 
 exports.callback = function(req, res) {
   return githubOAuth.callback(req, res);
+};
+
+exports.logout = function(req, res) {
+  res.cookie('username', '', {expires: new Date(0)});
+  res.cookie('session_token', '', {expires: new Date(0)});
+  res.status(401).redirect('/');
 };
 
 githubOAuth.on('error', function(err, res) {
