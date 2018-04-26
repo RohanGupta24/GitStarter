@@ -1,0 +1,176 @@
+<html>
+<head>
+  <!-- Required meta tags -->
+  <title>GitStarter</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="/logo.png">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <script src="https://code.jquery.com/jquery-latest.js"></script>
+  <!-- Required Stylesheets -->
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+
+  <!-- Required scripts -->
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.min.js"></script>
+  <script src="../scripts/vue-charts.js"></script>
+  <script src="../scripts/explore.js"></script>
+  <link type="text/css" rel="stylesheet" href="../styles/explore.css"/>
+
+  <script type="text/x-template" id="project-template">
+    <tr :id="index" @click="getData(author, projectname, price, previousvalue, valuebought)">
+      <td class="tableEl" v-if="showElement" style="font-size:30px;">
+        <img :src="icon" height="42" width="42">
+        <br>
+        <a :href="ownerurl" target="_blank">{{author}}</a>/<a :href="projecturl" target="_blank">{{projectname}}</a><i :v-if="isinvested" class="fa fa-check-circle"></i>
+        <br>
+        <h5>{{projectdescription}}</h5>
+       	<br>
+        <b>Price: {{price}} G</b>
+    		<br>
+        <!-- <button type="button" class="btn btn-default" v-on:click="showGraphModal"><b>Show Details</b></button> -->
+      </td>
+		</tr>
+ </script>
+
+</head>
+<body onload="bodyOnload()">
+  <div id="app">
+    <b-navbar id="navbar" toggleable="md" type="dark" variant="info">
+
+      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+
+      <b-navbar-brand href="#">GitStarter</b-navbar-brand>
+
+      <b-collapse is-nav id="nav_collapse">
+
+        <b-navbar-nav>
+          <b-nav-item href="/home">My Investments</b-nav-item>
+          <b-nav-item href="#">Explore</b-nav-item>
+          <b-nav-item href="/faq">FAQ</b-nav-item>
+        </b-navbar-nav>
+
+        <!-- Right aligned nav items -->
+          <b-navbar-nav class="ml-auto">
+          <img :src="avatar" height="42" width="42">
+           <b-dropdown id="ddown1" class="m-md-2" right>
+            <!-- <b-dropdown-item href="/transactions">My History</b-dropdown-item> -->
+            <b-dropdown-item :href="profile">My Profile</b-dropdown-item>
+            <b-dropdown-item href="/logout">Sign out</b-dropdown-item>
+          </b-dropdown>
+        </b-navbar-nav>
+
+      </b-collapse>
+    </b-navbar>
+
+    <div class="container-fluid">
+      <div class="row content">
+        <div class="col-sm-7">
+          <b-card id="performanceCard">
+            <b-tabs card v-model="performanceTab">
+              <b-tab title="1W" active v-on:click="weekly">
+                <h3>{{performance}}</h3>
+              </b-tab>
+              <b-tab title="1M" v-on:click="monthly">
+                <h3>{{performance}}</h3>
+              </b-tab>
+              <b-tab title="1Y" v-on:click="yearly">
+                <h3>{{performance}}</h3>
+              </b-tab>
+            </b-tabs>
+            <vue-chart ref="performanceChart"
+              :columns="columnsData"
+              :rows="rowsData"
+              :options="optionsData">
+            </vue-chart>
+              <div class="container-fluid">
+                <div class="row content">
+                  <div class="col-sm-6">
+                    <b-card>
+                      <p>Amount Invested: {{invested}}</p>
+                      <p>Amount to Buy: {{buy_value}}</p>
+                      <b-form-input type="number" v-model="buy_value" :disabled="buyInputDisabled"></b-form-input><br>
+                      <b-btn variant="success" class="btn-block" :disabled="buyDisabled" v-b-modal="'buyModal'">Buy</b-btn>
+                    </b-card>
+                  </div>
+                  <div class="col-sm-6">
+                    <b-card>
+                      <p>Amount Invested: {{invested}}</p>
+                      <p>Amount to Sell: {{sell_value}}</p>
+                      <b-form-input type="number" v-model="sell_value" :disabled="sellInputDisabled"></b-form-input><br>
+                      <b-btn variant="danger" class="btn-block" :disabled="sellDisabled" v-b-modal="'sellModal'">Sell</b-btn>
+                    </b-card>
+                  </div>
+                </div>
+              </div>
+          </bcard>
+        </div>
+        <div class="col-sm-5">
+          <b-card id="searchCard">
+            <b-container fluid>
+              <b-row>
+                <b-col><b-form-input type="search" v-model="searchWords" placeholder="Search for Projects" v-on:keyup.enter.native="searchProjects"></b-form-input></b-col>
+              </b-row>
+            </b-container>
+          </b-card>
+          <h2>{{tableHeader}}</h2>
+          <b-card id="projectsCard">
+            <table class="table table-hover" id="table1">
+        	 		<tbody>
+        	        <tr is="project-cell" v-for="project, key in projectsList"
+        	        	v-bind:icon="project.Icon"
+        	        	v-bind:ownerurl="project.OwnerURL"
+        	        	v-bind:author="project.Author"
+        	        	v-bind:projecturl="project.ProjectURL"
+        	        	v-bind:projectname="project.ProjectName"
+        	        	v-bind:projectdescription="project.ProjectDescription"
+        	        	v-bind:price="project.Prices"
+                    v-bind:previousvalue="project.previous_value"
+                    v-bind:valuebought="project.value_bought"
+                    v-bind:isinvested="project.isInvested"
+        	        	v-bind:index="key"
+                    @get-project-data="getProjectData">
+        	        </tr>
+        	    </tbody>
+        	</table>
+          </b-card>
+        </div>
+      </div>
+    </div>
+    <b-modal id="buyModal" v-model="showBuyModal">
+      Are you sure you would like to go through with this transaction?
+      <div slot="modal-footer">
+        <b-btn variant="success" v-on:click="buyProject" v-b-modal="'statusModal'" >YES</b-btn>
+        <b-btn variant="danger" v-on:click="rejectBuy">NO</b-btn>
+      </div>
+    </b-modal>
+    <b-modal id="sellModal" v-model="showSellModal">
+      Are you sure you would like to go through with this transaction?
+      <div slot="modal-footer">
+        <b-btn variant="success" v-on:click="sellProject" v-b-modal="'statusModal'">YES</b-btn>
+        <b-btn variant="danger" v-on:click="rejectSell">NO</b-btn>
+      </div>
+    </b-modal>
+
+    <b-modal id="statusModal" v-model="showStatusModal">
+      {{status_message}}
+      <div slot="modal-footer">
+        <button type="button" id="OK" class="btn-lg btn-primary" v-on:click="closeStatusModal">OK</button>
+      </div>
+    </b-modal>
+
+
+
+
+
+
+
+
+
+  </div>
+
+</body>
+</html>

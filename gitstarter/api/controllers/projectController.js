@@ -97,8 +97,6 @@ exports.getWeekData = function (req, res, next) {
 
       }
 
-
-
       dayOfWeek--;
 
     }
