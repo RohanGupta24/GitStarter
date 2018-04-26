@@ -1,3 +1,4 @@
+
 #bodyStyle {
   background: #fdfdfd;
 }
@@ -7,6 +8,8 @@ div.jumbotron.hero-nature{
   /* background: rgb(0,0,0);
   background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(82,105,236,1) 50%, rgba(0,0,0,1) 100%); */
   text-align:center;
+  align-content: center;
+  align-items: center;
   background-size:cover;
   background-position:center;
   padding-top:50px;
@@ -28,6 +31,20 @@ table#table1 {
     padding-right: 500px;
 /*    text-align: center
 */}
+
+#centeredDown{
+	/*height: 200px;*/
+    padding-bottom: 100%;
+    margin-top: 30%;
+    padding-right: 1%;
+    /* padding-left: 35%; */
+/*    text-align: center
+*/}
+
+#topTrending {
+  text-align: center;
+  font-size: 30px;
+}
 
 .container {
     position: fixed; /* Stay in place */
@@ -114,7 +131,7 @@ table#table1 {
 /* The typing effect */
 @keyframes typing {
   from { width: 0 }
-  to { width: 50% }
+  to { width: 100% }
 }
 
 /* The typewriter cursor effect */
@@ -141,39 +158,3 @@ table#table1 {
   font-size: 100px;
 	font-family:"Lucida Console", Monaco, monospace
 }
-
-
-.back:focus {outline:0;}
- .slide .row {
-   margin-top: 0;
-   display: flex;
-   justify-content: left;
-   align-items: left;
-   height: 100vh;
-   text-align: left;
- }
- .intro {
-   background: #f2fff0;
- }
- .parallax {
-   color: #f2fff0;
-   background: url(./images/background.png) 0% 0;
- }
- .slidein {
-   color: black;
-   background: #f2fff0;
- }
- .slidein2 {
-   color: black;
-   background: #f2fff0;
- }
- .slidein2 .row {
-   justify-content: space-around;
- }
- .slidein3 {
-   color: black;
-   background: #f2fff0;
- }
- .slidein3 .row {
-   justify-content: space-around;
- }
