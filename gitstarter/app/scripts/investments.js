@@ -88,7 +88,8 @@ function bodyOnload() {
             curveType: 'function'
         },
         username: "",
-        balance: 0
+        balance: 0,
+        avatar: ""
       }
     },
     created() {
@@ -96,7 +97,15 @@ function bodyOnload() {
       this.$on('redrawChart', function() {
         this.$refs.performanceChart.drawChart();
       });
-
+      fetch("/user?user="+username, {credentials: 'same-origin'}).then(function(response) {
+        console.log(response);
+        return repsonse.json();
+      }).then(function(json) {
+        console.log(json);
+        this.avatar = json.avatar_url;
+      }).bind(this).catch(function(err) {
+        console.log(err);
+      });
       fetch("/balance", {credentials: 'same-origin'}).then(function(response) {
         console.log(response);
         return response.json();
