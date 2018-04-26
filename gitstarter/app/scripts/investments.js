@@ -246,7 +246,7 @@ function bodyOnload() {
                 }
               }
             } else {
-              Vue.set(this.projectsList[i], 'Prices', 'N/A');
+              Vue.set(this.projectsList[i], 'Prices', '0');
             }
           }
         }.bind(this)).catch(function(err) {

@@ -269,13 +269,6 @@ function bodyOnload() {
         for (var i = 0; i < projects.length; i++) {
           promises.push(fetch("https://api.github.com/repos/" + projects[i].Author + "/" + projects[i].ProjectName));
           promises.push(fetch("/value?repo=" + projects[i].ProjectName + "&owner=" + projects[i].Author, {credentials: 'same-origin'}));
-          for (var j = 0; j < this.investmentsList.length; j++) {
-            if (json.projectsList[i].ProjectName == this.investmentsList[j].ProjectName && json.projectsList[i].Author == this.investmentsList[j].Author) {
-              this.topTrendingList[i].isInvested = true;
-              this.projectsList[i].isInvested = true;
-              break;
-            }
-          }
         }
         Promise.all(promises).then(function(response) {
           console.log(response)
@@ -312,7 +305,7 @@ function bodyOnload() {
                 }
               }
             } else {
-              Vue.set(this.projectsList[i], 'Prices', 'N/A');
+              Vue.set(this.projectsList[i], 'Prices', '0');
             }
           }
         }.bind(this)).catch(function(err) {
@@ -449,13 +442,6 @@ function bodyOnload() {
               var promises = [];
               for (var i = 0; i < results.length; i++) {
                 promises.push(fetch("/value?repo=" + results[i].ProjectName + "&owner=" + results[i].Author, {credentials: 'same-origin'}));
-                for (var j = 0; j < this.investmentsList.length; j++) {
-                  if (results[i].ProjectName == this.investmentsList[j].ProjectName && results[i].Author == this.investmentsList[j].Author) {
-                    this.topTrendingList[i].isInvested = true;
-                    this.projectsList[i].isInvested = true;
-                    break;
-                  }
-                }
               }
               Promise.all(promises).then(function(response) {
                 console.log(response)
@@ -474,7 +460,7 @@ function bodyOnload() {
                      }
                    }
                  } else {
-                   Vue.set(self.projectsList[i], 'Prices', 'N/A');
+                   Vue.set(self.projectsList[i], 'Prices', '0');
                  }
                 }
               }.bind(this)).catch(function(err) {
