@@ -27,3 +27,7 @@ exports.getTransaction = function(req, res) {
     res.sendFile(path.join(__dirname, '../../app/views/transaction.html'));
   }
 }
+
+exports.getLogo = function(req, res) {
+	res.sendFile(path.join(__dirname, '../../app/views/logo.png'));
+}
