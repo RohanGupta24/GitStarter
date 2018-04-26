@@ -100,7 +100,7 @@
                     <b-card>
                       <p>Amount Invested: {{invested}}</p>
                       <p>Amount to Sell: {{sell_value}}</p>
-                      <b-form-input type="number" v-model="sell_value" :disabled="sellDisabled"></b-form-input><br>
+                      <b-form-input type="number" v-model="sell_value" :disabled="sellInputDisabled"></b-form-input><br>
                       <b-btn variant="danger" class="btn-block" :disabled="sellDisabled" v-b-modal="'sellModal'">Sell</b-btn>
                     </b-card>
                   </div>

@@ -80,6 +80,9 @@
               <b-tab title="1Y" v-on:click="yearly">
                 <h3>{{performance}}</h3>
               </b-tab>
+              <b-tab title="Balance" v-on:click="getBalanceData" right>
+                <h3>{{performance}}</h3>
+              </b-tab>
             </b-tabs>
             <vue-chart ref="performanceChart"
               :columns="columnsData"
@@ -100,7 +103,7 @@
                     <b-card>
                         <p>Amount Invested: {{invested}}</p>
                         <p>Amount to Sell: {{sell_value}}</p>
-                        <b-form-input type="number" v-model="sell_value" :disabled="sellDisabled"></b-form-input><br>
+                        <b-form-input type="number" v-model="sell_value" :disabled="sellInputDisabled"></b-form-input><br>
                         <b-button variant="danger" class="btn-block" :disabled="sellDisabled" v-b-modal="'sellModal'">Sell</b-btn>
                     </b-card>
                   </div>

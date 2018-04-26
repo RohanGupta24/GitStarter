@@ -164,10 +164,11 @@ function bodyOnload() {
         sellDisabled: true,
         buyDisabled: true,
         buyInputDisabled: true,
+        sellInputDisabled: true,
         author: "",
         projectname: "",
         performance: "",
-        performanceTab: 0,
+        performanceTab: 3,
         projectPrice: 0,
         previousValue: 0,
         showBuyModal: false,
@@ -260,6 +261,26 @@ function bodyOnload() {
       }.bind(this)).catch(function(err) {
         console.log(err);
       });
+      fetch("/activities", {credentials: 'same-origin'}).then(function(response) {
+        return response.json();
+      }).then(function(json) {
+        if (json.rows.length > 0) {
+          var arr = [];
+          for (var i = 0; i < Math.min(json.rows.length, 50); i++) {
+            var dateFromTimestamp = new Date(json.rows[i].timestamp * 1000);
+            var formattedDate = (dateFromTimestamp.getMonth() + 1) + "/" + dateFromTimestamp.getDate() + "/" + dateFromTimestamp.getFullYear();
+            var point = [formattedDate, json.rows[i].balance];
+            arr.push(point);
+          }
+          this.rowsWeek = arr;
+          this.columns = "columnWeek";
+          this.rows = "rowWeek";
+          this.options = "optionWeek";
+          this.performance = "Balance History";
+        }
+      }.bind(this)).catch(function(err) {
+        console.log(err);
+      });
     },
     methods: {
       weekly: function() {
@@ -340,11 +361,34 @@ function bodyOnload() {
           console.log("Year Charts Error");
         });
       },
+      getBalanceData: function() {
+        fetch("/activities", {credentials: 'same-origin'}).then(function(response) {
+          return response.json();
+        }).then(function(json) {
+          if (json.rows.length > 0) {
+            var arr = [];
+            for (var i = 0; i < Math.min(json.rows.length, 50); i++) {
+              var dateFromTimestamp = new Date(json.rows[i].timestamp * 1000);
+              var formattedDate = (dateFromTimestamp.getMonth() + 1) + "/" + dateFromTimestamp.getDate() + "/" + dateFromTimestamp.getFullYear();
+              var point = [formattedDate, json.rows[i].balance];
+              arr.push(point);
+            }
+            this.rowsWeek = arr;
+            this.columns = "columnWeek";
+            this.rows = "rowWeek";
+            this.options = "optionWeek";
+            this.performance = "Balance History";
+          }
+        }.bind(this)).catch(function(err) {
+          console.log(err);
+        });
+      },
       getProjectData: function(author, projectname, price, previousvalue, valuebought) {
         console.log(price);
         console.log(previousvalue);
         console.log(valuebought);
         this.buyInputDisabled = false;
+        this.sellInputDisabled = false;
         this.invested = valuebought;
         this.previousValue = previousvalue;
         this.author = author;
@@ -424,7 +468,7 @@ function bodyOnload() {
       },
       closeStatusModal: function() {
         this.showStatusModal = false;
-      }
+      },
     },
     computed: {
       buy_value: {

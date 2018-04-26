@@ -164,6 +164,7 @@ function bodyOnload() {
         sellDisabled: true,
         buyDisabled: true,
         buyInputDisabled: true,
+        sellInputDisabled: true,
         searchWords: "",
         author: "",
         projectname: "",
@@ -511,6 +512,7 @@ function bodyOnload() {
         this.weekly();
         this.projectPrice = price;
         this.buyInputDisabled = false;
+        this.sellInputDisabled = false;
         this.buyDisabled = false;
         if (this.invested > 0.1) {
           this.sellDisabled = false;
