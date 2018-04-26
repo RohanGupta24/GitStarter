@@ -159,7 +159,8 @@ function bodyOnload() {
         searchWords: "",
         author: "",
         projectname: "",
-        performance: ""
+        performance: "",
+        performanceTab: 0
       }
     },
     created() {
@@ -298,6 +299,9 @@ function bodyOnload() {
     },
     methods: {
       weekly: function() {
+        if (this.author == null || this.projectname == null) {
+          return;
+        }
         self=this;
         this.performance = "Performance for " + this.projectname;
         var url = "/data/week?owner=" +this.author+ "&repo="+this.projectname;
@@ -321,6 +325,9 @@ function bodyOnload() {
         });
       },
       monthly: function() {
+        if (this.author == null || this.projectname == null) {
+          return;
+        }
         self=this;
         this.performance = "Performance for " + this.projectname;
         var url = "/data/month?owner=" +this.author+ "&repo="+this.projectname;
@@ -344,6 +351,9 @@ function bodyOnload() {
         });
       },
       yearly: function() {
+        if (this.author == null || this.projectname == null) {
+          return;
+        }
         self=this;
         this.performance = "Performance for " + this.projectname;
         var url = "/data/year?owner=" +this.author+ "&repo="+this.projectname;
@@ -464,6 +474,7 @@ function bodyOnload() {
         console.log(projectname);
         this.author = author;
         this.projectname = projectname;
+        this.performanceTab = 0;
         this.weekly();
       }
     },
