@@ -9,11 +9,19 @@ function onLoad() {
       }).then(function(json) {
         console.log(json);
         for(var i = 0; i < json.rows.length; i++) {
-        	this.items.Timestamp = new Date(json.rows[i].timestamp);
-        	this.items.Owner = json.rows[i].owner;
-        	this.items.Repo = json.rows[i].repo;
-        	this.items.Balance = json.rows[i].balance;
-        	this.items.Difference = json.rows[i].new_value - json.rows[i].previous_value;
+        	console.log("reached here");
+        	console.log(json.rows.length);
+        	Object r = new Object();
+        	r.Timestamp = new Date(json.rows[i].timestamp);
+        	console.log(r.Timestamp);
+        	r.Owner = json.rows[i].owner;
+        	console.log(r.Owner);
+        	r.Repo = json.rows[i].repo;
+        	console.log(r.Repo);
+        	r.RemainingBalance = json.rows[i].balance;
+        	r.ValueDifference = json.rows[i].new_value - json.rows[i].previous_value;
+        	console.log(r.ValueDifference);
+        	this.items.push(r);
         }
       }.bind(this)).catch(function(err) {
         console.log(err);
