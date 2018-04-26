@@ -34,11 +34,17 @@ table#table1 {
 
 #centeredDown{
 	/*height: 200px;*/
-    padding-top: 30%;
+    padding-bottom: 100%;
+    margin-top: 30%;
     padding-right: 1%;
     /* padding-left: 35%; */
 /*    text-align: center
 */}
+
+#topTrending {
+  text-align: center;
+  font-size: 30px;
+}
 
 .container {
     position: fixed; /* Stay in place */

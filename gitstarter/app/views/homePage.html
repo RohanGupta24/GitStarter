@@ -50,11 +50,12 @@
   <a class="btn btn-primary btn-primary-active btn-lg" href="/login" role="button"><i class="icon ion-social-github"></i>  Login/Register</a>
 </div>
 
-<a href="#searchBar" id="centeredDown"><img src="/downArrow.gif" title="Explore!" width="300" height="400" /></a>
 
+
+<a href="#topTrending" id="centeredDown"><img src="/downArrow.gif" title="Explore!" width="300" height="200" /></a>
 
 </div>
-
+<p id="topTrending">Top Trending Projects</p>
 <script type="text/x-template" id="search-template">
 		<tr :id="index">
 	            <td class="tableEl" v-if="showElement" style="font-size:30px;"><img :src="icon" height="42" width="42"> <a :href="ownerurl" target="_blank">{{author}}</a>/
