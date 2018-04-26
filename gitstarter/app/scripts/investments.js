@@ -17,7 +17,9 @@ function bodyOnload() {
       };
     },
     methods: {
-
+      getData: function(author, projectname, price, previousvalue, valuebought) {
+        this.$emit('get-project-data', author, projectname, price, previousvalue, valuebought);
+      },
 
       showSellModal: function() {
         this.showSell = true;
@@ -63,30 +65,92 @@ function bodyOnload() {
     data: function () {
       return {
         projectsList: [],
-        columns: [{
-            'type': 'string',
-            'label': 'Date'
-        }, {
-            'type': 'number',
-            'label': 'Value'
-        }],
-        rows: [
-        ],
-        options: {
-            title: '',
-            hAxis: {
-                title: '',
-                minValue: '',
-                maxValue: ''
-            },
-            vAxis: {
-                title: '',
-                minValue: 0,
-                maxValue: 1
-            },
-            height: 400,
-            curveType: 'function'
-        },
+        columnsData: this.columnsWeek, rowsData: this.rowsWeek, optionsData: this.optionsWeek,
+          columnsWeek: [{
+              'type': 'string',
+              'label': 'Days'
+          }, {
+              'type': 'number',
+              'label': 'Worth'
+          }],
+          rowsWeek: [],
+          optionsWeek: {
+              legend: {
+                display: true
+              },
+
+              hAxis: {
+                  title: 'Days',
+                  minValue: 'Monday',
+                  maxValue: 'Friday',
+                    textStyle: {color: 'white'}
+              },
+              vAxis: {
+                  title: 'GitCoins',
+                  minValue: 0,
+                  maxValue: 1
+              },
+              height: 400,
+              linearType: 'function',
+          },
+
+          columnsMonth: [{
+              'type': 'string',
+              'label': 'Days'
+          }, {
+              'type': 'number',
+              'label': 'Worth'
+          }],
+          rowsMonth: [],
+          optionsMonth: {
+              legend: {
+                display: true
+              },
+
+              hAxis: {
+                  title: 'Days',
+                  titlePosition: 'none',
+                  minValue: '4/01',
+                  maxValue: '4/29',
+                  textStyle: {color: 'white'}
+              },
+              vAxis: {
+                  title: 'GitCoins',
+                  minValue: 0,
+                  maxValue: 1
+              },
+              height: 400,
+              linearType: 'function',
+          },
+
+          columnsYear: [{
+              'type': 'string',
+              'label': 'Week'
+          }, {
+              'type': 'number',
+              'label': 'Worth'
+          }],
+          rowsYear: [],
+          optionsYear: {
+              legend: {
+                display: true
+              },
+
+              hAxis: {
+                  title: 'Days',
+                  titlePosition: 'none',
+                  minValue: '4/01',
+                  maxValue: '4/29',
+                  textStyle: {color: 'white'}
+              },
+              vAxis: {
+                  title: 'GitCoins',
+                  minValue: 0,
+                  maxValue: 1
+              },
+              height: 400,
+              linearType: 'function',
+          },
         username: "",
         balance: 0,
         avatar: "",
@@ -94,6 +158,10 @@ function bodyOnload() {
       }
     },
     created() {
+      this.columnsData = this.columnsWeek;
+      this.rowsData = this.rowsWeek;
+      this.optionsData = this.optionsWeek;
+
       const self = this;
       this.$on('redrawChart', function() {
         this.$refs.performanceChart.drawChart();
@@ -173,6 +241,160 @@ function bodyOnload() {
       }.bind(this)).catch(function(err) {
         console.log(err);
       });
+    },
+    methods: {
+      weekly: function() {
+        if (this.author == null || this.projectname == null) {
+          return;
+        }
+        self=this;
+        this.performance = "Performance for " + this.projectname;
+        var url = "/data/week?owner=" +this.author+ "&repo="+this.projectname;
+        fetch(url, {
+          method: 'GET',
+        })
+        .then(function(res) {
+          if(res.ok) {
+            res.json().then(function(data) {
+              console.log(data);
+              self.rowsWeek=data.data;
+              console.log(this.rowsWeek);
+              self.columns = "columnWeek";
+              self.rows = "rowWeek";
+              self.options = "optionWeek";
+
+            }.bind(self));
+          }
+        }).catch(function(err) {
+          console.log("Week Charts Error");
+        });
+      },
+      monthly: function() {
+        if (this.author == null || this.projectname == null) {
+          return;
+        }
+        self=this;
+        this.performance = "Performance for " + this.projectname;
+        var url = "/data/month?owner=" +this.author+ "&repo="+this.projectname;
+        fetch(url, {
+          method: 'GET',
+        })
+        .then(function(res) {
+          if(res.ok) {
+            res.json().then(function(data) {
+              console.log(data);
+              self.rowsMonth=data.data;
+              console.log(this.rowsWeek);
+              self.columns = "columnMonth";
+              self.rows = "rowMonth";
+              self.options = "optionMonth";
+
+            }.bind(self));
+          }
+        }).catch(function(err) {
+          console.log("Month Charts Error");
+        });
+      },
+      yearly: function() {
+        if (this.author == null || this.projectname == null) {
+          return;
+        }
+        self=this;
+        this.performance = "Performance for " + this.projectname;
+        var url = "/data/year?owner=" +this.author+ "&repo="+this.projectname;
+        fetch(url, {
+          method: 'GET',
+        })
+        .then(function(res) {
+          if(res.ok) {
+            res.json().then(function(data) {
+              console.log(data);
+              self.rowsYear=data.data;
+              console.log(this.rowsWeek);
+              self.columns = "columnYear";
+              self.rows = "rowYear";
+              self.options = "optionYear";
+
+            }.bind(self));
+          }
+        }).catch(function(err) {
+          console.log("Year Charts Error");
+        });
+      },
+      getProjectData: function(author, projectname, price, previousvalue, valuebought) {
+        for (var i = 0; i < this.investmentsList.length; i++) {
+          if (this.investmentsList[i].Author == author && this.investmentsList[i].ProjectName == projectname) {
+            this.invested = this.investmentsList[i].value_bought;
+            this.previousValue = this.investmentsList[i].previous_value;
+            break;
+          }
+        }
+        console.log(price);
+        console.log(previousvalue);
+        console.log(valuebought);
+        this.author = author;
+        this.projectname = projectname;
+        this.performanceTab = 0;
+        this.weekly();
+        this.projectPrice = price;
+        this.buyInputDisabled = false;
+        this.buyDisabled = false;
+        if (this.invested > 0.1) {
+          this.sellDisabled = false;
+        }
+      },
+    },
+    computed: {
+      columns: {
+        get: function() {
+          return this.columnsData;
+        },
+        set: function(newValue) {
+          if(newValue === "columnWeek") {
+            this.columnsData = this.columnsWeek;
+          }
+          else if(newValue === "columnMonth") {
+            this.columnsData = this.columnsMonth;
+          }
+          else if(newValue === "columnYear") {
+            this.columnsData = this.columnsYear;
+          }
+        }
+      },
+      rows: {
+        get: function() {
+          return this.rowsData;
+        },
+        set: function(newValue) {
+          if(newValue === "rowWeek") {
+            this.rowsData = this.rowsWeek;
+          }
+          else if(newValue === "rowMonth") {
+            this.rowsData = this.rowsMonth;
+          }
+          else if(newValue === "rowYear") {
+            this.rowsData = this.rowsYear;
+          }
+        }
+      },
+      options: {
+        get: function() {
+          return this.optionsData;
+        },
+        set: function(newValue) {
+          console.log(newValue)
+          if(newValue === "optionWeek") {
+            this.optionsData = this.optionsWeek;
+          }
+          else if(newValue === "optionMonth") {
+            console.log("here")
+            this.optionsData = this.optionsMonth;
+          }
+          else if(newValue === "optionYear") {
+            this.optionsData = this.optionsYear;
+          }
+        }
+      }
     }
   });
 
